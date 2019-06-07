@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_Recordset1" value="name:ID;datatype:int,name:NoRujukan;datatype:string,name:Category;datatype:string,name:JenisAduan;datatype:string,name:MaklumatAduan;datatype:blob,name:KawasanAduan;datatype:blob,name:BahagianAduan;datatype:string,name:StatusAduan;datatype:string,name:NamaPengadu;datatype:string,name:UsernamePengadu;datatype:string,name:TimeSubmit;datatype:datetime" />
+	<infoitem key="UD_MonthSearch" value="name:ID;datatype:string,name:Category;datatype:string,name:JenisAduan;datatype:string,name:MaklumatAduan;datatype:blob,name:KawasanAduan;datatype:string,name:BahagianAduan;datatype:string,name:StatusAduan;datatype:string,name:UsernamePengadu;datatype:string,name:TimeSubmit;datatype:datetime" />
+	<infoitem key="UD_department" value="name:DepartmentID;datatype:int,name:IDJabatan;datatype:int,name:DepartmentName;datatype:string,name:Abbreviation;datatype:string,name:OfficeLocation;datatype:string" />
+	<infoitem key="UD_Designation" value="name:JobID;datatype:int,name:DesignationTitle;datatype:string" />
+</info>

@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_ViewAduan" value="name:ID;datatype:int,name:NoRujukan;datatype:string,name:Category;datatype:string,name:JenisAduan;datatype:string,name:MaklumatAduan;datatype:blob,name:KawasanAduan;datatype:blob,name:BahagianAduan;datatype:string,name:StatusAduan;datatype:string,name:NamaPengadu;datatype:string,name:UsernamePengadu;datatype:string,name:NamaAkaunPengadu;datatype:string,name:TimeSubmit;datatype:datetime" />
+	<infoitem key="UD_UserAccount" value="name:ID;datatype:int,name:Username;datatype:string,name:Name;datatype:string,name:Email;datatype:string,name:Password;datatype:string,name:AccountStatus;datatype:string,name:ICNO;datatype:string,name:JobID;datatype:int,name:DepartmentID;datatype:int,name:AccessLevel;datatype:int,name:TimeRegister;datatype:timestamp" />
+</info>

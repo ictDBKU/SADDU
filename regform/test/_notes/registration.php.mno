@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_Designation" value="name:JobID;datatype:int,name:DesignationTitle;datatype:string" />
+	<infoitem key="UD_Department" value="name:DepartmentID;datatype:int,name:DepartmentName;datatype:string,name:Abbreviation;datatype:string,name:OfficeLocation;datatype:string" />
+</info>

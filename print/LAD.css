@@ -1,0 +1,47 @@
+@charset "utf-8";
+
+#table1{
+	border:1px solid;
+	border-top: hidden;
+	border-left: hidden;
+	border-right: hidden
+}
+
+td{
+	border: hidden
+	
+}
+
+#table2{
+
+	border: 1px solid;
+	border-top: hidden;
+	border-left: hidden;
+	border-right: hidden;
+}
+
+.column2{
+	height: 70px;
+}
+
+#table3{
+	border: 1px solid;
+	border-top: hidden;
+	border-left: hidden;
+	border-right: hidden;
+	
+}
+
+#table4{
+	border: 1px solid;
+	border-top: hidden;
+	border-left: hidden;
+	border-right: hidden;
+	background-color: #D1D1D1;
+	
+}
+
+
+.test {
+	background-color:#E5E5E5;
+}

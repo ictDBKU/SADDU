@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_KategoriAduan" value="name:NamaAduan;datatype:string" />
+	<infoitem key="UD_DepartmentName" value="name:DepartmentID;datatype:int,name:DepartmentName;datatype:string,name:Abbreviation;datatype:string,name:OfficeLocation;datatype:string" />
+	<infoitem key="UD_DepartmentName1" value="name:DepartmentID;datatype:int,name:DepartmentName;datatype:string,name:Abbreviation;datatype:string,name:OfficeLocation;datatype:string" />
+	<infoitem key="UD_jenisaduan" value="name:JenisAduanID;datatype:int,name:NamaJenisAduan;datatype:string" />
+</info>

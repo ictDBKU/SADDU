@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_KategoriAduan" value="name:NamaAduan;datatype:string" />
+	<infoitem key="UD_DepartmentName" value="name:DepartmentID;datatype:int,name:IDJabatan;datatype:int,name:DepartmentName;datatype:string,name:Abbreviation;datatype:string,name:OfficeLocation;datatype:string" />
+	<infoitem key="UD_DepartmentName1" value="name:DepartmentID;datatype:int,name:IDJabatan;datatype:int,name:DepartmentName;datatype:string,name:Abbreviation;datatype:string,name:OfficeLocation;datatype:string" />
+	<infoitem key="UD_jenisaduan" value="name:JenisAduanID;datatype:int,name:NamaJenisAduan;datatype:string" />
+	<infoitem key="UD_Jabatan" value="name:ID;datatype:int,name:NamaJabatan;datatype:string,name:Abbreviation;datatype:string" />
+	<infoitem key="UD_DepartmentNameNo2" value="name:DepartmentID;datatype:int,name:IDJabatan;datatype:int,name:DepartmentName;datatype:string,name:Abbreviation;datatype:string,name:OfficeLocation;datatype:string" />
+	<infoitem key="UD_TagUser" value="name:ID;datatype:int,name:Username;datatype:string,name:Name;datatype:string,name:Email;datatype:string,name:Password;datatype:string,name:AccountStatus;datatype:string,name:ICNO;datatype:string,name:JobID;datatype:int,name:DepartmentID;datatype:int,name:AccessLevel;datatype:int,name:TimeRegister;datatype:timestamp" />
+	<infoitem key="UD_DunKawasan" value="name:ID;datatype:int,name:NamaDun;datatype:string,name:Abbreviation;datatype:string" />
+	<infoitem key="UD_DunKawasan1" value="name:ID;datatype:int,name:NamaDun;datatype:string,name:Abbreviation;datatype:string,name:IDKawasan;datatype:int,name:IDDUN;datatype:int,name:NamaKawasan;datatype:string,name:DUN;datatype:string" />
+	<infoitem key="UD_DunKawasan2" value="name:ID;datatype:int,name:NamaDun;datatype:string,name:Abbreviation;datatype:string,name:IDKawasan;datatype:int,name:IDDUN;datatype:int,name:NamaKawasan;datatype:string,name:DUN;datatype:string" />
+	<infoitem key="UD_DunKawasan3" value="name:ID;datatype:int,name:NamaDun;datatype:string,name:Abbreviation;datatype:string,name:IDKawasan;datatype:int,name:IDDUN;datatype:int,name:NamaKawasan;datatype:string,name:DUN;datatype:string" />
+	<infoitem key="UD_DunKawasan4" value="name:ID;datatype:int,name:NamaDun;datatype:string,name:Abbreviation;datatype:string,name:IDKawasan;datatype:int,name:IDDUN;datatype:int,name:NamaKawasan;datatype:string,name:DUN;datatype:string" />
+	<infoitem key="UD_DunKawasan5" value="name:ID;datatype:int,name:NamaDun;datatype:string,name:Abbreviation;datatype:string,name:IDKawasan;datatype:int,name:IDDUN;datatype:int,name:NamaKawasan;datatype:string,name:DUN;datatype:string" />
+</info>
