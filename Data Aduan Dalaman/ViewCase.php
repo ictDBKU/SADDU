@@ -91,10 +91,12 @@ SET TindakanDirujuk =%s WHERE NoRujukan =%s",  GetSQLValueString($_POST['tindaka
 					   GetSQLValueString($_POST['NoRuj'], "text"));
 $updateAduan = mysql_query($query_UpdateTindakanDirujuk, $Connection1) or die(mysql_error());
 
+	header("Location:ViewAduanUser.php");
+	
  echo '<script language="javascript">';
 echo 'alert("Aduan has successfully updated")';
+
 echo '</script>';
-	
 }
 }
 
@@ -242,73 +244,20 @@ if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true")){
 <link rel="stylesheet" href="../Admin/assets/css/menubar.css">
 
 <script>
-
-
-function hideButton(){
-
-if(<?php echo $row_ViewUsername['UsernamePengadu'];?>='<?php echo $_SESSION['Username'];?>'){
-	document.getElementById('Proceed').style.display="none";
-	
-	
-    
-}}
-</script>
-<script>
 function ShowReadOnlyTindakanDirujuk(){
 	 var counts=<?php echo $totalRows_MyAduantToPIC?>;
 	
 if(counts=='0'){
 	
 	document.getElementById('tindakan').style.display="none";
+	document.getElementById('submit').style.display="none";
 }else{
 	document.getElementById('MyAduan').style.display="none";
 }}
 </script>
 
-<script>
-// Set the date we're counting down to
-var countDownDate = new Date("Jul 12, 2019 17:00:25").getTime();
-
-// Update the count down every 1 second
-var x = setInterval(function() {
-
-  // Get today's date and time
-  var now = new Date().getTime();
-    
-  // Find the distance between now and the count down date
-  var distance = countDownDate - now;
-    
-  // Time calculations for days, hours, minutes and seconds
-  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
-  // Output the result in an element with id="demo"
-  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-  + minutes + "m " + seconds + "s ";
-    
-  // If the count down is over, write some text 
-  if (distance < 0) {
-    clearInterval(x);
-    document.getElementById("demo").innerHTML = "EXPIRED";
-  }
-}, 1000);
 
 
-</script>
-
-
-<script>
-
-function proceedConfirmation(){
-	 var r = confirm("Are you sure want to proceed?");
-if(r==true){
-	alert("Aduan has been proceed");
-}
-
-}
-</script>
 <script>
 function CalculateDate(){
 	var iWeeks, iDateDiff,iAdjust,totaldays = 0;
@@ -362,7 +311,6 @@ document.getElementById("DayCounting").innerHTML =  totaldays+" days" ;
 function start(){
 
 CalculateDate();
-hideButton();
 ShowReadOnlyTindakanDirujuk();
 }
 </script>
@@ -385,10 +333,8 @@ mysql_free_result($ViewCase);
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-    <a href="#" onclick="showModal()">View Aduan
-</a> <a href="#" onclick="showModal()">My Aduan
-</a>
-     
+    <a href="ViewAduanUser.php" onclick="showModal()">View Aduan
+</a> 
   
     </div>
   </div> 
@@ -472,8 +418,8 @@ mysql_free_result($ViewCase);
       
       <td>Status Aduan </td>
       <td><?php echo $row_ViewCase['StatusAduan'] ?>    
-        <a href="<?php echo $UpdateAction ?>" class="dropbtn">
-          <input type="button" id="Proceed"value="Proceed" onclick="proceedConfirmation()"></a>
+ 
+         
         </td>
       </tr>
     <td>Jumlah hari tarikh aduan </td>
@@ -503,7 +449,7 @@ mysql_free_result($ViewCase);
             
             <tr>
         
-      <td align="center" colspan="2"><button type="submit" name="Submit" id="Submit" value="Submit" class="button">SUBMIT ADUAN</button></td>
+      <td align="center" colspan="2"><button type="submit" id="submit" name="Submit"  value="Submit" >SUBMIT ADUAN</button></td>
       </tr>
   </table>
   <input type="hidden" name="MM_insert" value="TindakanDirujuk" >

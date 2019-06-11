@@ -329,6 +329,14 @@ function myFunction() {
   }
 }
 </script>
+<script>
+function ConfirmDelete(){
+	
+confirm("Are you sure delete this case?");	
+}
+
+</script>
+
 <body>
 <div class="w3-container">
 
@@ -400,7 +408,7 @@ function myFunction() {
   <a style=" background-color:#0FED56;">Sistem Aduan Dalaman DBKU</a>
   <a href="AdminPage.php" >Home</a>
 
-  <a href="#contact">Contact</a>
+  
   <div class="dropdown">
     <button class="dropbtn">User Management 
       <i class="fa fa-caret-down"></i>
@@ -418,9 +426,8 @@ function myFunction() {
   <a href="../Statistic/Dashboard.php">Dashboard</a>
     
   
-  
    
-  <a href="#das">About</a>
+  
     <a href="<?php echo $logoutAction ?>" class="dropbtn">Logout</a>
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
@@ -431,7 +438,7 @@ function myFunction() {
  
 
 
-    <select name="MonthSelection" selected="Choose Month" onchange="location = this.value;">
+    <!--<select name="MonthSelection" selected="Choose Month" onchange="location = this.value;">
       <option value="" selected>Filter by Month</option>
       <option value="Searchbydate.php?monthsearch=1">January</option>
       <option value="Searchbydate.php?monthsearch=2">February</option>
@@ -446,7 +453,7 @@ function myFunction() {
       <option value="Searchbydate.php?monthsearch=11">November</option>
       <option value="Searchbydate.php?monthsearch=12">December</option>
       
-    </select>
+    </select>-->
    
    
    
@@ -466,6 +473,7 @@ function myFunction() {
      
       <th data-field="Status Aduan">Status Aduan</th>
       <th data-field="Masa Aduan">Masa Aduan</th>
+      <th data-field="Action">Action</th>
 
     
   
@@ -483,7 +491,7 @@ function myFunction() {
         <td><?php echo $row_Recordset1['MaklumatAduan']; ?></td>
         <td><?php echo $row_Recordset1['StatusAduan']; ?></td>
         <td><?php echo $row_Recordset1['TimeSubmit']; ?></td>
-        
+         <td><a href="DeleteCase.php?NoRujukan=<?php echo $row_Recordset1['NoRujukan'];?>" ><button id="confirmdelete" >DELETE</button></a></button></td>
      
     </tr>
     <?php } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>

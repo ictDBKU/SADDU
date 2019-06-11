@@ -1410,8 +1410,8 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
     <td style="padding:10px;"><input type="text" name="NamaPengadu" id="NamaPengadu"  style="width:100%" required></td>
  </tr>
  <tr>
-    <td><label>No telefon(Jika ada)</label></td>
-    <td style="padding:10px;"><input type="text" name="NoTelefon" id="NoTelefon"  style="width:100%" pattern="\d*.{10,}" placeholder="Eg.0111234567" ></td>
+    <td><label>No telefon</label></td>
+    <td style="padding:10px;"><input type="text" name="NoTelefon" id="NoTelefon"  style="width:100%" pattern="\d*.{10,}" placeholder="Eg.0111234567" required></td>
  </tr>
     <tr >
       <td><label>Kategori</label></td>

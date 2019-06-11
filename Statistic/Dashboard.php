@@ -107,80 +107,238 @@ $totalRows_kategori = mysql_num_rows($kategori);
 
 //Query to count the amount of each category for aduan
 mysql_select_db($database_Connection1, $Connection1);
-$countfishtail=0;
-$countparit=0;
-$countjalan=0;
-$countpapantanda=0;
-$countsampah=0;
-$countpokok=0;
-$countbinatangliar=0;
-$countlampujalan=0;
-$countrumput=0;
-$countbangunan=0;
-$countvandalisma=0;
-$counthalanganawam=0;
-$countpenguatkuasaan=0;
-$countlainlain=0;
-$countserangga=0;
-$countrumahterbiar=0;
-$countkenderaan=0;
+//Penyelenggaraan parit
+$countParitRosak=0;
+$countRumputDalamParit=0;
+$countPenutupparitHilang=0;
+$countTersumbat=0;
+$countCulvertruntuh=0;
 
-$countcategory;
-$query_category = "SELECT *,COUNT(*) FROM aduan GROUP BY Category ";
+
+//Penyelenggaraan Papan tanda/penanda jalan
+$countVandalisme=0;
+$countPapanTandaHilang=0;
+$countPapanTandaBaru=0;
+
+
+//Pemotongan Rumput
+$countTepiJalan=0;
+$countBacklane=0;
+$countTidakdiservis=0;
+
+
+//Binatang 
+$countliar=0;
+$countBangkai=0;
+$countSerangga=0;
+$countSarangTebuan=0;
+$countTernakanayam=0;
+
+//Pengendalian sampah sarap
+
+$countSampahTidakDikutip=0;
+$countAirSampahTertumpahDiJalan=0;
+$countLoriSampahmelanggarpagar=0;
+$countSemakSamunTanahKerajaan=0;
+$countTernakanayam=0;
+
+//Kacau ganggu
+$countBunyiBising=0;
+$countBauBusuk=0;
+$countTanahKosongbersemaksamun=0;
+
+
+//Penyelenggaraan teknikal
+$countlampujalan=0;
+$countlampuisyarat=0;
+$countlamputaman=0;
+
+
+//Penyelenggaraan kawasan //bangunan
+$countIbuPejabatDBKU=0;
+$countBangunanMilikDBKU=0;
+
+
+//Penyelenggaraan pokok
+$countPokokTumbang=0;
+$countcantasDahanPokok=0;
+$countPokokmenghalangpandangan=0;
+
+//LaluLintas
+$countPengendalianlalulintas=0;
+$countkenderaanburukditepijalan=0;
+$countJalanKotor=0;
+
+//Halangan awam/penjaja haram
+$countpenjajameletakbarangandikakilima=0;
+$countbacklanediletakbarang=0;
+$countsisabinaanditinggal=0;
+$countPenjajaHaram=0;
+$countIklanTepiJalan=0;
+//Bangunan
+$countAhLong=0;
+$countpermitOP=0;
+$countKerosakanpadaBangunan=0;
+$countVandalismepadaBangunan=0;
+$countRumahKosong=0;
+$countRumput=0;
+
+
+//Pembinaan Projek
+$countpembinaanprojek=0;
+$countpermohonanpermitbaru=0;
+$countkacauganggu=0;
+$countrumahrosak=0;
+$countNaikTaraf=0;
+
+//Penjaja
+$countberjualdiluarwaktuditetapkan=0;
+$countpeniagalesen=0;
+
+//Iklan
+$counttiadapermit=0;
+$countpermitberkaintandenganbillboard=0;
+$countPerkhidmatan=0;
+
+
+//TempatLetakKereta
+$countTempatLetakKereta=0;
+$countKompaunLetakKereta=0;
+
+
+$query_category = "SELECT *,COUNT(*) FROM aduan GROUP BY SubCategory";
 $category = mysql_query($query_category, $Connection1) or die(mysql_error());
 $row_category = mysql_fetch_assoc($category);
 do{
- if($row_category['COUNT(*)']>0 and $row_category['Category']=="Fishtail/Kain Rentang/Banner") {
-	$countfishtail=$row_category['COUNT(*)'];
+ if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Parit rosak") {
+	$countParitRosakn=$row_category['COUNT(*)'];
 	
-}else if($row_category['COUNT(*)']>0 and $row_category['Category']=="Penyelenggaraan Parit"){
-	$countparit=$row_category['COUNT(*)'];
+}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Rumput dalam parit"){
+	$countRumputDalamParit=$row_category['COUNT(*)'];
 
-}else if($row_category['COUNT(*)']>0 and $row_category['Category']=="Penyelenggaraan Jalan"){
-	$countjalan=$row_category['COUNT(*)'];
+}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Penutup parit hilang"){
+	$countPenutupparitHilang=$row_category['COUNT(*)'];
 
-}else if($row_category['COUNT(*)']>0 and $row_category['Category']=="Penyelenggaraan Papan Tanda"){
-	$countpapantanda=$row_category['COUNT(*)'];	
+}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Tersumbat"){
+	$countTersumbat=$row_category['COUNT(*)'];	
 
-}else if($row_category['COUNT(*)']>0 and $row_category['Category']=="Penyelenggaraan Sampah"){
-	$countsampah=$row_category['COUNT(*)'];	
+}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Culvert runtuh"){
+	$countCulvertruntuh=$row_category['COUNT(*)'];	
 
-}else if($row_category['COUNT(*)']>0 and $row_category['Category']=="Penyelenggaraan Pokok/Bunga/Taman"){
-	$countpokok=$row_category['COUNT(*)'];	
+}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Vandalisme"){
+	$countVandalisme=$row_category['COUNT(*)'];	
 
-}else if($row_category['COUNT(*)']>0 and $row_category['Category']=="Binatang Liar"){
-	$countbinatangliar=$row_category['COUNT(*)'];	
+}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Papan tanda hilang"){
+	$countPapanTandaHilang=$row_category['COUNT(*)'];	
 
-}else if($row_category['COUNT(*)']>0 and $row_category['Category']=="Penyelenggaraan Lampu Isyarat"){
-	$countlampujalan=$row_category['COUNT(*)'];	
+}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Papan tanda baru"){
+	$countPapanTandaBaru=$row_category['COUNT(*)'];	
 
-}else if($row_category['COUNT(*)']>0 and $row_category['Category']=="Penyelenggaraan Rumput"){
-	$countrumput=$row_category['COUNT(*)'];	
+}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Backlane"){
+	$countBacklane=$row_category['COUNT(*)'];	
 
-}else if($row_category['COUNT(*)']>0 and $row_category['Category']=="Penyelenggaraan Bangunan"){
-	$countbangunan=$row_category['COUNT(*)'];	
+}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Tidak diservis"){
+	$countTidakdiservis=$row_category['COUNT(*)'];	
 	
-}else if($row_category['COUNT(*)']>0 and $row_category['Category']=="Vandalisma"){
-	$countvandalisma=$row_category['COUNT(*)'];
+}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Liar"){
+	$countliar=$row_category['COUNT(*)'];
 	
-}else if($row_category['COUNT(*)']>0 and $row_category['Category']=="Halangan Awam"){
-	$counthalanganawam=$row_category['COUNT(*)'];	
+}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Bangkai"){
+	$countBangkai=$row_category['COUNT(*)'];	
 	
-}else if($row_category['COUNT(*)']>0 and $row_category['Category']=="Penguatkuasaan Alam Sekitar"){
-	$countpenguatkuasaan=$row_category['COUNT(*)'];	
+}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Serangga"){
+	$countSerangga=$row_category['COUNT(*)'];	
 
-}else if($row_category['COUNT(*)']>0 and $row_category['Category']=="Serangga"){
-	$countserangga=$row_category['COUNT(*)'];	
+}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Sarang Tabuan"){
+	$countSarangTebuan=$row_category['COUNT(*)'];	
 
-}else if($row_category['COUNT(*)']>0 and $row_category['Category']=="Lain-Lain"){
-	$countlainlain=$row_category['COUNT(*)'];	
+}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Ternakan ayam/ikan"){
+	$countTernakanayam=$row_category['COUNT(*)'];	
 	
-}else if($row_category['COUNT(*)']>0 and $row_category['Category']=="Rumah terbiar"){
-	$countrumahterbiar=$row_category['COUNT(*)'];		
+}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Sampah tidak dikutip"){
+	$countSampahTidakDikutip=$row_category['COUNT(*)'];		
 	
-}else if($row_category['COUNT(*)']>0 and $row_category['Category']=="Penguatkuasaan Kenderaan"){
-	$countkenderaan=$row_category['COUNT(*)'];		
-
+}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Air sampah tertumpah di jalan"){
+	$countAirSampahTertumpahDiJalan=$row_category['COUNT(*)'];		
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Lori sampah melanggar pagar"){
+	$countLoriSampahmelanggarpagar=$row_category['COUNT(*)'];		
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Semak samun tanah kerajaan"){
+	$countSemakSamunTanahKerajaan=$row_category['COUNT(*)'];		
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Bunyi bising"){
+	$countBunyiBising=$row_category['COUNT(*)'];		
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Bau busuk"){
+	$countBauBusuk=$row_category['COUNT(*)'];		
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Tanah kosong bersemak-samun"){
+	$countTanahKosongbersemaksamun=$row_category['COUNT(*)'];		
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Lampu jalan"){
+	$countlampujalan=$row_category['COUNT(*)'];		
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Lampu isyarat"){
+	$countlampuisyarat=$row_category['COUNT(*)'];		
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Lampu taman"){
+	$countlamputaman=$row_category['COUNT(*)'];		
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Ibupejabat DBKU"){
+	$countIbuPejabatDBKU=$row_category['COUNT(*)'];	
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Bangunan Milik DBKU"){
+	$countBangunanMilikDBKU=$row_category['COUNT(*)'];	
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Pokok tumbang"){
+	$countPokokTumbang=$row_category['COUNT(*)'];	
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Cantas dahan pokok"){
+	$countcantasDahanPokok=$row_category['COUNT(*)'];	}
+	else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Pokok menghalang pandangan"){
+	$countPokokmenghalangpandangan=$row_category['COUNT(*)'];}
+	else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Pengendalian lalu lintas"){
+	$countPengendalianlalulintas=$row_category['COUNT(*)'];}
+	else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Kenderaan buruk di tepi jalan"){
+	$countkenderaanburukditepijalan=$row_category['COUNT(*)'];}
+	else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Jalan kotor oleh     lori kontraktor"){
+	$countJalanKotor=$row_category['COUNT(*)'];	}
+	else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Penjaja meletak barangan di kaki lima"){
+	$countpenjajameletakbarangandikakilima=$row_category['COUNT(*)'];}
+	else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Backlane diletak barang"){
+	$countbacklanediletakbarang=$row_category['COUNT(*)'];}
+	else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Sisa binaan ditinggal"){
+	$countsisabinaanditinggal=$row_category['COUNT(*)'];}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Penjaja haram/tanpa lesen"){
+	$countPenjajaHaram=$row_category['COUNT(*)'];	
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Iklan tanpa permit di tepi jalan"){
+	$countIklanTepiJalan=$row_category['COUNT(*)'];	
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Poster Along"){
+	$countAhLong=$row_category['COUNT(*)'];	
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Permit OP"){
+	$countpermitOP=$row_category['COUNT(*)'];	
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Kerosakan pada bangunan/tandas milik bangunan"){
+	$countKerosakanpadaBangunan=$row_category['COUNT(*)'];	
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Vandalisme pada bangunan"){
+	$countVandalismepadaBangunan=$row_category['COUNT(*)'];	
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Rumah kosong bersemak-samun"){
+	$countRumahKosong=$row_category['COUNT(*)'];	
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Rumput/pokok tumbuh di bangunan"){
+	$countRumput=$row_category['COUNT(*)'];	
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Pembinaan Projek"){
+	$countpembinaanprojek=$row_category['COUNT(*)'];	
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Permohonan parit baru")
+	{	$countpermohonanpermitbaru=$row_category['COUNT(*)'];	
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Kacau ganggu oleh projek sedang berjalan 	"){
+	$countkacauganggu=$row_category['COUNT(*)'];	
+}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Kacau ganggu oleh projek sedang berjalan 	"){
+	$countrumahrosak=$row_category['COUNT(*)'];	
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Rumah rosak/pecah oleh projek berjalan"){
+	$countNaikTaraf=$row_category['COUNT(*)'];	
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Naiktaraf parit lama ke parit baru"){
+	$countberjualdiluarwaktuditetapkan=$row_category['COUNT(*)'];	
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Berjual di luar waktu ditetapkan"){
+	$countpeniagalesen=$row_category['COUNT(*)'];	
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Peniaga Lesen/permit"){
+	$counttiadapermit=$row_category['COUNT(*)'];	
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Iklan tiada permit"){
+	$countpermitberkaintandenganbillboard=$row_category['COUNT(*)'];	
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Permit berkaitan dengan billboard,bunting dan banner"){
+	$countPerkhidmatan=$row_category['COUNT(*)'];	
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']==" 	Perkhidmatan yang memerlukan lesen"){
+	$countkenderaan=$row_category['COUNT(*)'];	
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Tempat letak kereta diwartakan"){
+	$countTempatLetakKereta=$row_category['COUNT(*)'];	
+	}else if($row_category['COUNT(*)']>0 and $row_category['SubCategory']=="Tempat letak kereta diwartakan"){
+	$countKompaunLetakKereta=$row_category['COUNT(*)'];	
 }
 }while($row_category = mysql_fetch_assoc($category));
 
@@ -374,7 +532,7 @@ if($row_jumlahDunN8['COUNT(*)']==0){
 //Query to count for bahagian dirujuk
 mysql_select_db($database_Connection1, $Connection1);
 $BahagianAduan;
-$query_bahagianAduan= "SELECT *,COUNT(*) FROM aduan ";
+$query_bahagianAduan= "SELECT *,COUNT(*) FROM aduan INNER JOIN useraccount ON useraccount.ID=aduan.PIC INNER JOIN department on department.DepartmentID=useraccount.DepartmentID Group By DepartmentName";
 $bahagianAduan = mysql_query($query_bahagianAduan, $Connection1) or die(mysql_error());
 $row_bahagianAduan= mysql_fetch_assoc($bahagianAduan);
 
@@ -424,14 +582,38 @@ document.getElementById("demo").innerHTML = x;
 document.getElementById("demo").innerHTML = x;
 }
 </script>
-
+<link rel="stylesheet" href="../Admin/assets/css/menubar.css">
 </head>
 
 <body>
+
+
+<div class="topnav" id="myTopnav">
+  <a style=" background-color:#0FED56;">Sistem Aduan Dalaman DBKU</a>
+  <a href="../Admin/AdminPage.php" >Home</a>
+
+  
+  <div class="dropdown">
+ 
+
+    
+  </div>
+  
+  
+  <a href="../Statistic/Dashboard.php">Dashboard</a>
+    
+  
+   
+  
+    <a href="<?php echo $logoutAction ?>" class="dropbtn">Logout</a>
+  <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+</div>
+
+
 <div align="center">
   <p>1.SALURAN CPA
 </p>
-  <p>&nbsp;</p>
+  
   <div align="center">
     <table class="blueTable" border="1" >
       <thead>
@@ -464,117 +646,331 @@ document.getElementById("demo").innerHTML = x;
   <table class="blueTable" border="1" style="display: inline-block;">
     <thead>
       <tr>
-        <th>BIL.
-          <th>KATEGORI ADUAN
-            <th><div align="center">JUMLAH KATEGORI
+        <th width="68">BIL.
+          <th width="302">          
+          <th width="177">KATEGORI ADUAN
+            <th width="164"><div align="center">JUMLAH KATEGORI
               
               </div>
               </tr>
       </thead>
     <tr>
-      <td>1
-        <td>Fishtail/Kain Rentang/Banner
-          <td><div align="center"><?php echo $countfishtail; ?>
+      <td rowspan="5">1
+        <td rowspan="5">Penyelenggaraan parit                                        
+        <td>Parit rosak<td><div align="center"><?php echo $countParitRosak; ?>
             </div>
             </tr>
     <tr>
-      <td>2
-        <td>Penyelenggaraan Parit
-          <td><div align="center"><?php echo $countparit; ?>
+      <td>Rumput dalam parit<td><div align="center"><?php echo $countRumputDalamParit; ?>
+            </div>
+          </tr>
+    <tr>
+      <td>Penutup parot hilang<td><div align="center"><?php echo $countPenutupparitHilang; ?>
+            </div>
+          </tr>
+    <tr>
+      <td>Tersumbat<td><div align="center"><?php echo $countTersumbat; ?>
+            </div>
+          </tr>
+    <tr>
+      <td>Culvert runtuh<td><div align="center"><?php echo $countCulvertruntuh; ?>
+            </div>
+          </tr>
+    <tr>
+      <td rowspan="3">2        
+      <td rowspan="3">Penyelenggaraan Papan tanda/penanda jalan               
+        <td>Vandalisme<td><div align="center"><?php echo $countVandalisme; ?>
             </div>
             </tr>
     <tr>
-      <td>3
-        <td>Penyelenggaraan Jalan
-          <td><div align="center"><?php echo $countjalan; ?>
+      <td>Papan tanda hilang    
+      <td>   <?php echo $countPapanTandaHilang; ?>
+    </tr>
+    <tr>
+      <td>Papan tanda baru
+      <td>    <?php echo $countPapanTandaBaru; ?>
+    </tr>
+    <tr>
+      <td rowspan="3">3
+      
+      <td rowspan="3">Pemotongan rumput                        
+        <td>Tepi jalan<td><div align="center">0
             </div>
             </tr>
     <tr>
-      <td>4
-        <td>Penyelenggaraan Papan Tanda
-          <td><div align="center"><?php echo $countpapantanda; ?>
+      <td>Backlane
+        <td><div align="center"><?php echo $countBacklane; ?>
+          </div>
+          </tr>
+    <tr>
+      <td>Tidak diservis<td><div align="center"><?php echo $countTidakdiservis; ?>
+            </div>
+          </tr>
+    <tr>
+      <td rowspan="5">4
+      
+      <td rowspan="5">Binatang                                
+        <td>Liar<td><div align="center"><?php echo $countliar; ?>
             </div>
             </tr>
     <tr>
-      <td>5
-        <td>Penyelenggaraan Sampah
-          <td><div align="center"><?php echo $countsampah; ?>
+      <td>Bangkai<td><div align="center"><?php echo $countBangkai; ?>
+            </div>
+          </tr>
+    <tr>
+      <td>Serangga<td><div align="center"><?php echo $countSerangga; ?>
+            </div>
+          </tr>
+    <tr>
+      <td>Sarang Tebuan
+        <td><div align="center"><?php echo $countSarangTebuan; ?>
+          </div>
+          </tr>
+    <tr>
+      <td>Ternakan ayam/ikan/dll<td><div align="center"><?php echo $countTernakanayam; ?>
+            </div>
+          </tr>
+    <tr>
+      <td rowspan="4">5    
+      <td rowspan="4">Pengendalian sampah sarap                           
+        <td>Sampah tidak dikutip<td><div align="center"><?php echo 
+$countSampahTidakDikutip; ?>
             </div>
             </tr>
     <tr>
-      <td>6
-        <td>Penyelenggaraan Pokok/Bunga/Taman
-          <td><div align="center"><?php echo $countpokok; ?>
+      <td>Air smapah tertumpah di jalan<td><div align="center"><?php echo $countAirSampahTertumpahDiJalan; ?>
+            </div>
+          </tr>
+    <tr>
+      <td>Lori sampah melanggar pagar
+        <td><div align="center"><?php echo $countLoriSampahmelanggarpagar;?>
             </div>
             </tr>
     <tr>
-      <td>7
-        <td>Binatang Liar
-          <td><div align="center"><?php echo $countbinatangliar; ?>
-            </div>
-            </tr>
+      <td>Semak Samun tanah kerajaan  
+      <td>   <div align="center"><?php echo $countSemakSamunTanahKerajaan;?> 
+    </tr>
     <tr>
-      <td>8
-        <td>Penyelenggaraan Lampu Jalan/Lampu Isyarat
-          <td><div align="center"><?php echo $countlampujalan; ?>
-            </div>
-            </tr>
+      <td rowspan="3">6            
+      <td rowspan="3">Kacau ganngu            
+      <td>Bunyi Bising    
+      <td>    <div align="center"><?php echo $countBunyiBising;?> 
+    </tr>
     <tr>
-      <td>9
-        <td>Penyelenggaraan Rumput
-          <td><div align="center"><?php echo $countrumput; ?>
-            </div>
-            </tr>
+      <td>Bau Busuk    
+      <td>  <div align="center"><?php echo $countBauBusuk;?>   
+    </tr>
     <tr>
-      <td>10
-        <td>Penyelenggaraan Bangunan
-          <td><div align="center"><?php echo $countbangunan; ?>
-            </div>
-            </tr>
+      <td>Tanah Kosong bersemak-samun  
+      <td>    <div align="center"><?php echo $countTanahKosongbersemaksamun;?> 
+    </tr>
     <tr>
-      <td>11
-        <td>Vandalisma
-          <td><div align="center"><?php echo $countvandalisma; ?>
-            </div>
-            </tr>
+      <td>7    
+      <td>Penyelenggaraan teknikal    
+      <td>Lampu jalan    
+      <td>    <div align="center"><?php echo $countlampujalan;?>
+    </tr>
     <tr>
-      <td>12
-        <td>Halangan awam
-          <td><div align="center"><?php echo $counthalanganawam; ?>
-            </div>
-            </tr>
+      <td>    
+      <td>    
+      <td>Lampu isyarat    
+      <td>     <div align="center"><?php echo $countlampuisyarat;?>
+    </tr>
+    <tr>
+      <td>    
+      <td>    
+      <td>Lampu taman    
+      <td>  <div align="center"><?php echo $countlamputaman;?>  
+    </tr>
+    <tr>
+      <td>8    
+      <td>Penyelenggaraan kawasan/bangunan    
+      <td>Ibupejabat DBKU    
+      <td>    <div align="center"><?php echo $countIbuPejabatDBKU;?>  
+    </tr>
+    <tr>
+      <td>    
+      <td>    
+      <td>Bangunan milik DBKU    
+      <td>    <div align="center"><?php echo $countBangunanMilikDBKU;?>
+    </tr>
+    <tr>
+      <td>9    
+      <td>Penyelenggaraan pokok   
+      <td>Pokok tumbang    
+      <td>    <div align="center"><?php echo $countPokokTumbang;?>
+    </tr>
+    <tr>
+      <td>    
+      <td>    
+      <td>Cantas dahan pokok
+      <td>    <div align="center"><?php echo $countcantasDahanPokok?>
+    </tr>
+    <tr>
+      <td>    
+      <td>    
+      <td>Pokok menghalang pandangan   
+      <td>     <div align="center"><?php echo $countPokokmenghalangpandangan?>
+    </tr>
+    <tr>
+      <td>10    
+      <td>Lalu Lintas    
+      <td>Pengendalian lalu lintas  
+      <td>    <div align="center"><?php echo $countPengendalianlalulintas?>
+    </tr>
+    <tr>
+      <td>    
+      <td>    
+      <td>Kenderaan buruk di tepi jalan    
+      <td>    <div align="center"><?php echo $countkenderaanburukditepijalan?>
+    </tr>
+    <tr>
+      <td>    
+      <td>    
+      <td>Jalan kotor oleh lori kontraktor    
+      <td>  <div align="center"><?php echo $countJalanKotor?>  
+    </tr>
+    <tr>
+      <td>11    
+      <td>Halangan Awam/penjaja haram   
+      <td>Penjaja meletak barangan di kaki lima
+      <td>   <div align="center"><?php echo $countpenjajameletakbarangandikakilima?> 
+    </tr>
+    <tr>
+      <td>    
+      <td>    
+      <td>Backlane diletak barang    
+      <td>    <div align="center"><?php echo $countbacklanediletakbarang?>
+    </tr>
+    <tr>
+      <td>    
+      <td>    
+      <td>Sisa binaan ditinggal    
+      <td>    <div align="center"><?php echo $countsisabinaanditinggal?>
+    </tr>
+    <tr>
+      <td>    
+      <td>    
+      <td>Penjaja Haram/tanpa lesen    
+      <td>    <div align="center"><?php echo $countPenjajaHaram?>
+    </tr>
+    <tr>
+      <td>    
+      <td>    
+      <td>Iklan tanpa permit di tepi jalan 
+      <td>    <div align="center"><?php echo $countIklanTepiJalan?>
+    </tr>
+    <tr>
+      <td>    
+      <td>    
+      <td>Poster Along    
+      <td>    <div align="center"><?php echo $countAhLong?>
+    </tr>
+    <tr>
+      <td>12    
+      <td>Bangunan    
+      <td>Permit OP    
+      <td>    <div align="center"><?php echo $countpermitOP?>
+    </tr>
+    <tr>
+      <td>    
+      <td>    
+      <td>Kerosakan pada bangunam/tandas milik kerajaan
+      <td>   <div align="center"><?php echo $countKerosakanpadaBangunan?> 
+    </tr>
+    <tr>
+      <td>    
+      <td>    
+      <td>Vandalisme pada bangunan    
+      <td>   <div align="center"><?php echo $countVandalismepadaBangunan?>  
+    </tr>
+    <tr>
+      <td>    
+      <td>    
+      <td>Rumah kosong bersemak-samun    
+      <td>    <div align="center"><?php echo $countRumahKosong?> 
+    </tr>
+    <tr>
+      <td>    
+      <td>    
+      <td>Rumput/pokok tumbuh di bangunan
+      <td>    <div align="center"><?php echo $countRumput?> 
+    </tr>
     <tr>
       <td>13
-        <td>Penguatkuasaan Alam Sekitar
-          <td><div align="center"><?php echo $countpenguatkuasaan; ?>
-            </div>
-            </tr>
+      <td>Pembinaan projek   
+      <td><div align="center"><?php echo $countpembinaanprojek?>   
+       
+    </tr>
     <tr>
-      <td>14
-        <td>Lain-Lain
-          <td><div align="center"><?php echo $countlainlain; ?>
-            </div>
-            </tr>
+      <td>    
+      <td>    
+      <td>Permohonan parit baru    
+      <td>    <div align="center"><?php echo $countpermohonanpermitbaru?>
+    </tr>
     <tr>
-      <td>15
-        <td>Serangga
-          <td><div align="center"><?php echo $countserangga; ?>
-            </div>
-            </tr>
+      <td>    
+      <td>    
+      <td>Kacau ganggu oleh projek sedang berjalan    
+      <td>    <div align="center"><?php echo $countkacauganggu?>
+    </tr>
     <tr>
-      <td>16
-        <td>Rumah Terbiar
-          <td><div align="center"><?php echo $countrumahterbiar; ?>
-            </div>
-            </tr>
+      <td>    
+      <td>    
+      <td>Rumah rosak/pecah oleh projek berjalan 
+      <td>    <div align="center"><?php echo $countrumahrosak?>
+    </tr>
     <tr>
-      <td>17
-        <td>Penguatkuasaan Kenderaan
-          <td><div align="center"><?php echo $countkenderaan;?>
-            </div>
-            </tr>
+      <td>    
+      <td>    
+      <td>Naiktaraf parit lama ke parit baru
+      <td>    <div align="center"><?php echo $countNaikTaraf?>
+    </tr>
     <tr>
-      <td colspan="2"><div align="right">Jumlah
+      <td>14    
+      <td>Penjaja    
+      <td>Berjual di luar waktu ditetapkan    
+      <td>    <div align="center"><?php echo $countberjualdiluarwaktuditetapkan?>
+    </tr>
+    <tr>
+      <td>    
+      <td>    
+      <td>Peniaga Lesen/permit    
+      <td>    <div align="center"><?php echo $countpeniagalesen?>
+    </tr>
+    <tr>
+      <td>15    
+      <td>Iklan    
+      <td>Iklan tiada permit   
+      <td>  <div align="center"><?php echo $counttiadapermit?>  
+    </tr>
+    <tr>
+      <td>    
+      <td>    
+      <td>Permit berkaitan dengan billboard,bunting dan banner
+      <td>    <div align="center"><?php echo $countpermitberkaintandenganbillboard?> 
+    </tr>
+    <tr>
+      <td>    
+      <td>    
+      <td>Perkhidamatan yang memerlukan lesen 
+      <td>    <div align="center"><?php echo $countPerkhidmatan?>
+    </tr>
+    <tr>
+      <td>16    
+      <td>Tempat letak kereta    
+      <td>Tempat Letak Kereta Diwartakan 
+      <td><div align="center"><?php echo $countTempatLetakKereta?>    
+          
+    </tr>
+    <tr>
+      <td>    
+      <td>    
+      <td>Kompaun letak kereta  
+      <td>  <div align="center"><?php echo $countKompaunLetakKereta?>   
+    </tr>
+    <tr>
+      <td colspan="3"><div align="right">Jumlah
         </div>
         <td><div align="center"><?php echo $totalRows_Aduan;?>
           </div>
@@ -799,9 +1195,9 @@ document.getElementById("demo").innerHTML = x;
     <?php $no=1;?>
     
     <?php do {  ?>
-      <tr>
+     <tr>
         <td><?php echo $no++ ?></td>
-        <td><?php echo $row_bahagianAduan['BahagianAduan']; ?></td>
+        <td><?php echo $row_bahagianAduan['DepartmentName']; ?></td>
         <td><div align="center"><?php echo $row_bahagianAduan['COUNT(*)'];
 		$bahagianDirujuk = array();
 		$bahagianDirujuk[] = $row_bahagianAduan['COUNT(*)'];
@@ -813,6 +1209,7 @@ document.getElementById("demo").innerHTML = x;
       <?php } while ($row_bahagianAduan= mysql_fetch_assoc($bahagianAduan)); ?>
     </table>
 </div>
+<!--
 <p align="center">5.PRESTASI PENYELESAIAN ADUAN</p>
 <div align="center">
   <table class="blueTable" width="200" border="1">
@@ -861,7 +1258,7 @@ document.getElementById("demo").innerHTML = x;
       </tr>
       <?php } while ($row_AduanTidakSelesai= mysql_fetch_assoc($AduanTidakSelesai));?>
   </table>
-</div>
+</div>-->
 <p align="center">&nbsp;</p>
 <p align="center">&nbsp;</p>
 
