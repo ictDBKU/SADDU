@@ -65,26 +65,31 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 					   GetSQLValueString($_POST['Personincharge'], "text")
 					   );
 					   
-					   //Note!! To delete aduan the tindakan dirujuk also need to be deleted or else duplicate entry error will appear
-				/*   $insertSQL2 = sprintf("INSERT INTO tindakandirujuk (
+					
+					
+					
+					
+					
+					
+				   $insertSQL2 = sprintf("INSERT INTO tindakandirujuk (
     NoRujukan,
   TindakanDirujuk,
-  PegawaiDirujuk,
-  TimeSubmit) VALUES 
+  UsernamePegawaiDirujuk,
+  TindakanTimeSubmit) VALUES 
   
   
-  (%s,%s,%s,now())",
+  (%s,'',%s,now())",
                       GetSQLValueString($_POST['NoRujukan'], "text"),
-                       GetSQLValueString($_POST['textarea2'], "text"),
+                      
 					   GetSQLValueString($_POST['TagUser'], "text")
 					    
 					   
-					   );*/
+					   );
 					   
 
   mysql_select_db($database_Connection1, $Connection1);
   $Result1 = mysql_query($insertSQL, $Connection1) or die(mysql_error());
-//$Result2 = mysql_query($insertSQL2, $Connection1) or die(mysql_error());
+$Result2 = mysql_query($insertSQL2, $Connection1) or die(mysql_error());
   $insertGoTo = "DADD2019.php";
   if (isset($_SERVER['QUERY_STRING'])) {
     $insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
@@ -96,6 +101,17 @@ echo '</script>';
  // header(sprintf("Location: %s", $insertGoTo));
 }
 $UsernameLogin=$_SESSION['Username'];
+
+
+//Query to display kategori aduan
+mysql_select_db($database_Connection1, $Connection1);
+$queryPIC = "SELECT Username FROM aduan INNER JOIN useraccount on useraccount.ID = aduan.PIC ";
+$PIC = mysql_query($queryPIC, $Connection1) or die(mysql_error());
+$row_queryPIC = mysql_fetch_assoc($PIC );
+$totalRows_queryPIC = mysql_num_rows($PIC );
+
+
+
 
 //Query to display kategori aduan
 mysql_select_db($database_Connection1, $Connection1);
@@ -217,15 +233,11 @@ $KategoriMatchPersonInCharge;
 
 
 //Testing third time commit
-
-
 mysql_select_db($database_Connection1, $Connection1);
 $query_DepartmentName = "SELECT * FROM department";
 $DepartmentName = mysql_query($query_DepartmentName, $Connection1) or die(mysql_error());
 $row_DepartmentName = mysql_fetch_assoc($DepartmentName);
 $totalRows_DepartmentName = mysql_num_rows($DepartmentName);
-
-
 
 //To display the DUN Kawasan
 mysql_select_db($database_Connection1, $Connection1);
@@ -465,11 +477,12 @@ $totalRows_TagUser = mysql_num_rows($TagUser);
 <title>Data Aduan Dalaman</title>
 <link href="styledadd2019.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="../Admin/assets/css/menubar.css">
-
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&radius=500&key=AIzaSyBvpWifVZ2LTFnm1L7HGTGHDDquq7R1w58&libraries=places&callback=initAutocomplete">
 </script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js">
 </script>
+
 
 <style>
       /* Always set the map height explicitly to define the size of the div
@@ -539,11 +552,14 @@ $totalRows_TagUser = mysql_num_rows($TagUser);
 /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
 </style>
-
-
-
 <script>
+function showModal(){
+document.getElementById('id01').style.display='block';
+}
 
+
+</script>
+<script>
 function showKawasan() {  
   var y = document.getElementById("DunKawasan").value;
   var y1=document.getElementById("kawasanAduan1");
@@ -708,6 +724,7 @@ function showSubkategori(){
   
 
 if (k == 1) {
+	document.getElementById("TagUser").value = 'hartini';
 	document.getElementById("SubKategoriDirujuk1").removeAttribute('disabled');
 	k1.style.display="block";
 	document.getElementById("Personincharge").value = '5';
@@ -744,6 +761,7 @@ if (k == 1) {
 
 	
   } else if (k==2) {
+	  document.getElementById("TagUser").value = 'hartini';
 	  document.getElementById("Personincharge").value = '5';
 	document.getElementById("SubKategoriDirujuk1").disabled=true;
 	k1.style.display="none";
@@ -779,6 +797,7 @@ if (k == 1) {
 	document.getElementById("SubKategoriDirujuk16").disabled=true;
 	
  } else if (k==3) {
+	 document.getElementById("TagUser").value = 'hartini';
 	  document.getElementById("Personincharge").value = '5';
 	k1.style.display="none";
 	k2.style.display="none";
@@ -818,6 +837,7 @@ if (k == 1) {
 		
 		
 }else if (k==4) {
+	document.getElementById("TagUser").value = 'emily';
 	document.getElementById("Personincharge").value = '7';
 	k1.style.display="none";
 	k2.style.display="none";
@@ -856,6 +876,7 @@ k5.style.display="none";
 	document.getElementById("BahagianDirujuks").value = "ENV";
 	
 }else if (k==5) {
+	document.getElementById("TagUser").value = 'emily';
 	document.getElementById("Personincharge").value = '7';
 	k1.style.display="none";
 	k2.style.display="none";
@@ -894,6 +915,7 @@ k5.style.display="none";
    
 }
 else if (k==6) {
+	document.getElementById("TagUser").value = 'emily';
 	document.getElementById("Personincharge").value = '7';
 	k1.style.display="none";
 	k2.style.display="none";
@@ -931,6 +953,7 @@ else if (k==6) {
 	
 	}
 else if (k==7) {
+	document.getElementById("TagUser").value = 'juliza';
 	document.getElementById("Personincharge").value = '8';
 	k1.style.display="none";
 	k2.style.display="none";
@@ -966,6 +989,7 @@ else if (k==7) {
    document.getElementById("SubKategoriDirujuk15").disabled=true;
    document.getElementById("SubKategoriDirujuk16").disabled=true;
 }else if (k==8) {
+	document.getElementById("TagUser").value = 'norliza';
 	document.getElementById("Personincharge").value = '9';
 	k1.style.display="none";
 	k2.style.display="none";
@@ -1002,6 +1026,7 @@ else if (k==7) {
    document.getElementById("SubKategoriDirujuk16").disabled=true;
 	
 	}else if (k==9) {
+		document.getElementById("TagUser").value = 'mustafa';
 		document.getElementById("Personincharge").value = '10';
 		k1.style.display="none";
 	k2.style.display="none";
@@ -1040,6 +1065,7 @@ else if (k==7) {
 	
 	
 	}else if (k==10) {
+		document.getElementById("TagUser").value = 'bibiana';
 	document.getElementById("Personincharge").value = '11';
 		k1.style.display="none";
 	k2.style.display="none";
@@ -1076,6 +1102,7 @@ else if (k==7) {
    document.getElementById("SubKategoriDirujuk16").disabled=true;
 	
 	}else if (k==11) {
+		document.getElementById("TagUser").value = 'jamayah';
 		document.getElementById("Personincharge").value = '12';
 		k1.style.display="none";
 	k2.style.display="none";
@@ -1115,6 +1142,7 @@ else if (k==7) {
 	
 	
 	}else if (k==12) {
+		document.getElementById("TagUser").value = 'norliza';
 		document.getElementById("Personincharge").value = '9';
 	k1.style.display="none";
 	k2.style.display="none";
@@ -1150,6 +1178,10 @@ else if (k==7) {
    document.getElementById("SubKategoriDirujuk15").disabled=true;
    document.getElementById("SubKategoriDirujuk16").disabled=true;
 	}else if (k==13) {
+		
+		
+		document.getElementById("TagUser").value = 'jacquline';
+		document.getElementById("Personincharge").value = '13';
 	k1.style.display="none";
 	k2.style.display="none";
 	k3.style.display="none";
@@ -1185,6 +1217,10 @@ else if (k==7) {
    document.getElementById("SubKategoriDirujuk16").disabled=true;
 	
 	}else if (k==14) {
+		
+		document.getElementById("TagUser").value = 'linie';
+		document.getElementById("Personincharge").value = '14';
+		
 			k1.style.display="none";
 	k2.style.display="none";
 	k3.style.display="none";
@@ -1220,6 +1256,8 @@ else if (k==7) {
    document.getElementById("SubKategoriDirujuk16").disabled=true;
 	
 	}else if (k==15) {
+		document.getElementById("TagUser").value = 'linie';
+		document.getElementById("Personincharge").value = '14';
 	k1.style.display="none";
 	k2.style.display="none";
 	k3.style.display="none";
@@ -1255,6 +1293,8 @@ else if (k==7) {
    document.getElementById("SubKategoriDirujuk16").disabled=true;
 	
 	}else if (k==16) {
+		document.getElementById("TagUser").value = 'maureen';
+		document.getElementById("Personincharge").value = '15';
 	k1.style.display="none";
 	k2.style.display="none";
 	k3.style.display="none";
@@ -1326,7 +1366,22 @@ document.getElementById('GoogleMap').style.display="block";
 
 </head>
 
-<body onload="hideMap()">
+<body >
+<div class="w3-container">
+<div id="id01" class="w3-modal">
+    <div class="w3-modal-content">
+      <div class="w3-container">
+        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+        
+    <div id="GoogleMap" align="center">
+<input id="pac-input" class="controls" type="text" placeholder="Search Box" style="width:600px">
+
+    <div id="myMap"></div>
+   </div>
+      
+    </div>
+  </div>
+</div>
 <div class="topnav" id="myTopnav">
   <a style=" background-color:#0FED56;">Sistem Aduan Dalaman DBKU</a>
   <a href="#" >Report Aduan</a>
@@ -1578,7 +1633,7 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
         </td>
         <tr>
         <td>Alamat Lokasi:</td>
-        <td> <textarea rows="8" cols="50" name="address" id="address"/></textarea><input type="button" value="Choose from map" onClick="showMap()"></td>
+        <td> <textarea rows="8" cols="50" name="address" id="address"/></textarea><input type="button" value="Choose from map" onClick="showModal()"></td>
 </tr>
     <tr>
     
@@ -1633,17 +1688,14 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
 <input type="hidden" name="UsernamePengadu" value="<?php echo $row_Recordset1['Username']; ?>">
 <input type="hidden" name="NamaAkaunPengadu" value="<?php echo $row_Recordset1['Name']; ?>">
 <input type="hidden" name="Personincharge" id="Personincharge" value="5">
+<input type="hidden" name="TagUser" id="TagUser" value="5">
 
 </table>
 
 
 </form>	
 <h3 id="Map" style="display:none" align="center">Pilih tempat lokasi:</h3>
-<div id="GoogleMap" style="display:none"align="center">
-<input id="pac-input" class="controls" type="text" placeholder="Search Box" style="width:600px">
 
-    <div id="myMap"></div>
-   </div>
   <script>
     var map;
 var marker = [];
@@ -1757,7 +1809,7 @@ infowindow.open(map, marker);
 
 // This event listener will call addMarker() when the map is clicked.
         map.addListener('click', function(event) {
-          addMarker(event.latLng);
+          placeMarker(event.latLng);
         });
 
 }
@@ -1770,6 +1822,45 @@ function addMarker(location) {
 
 
       }
+	  function placeMarker(location) {
+
+
+
+            if (marker == undefined){
+                marker = new google.maps.Marker({
+                    position: location,
+                    map: map, 
+                    animation: google.maps.Animation.DROP,
+                });
+            }
+            else{
+                marker.setPosition(location);
+				
+geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
+if (status == google.maps.GeocoderStatus.OK) {
+if (results[0]) {
+$('#address').val(results[0].formatted_address);
+$('#latitude').val(marker.getPosition().lat());
+$('#longitude').val(marker.getPosition().lng());
+infowindow.setContent(results[0].formatted_address);
+infowindow.open(map, marker);
+}
+}
+});
+				
+				
+				
+				
+				
+				
+           $('#address').val(results[0].formatted_address);
+			}
+            map.setCenter(location);
+
+        }
+
+
+    
 
 google.maps.event.addDomListener(window, 'load', initialize);
 

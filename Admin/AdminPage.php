@@ -90,6 +90,7 @@ $query_Recordset1 = "SELECT * FROM aduan";
 $query_limit_Recordset1 = sprintf("%s LIMIT %d, %d", $query_Recordset1, $startRow_Recordset1, $maxRows_Recordset1);
 $Recordset1 = mysql_query($query_limit_Recordset1, $Connection1) or die(mysql_error());
 $row_Recordset1 = mysql_fetch_assoc($Recordset1);
+$rows=mysql_num_rows($Recordset1);
 
 if (isset($_GET['totalRows_Recordset1'])) {
   $totalRows_Recordset1 = $_GET['totalRows_Recordset1'];
@@ -250,6 +251,16 @@ $totalRows_Designation = mysql_num_rows($Designation);
 
 </head>
 <script>
+ function showRecords()
+ {
+	 var records="<?php echo $rows ?>";
+	 if(records=='0'){
+		 document.getElementById("fresh-table").style.display="none";
+		 document.getElementById("showRecords").style.display="block"
+ }
+ }
+</script>
+<script>
 function changeAction(val){
     document.getElementById('SearchForm').setAttribute('action', val);
 
@@ -336,8 +347,12 @@ confirm("Are you sure delete this case?");
 }
 
 </script>
+<script>
+function start(){
+showRecords();}
+</script>
 
-<body>
+<body onload="start()">
 <div class="w3-container">
 
   
@@ -497,7 +512,7 @@ confirm("Are you sure delete this case?");
     <?php } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>
     </tbody>
   </table>
- 
+ <h3 id="showRecords" style="display:none">There are no records to show</h3>
 
 <script type="text/javascript">
         var $table = $('#fresh-table'),

@@ -226,7 +226,7 @@ showRecords();
 
    </div>
   </div> 
-  <a href="#about">About</a>
+ 
     <a href="<?php echo $logoutAction ?>" class="dropbtn">Logout</a>
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
@@ -283,11 +283,11 @@ showRecords();
     </tbody>
   </table>
   
-  
-  <h3 id="showRecords" style="display:none">There are no records to show</h3>
+
   </div>
 
-
+  
+  <h3 id="showRecords" style="display:none">There are no records to show</h3>
 
 
 <script type="text/javascript">

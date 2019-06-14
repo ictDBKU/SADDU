@@ -82,7 +82,7 @@ $AddTindakan = mysql_query($query_AddAduan, $Connection1) or die(mysql_error());
   echo '<script language="javascript">';
 echo 'alert("Aduan has successfully submitted")';
 echo '</script>';
- // header(sprintf("Location: %s", $insertGoTo));
+ header(sprintf("Location: %s", $insertGoTo));
 }else if($totalRows_ReadTindakan>='1'){
 	
 
@@ -91,12 +91,13 @@ SET TindakanDirujuk =%s WHERE NoRujukan =%s",  GetSQLValueString($_POST['tindaka
 					   GetSQLValueString($_POST['NoRuj'], "text"));
 $updateAduan = mysql_query($query_UpdateTindakanDirujuk, $Connection1) or die(mysql_error());
 
-	header("Location:ViewAduanUser.php");
+	
 	
  echo '<script language="javascript">';
 echo 'alert("Aduan has successfully updated")';
 
 echo '</script>';
+header("Location:ViewAduanUser.php");
 }
 }
 
@@ -147,11 +148,7 @@ $totalRows_UserAccount = mysql_num_rows($UserAccount);
 //Variable to route it to the pegawai bertanggugjawab
 $_SESSION['Name']=$row_UserAccount['Name'];
 
- 
- 
-
-
-mysql_select_db($database_Connection1, $Connection1);
+ mysql_select_db($database_Connection1, $Connection1);
 $query_ViewAduan = sprintf("SELECT * from aduan WHERE PIC = %s", GetSQLValueString($row_UserAccount['ID'], "text"));
 $ViewAduan = mysql_query($query_ViewAduan, $Connection1) or die(mysql_error());
 $row_ViewAduan = mysql_fetch_assoc($ViewAduan);
@@ -185,10 +182,10 @@ $ReportedBy= mysql_query($query_ReportedBy, $Connection1) or die(mysql_error());
 $row_ReportedBy = mysql_fetch_assoc($ReportedBy);
 
 //To update the status of the case
-
+if($totalRows_MyAduantToPIC ==1){
 $UpdateAction = $_SERVER['PHP_SELF']."?doUpdate=true";
-$query_UpdateAduan = "UPDATE aduan
-SET StatusAduan = 'In Progress' ";
+$query_UpdateAduan = sprintf("UPDATE aduan 
+SET StatusAduan='In Progress' where NoRujukan=%s",GetSQLValueString($colname_ViewCase, "text"));
 $updateAduan = mysql_query($query_UpdateAduan, $Connection1) or die(mysql_error());
 $row_PegawaiDirujuk = mysql_fetch_assoc($PegawaiDirujuk);
 if ((isset($_GET['doUpdate'])) &&($_GET['doUpdate']=="true")){
@@ -197,7 +194,10 @@ if ((isset($_GET['doUpdate'])) &&($_GET['doUpdate']=="true")){
   if ($UpdateGoTo) {
     header("Location: $UpdateGoTo");
 }
-}
+}}
+
+
+
 //Add to tindakan dirujuk
 
 
@@ -253,6 +253,7 @@ if(counts=='0'){
 	document.getElementById('submit').style.display="none";
 }else{
 	document.getElementById('MyAduan').style.display="none";
+	
 }}
 </script>
 
@@ -298,10 +299,11 @@ iDateDiff = (iWeeks * 5) + (iWeekday2 - iWeekday1);
 	totaldays= iDateDiff;
 
 
-
-
+if(totaldays=='1'){
+document.getElementById("DayCounting").innerHTML =  totaldays+" day" ;
+}else{
 document.getElementById("DayCounting").innerHTML =  totaldays+" days" ;
-
+}
 }
 
 </script>
@@ -338,7 +340,7 @@ mysql_free_result($ViewCase);
   
     </div>
   </div> 
-  <a href="#about">About</a>
+ 
     <a href="<?php echo $logoutAction ?>" class="dropbtn">Logout</a>
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
@@ -354,13 +356,13 @@ mysql_free_result($ViewCase);
         </thead>
         <tr>
           
-          <td>Nama Pengadu </td>
+          <td><div align="right"><strong>Nama Pengadu</strong></div></td>
           <td style="color: #4E4E4E"><?php echo $row_ViewCase['NamaPengadu'] ?></td>
           
           </tr>
     <tr>
       
-      <td>No telefon </td>
+      <td><div align="right"><strong>No telefon</strong></div></td>
       <td style="color: #4E4E4E"><?php echo $row_ViewCase['NoTelefon'] ?></td>
       
       </tr>
@@ -368,13 +370,13 @@ mysql_free_result($ViewCase);
       <th colspan="2">Kawasan</th>
         </thead>
         <tr>
-          <td>Kawasan Aduan</td>
+          <td><div align="right"><strong>Kawasan Aduan</strong></div></td>
            <td style="color: #4E4E4E"><?php echo $row_ViewCase['KawasanAduan'] ?></td>
           
         </tr>
         <tr>
           
-          <td>Alamat Aduan: </td>
+          <td><div align="right"><strong>Alamat Aduan</strong></div></td>
          <td style="color: #4E4E4E"><?php echo $row_ViewCase['AlamatAduan'] ?></td>
           
           
@@ -384,72 +386,78 @@ mysql_free_result($ViewCase);
         </thead>
         <tr>
           
-          <td>Kategori Aduan </td>
+          <td><div align="right"><strong>Kategori Aduan</strong></div></td>
           <td style="color: #4E4E4E"><?php echo $row_kategoriAduan['NamaAduan'] ?></td>
           
           </tr>
     <tr>
       
-      <td>Sub Kategori Aduan </td>
+      <td><div align="right"><strong>Sub Kategori Aduan</strong></div></td>
       <td style="color: #4E4E4E"><?php echo $row_ViewCase['SubCategory']?></td>
       
       </tr>
     <tr>
       
-      <td>Maklumat Aduan </td>
+      <td><div align="right"><strong>Maklumat Aduan</strong></div></td>
       <td style="color: #4E4E4E"><?php echo $row_ViewCase['MaklumatAduan'] ?></td>
       
       </tr>
+      
     <tr>
       
-      <td>Tarikh Aduan Diterima </td>
-      <td style="color: #4E4E4E"><?php echo date("d-m-Y  ", strtotime($row_ViewCase['TimeSubmit']) ); ?></td>
+      <td><div align="right"><strong>Tarikh Aduan Diterima</strong></div></td>
+      <td style="color: #4E4E4E"><?php echo date("d/m/Y  ", strtotime($row_ViewCase['TimeSubmit']) ); ?></td>
       
       
       </tr>
     <tr>
       
-      <td>Masa Aduan Diterima </td>
+      <td><div align="right"><strong>Masa Aduan Diterima</strong></div></td>
       <td style="color: #4E4E4E"><?php echo date("h:i:sa ", strtotime($row_ViewCase['TimeSubmit']) ); ?></td>
       
       
       </tr>
     <tr>
       
-      <td>Status Aduan </td>
+      <td><div align="right"><strong>Status Aduan</strong></div></td>
       <td><?php echo $row_ViewCase['StatusAduan'] ?>    
  
          
         </td>
       </tr>
-    <td>Jumlah hari tarikh aduan </td>
+    <td><div align="right"><strong>Jumlah hari tarikh aduan</strong></div></td>
       <td>  <p id="DayCounting">No days to show</p>
         </td>
       </tr>
     
-   
-    <tr>
-      <td>Person In Charge
-        <td><?php echo $row_ViewPIC['Name'];  ?>
-        
-        </tr>
-          
-            </tr>
-            <tr>
-            <td>Reported By:
-            <td><?php echo $row_ReportedBy['Name']?>
-    
-    </tr>
-        <tr>
-                       <td><p id="TindakanLabel">Tindakan dirujuk</p> </td>
+      <tr>
+                       <td><p align="right" id="TindakanLabel"><strong>Tindakan dirujuk</strong></p> </td>
             <td>
               <textarea id="tindakan" name="tindakan"  rows="8" cols="50" ><?php echo $row_AduantToPIC['TindakanDirujuk']?>      </textarea> 
   <p id="MyAduan"> <?php echo $row_ReadTindakan['TindakanDirujuk']?></p> 
-              </td>
-            
+  <p id="LastUpdated" style="font-size:9px"> Last Updated:  <?php echo date("d/m/Y h:i:s a ", strtotime($row_ReadTindakan['TindakanTimeSubmit']));?></p> 
+              </td>                                                           
+      </tr>
+    <tr>
+      <td><div align="right"><strong>Person In Charge
+      </strong></div>
+      <td><?php echo $row_ViewPIC['Name'];  ?>
+        
+      </tr>
+          
+            </tr>
+            <tr>
+            <td><div align="right"><strong>Reported By</strong> </div>
+            <td><?php echo $row_ReportedBy['Name']?>
+    
+    </tr>
+    
             <tr>
         
-      <td align="center" colspan="2"><button type="submit" id="submit" name="Submit"  value="Submit" >SUBMIT ADUAN</button></td>
+      <td align="center" colspan="2"><button type="submit" id="submit" name="Submit"  value="Submit" >UPDATE TINDAKAN</button>
+      <a href="CompleteAduan.php?NoRujukan=<?php echo $row_ViewCase['NoRujukan'] ?>">Complete Aduan</a>
+      </td>
+      
       </tr>
   </table>
   <input type="hidden" name="MM_insert" value="TindakanDirujuk" >
@@ -457,6 +465,7 @@ mysql_free_result($ViewCase);
           <input type="hidden"  name="NoRujukan" value="<?php echo $row_ViewCase['NoRujukan'] ?>">
     <input type="hidden"  name="PegawaiDirujuk" value="<?php echo $row_ViewPIC['Name'];  ?>">
   </form>
+  
 </div>
 </body>
 </html>

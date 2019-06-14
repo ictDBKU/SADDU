@@ -149,6 +149,7 @@ $Recordset3= mysql_query($query_MergePegawaiAduan, $Connection1) or die(mysql_er
 $row_Recordset3 = mysql_fetch_assoc($Recordset3);
 $totalRows_Recordset1 = mysql_num_rows($Recordset3);
 //SQL to merge kategori aduan
+mysql_select_db($database_Connection1, $Connection1);
 $query_MergekategoriAduan=sprintf("SELECT * from kategoriaduan
 INNER JOIN aduan
 ON aduan.Category = kategoriaduan.IDKategoriAduan where category=%s",GetSQLValueString($row_ViewAduan['Category'],"text"));
@@ -187,6 +188,15 @@ document.getElementById('notification-count').style.display="none";
 <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="../Admin/assets/css/menubar.css">
 <link rel="stylesheet" href="../css/notification-demo-style.css" type="text/css">
+
+
+
+
+
+
+
+
+
 
 <script>
 function startFunction(){
@@ -252,7 +262,11 @@ showRecords();
     <tbody>
          <?php $no=1;?>
       
-    <?php do { ?>
+    <?php do { 
+	
+	 ?><?php do { 
+	
+	 ?>
     <tr>
     <td> <?php echo $no++; ?></td>
       <td><?php if($row_ViewAduan['ReadStatus']==1){?>
@@ -260,19 +274,30 @@ showRecords();
 		  <a style="color:black" href="ViewCase.php?NoRujukan=<?php echo $row_ViewAduan['NoRujukan'];?>"><?php echo $row_ViewAduan['NoRujukan'];?></a></td><?php }else{?>
           <a style="color:blue" href="ViewCase.php?NoRujukan=<?php echo $row_ViewAduan['NoRujukan'];?>"><?php echo $row_ViewAduan['NoRujukan'];?></a></td><?php } ?> 
       
-        <td><?php echo $row_kategoriAduan['NamaAduan']; ?></td>
+        <td><?php mysql_select_db($database_Connection1, $Connection1);
+$query_MergekategoriAduan=sprintf("SELECT * from kategoriaduan
+INNER JOIN aduan
+ON aduan.Category = kategoriaduan.IDKategoriAduan where category=%s",GetSQLValueString($row_ViewAduan['Category'],"text"));
+$KategoriAduan= mysql_query($query_MergekategoriAduan, $Connection1) or die(mysql_error());
+$row_kategoriAduan = mysql_fetch_assoc($KategoriAduan);?>
+		
+		
+		
+		<?php echo $row_kategoriAduan['NamaAduan']; ?></td>
+       
         <td><?php echo $row_ViewAduan['SubCategory'];?> </td>
         <td><?php echo $row_ViewAduan['KawasanAduan']; ?></td>
         <td><?php echo $row_ViewAduan['MaklumatAduan']; ?></td>
         
       
         <td><?php echo $row_ViewAduan['StatusAduan']; ?></td>
-        <td><?php echo date("d/m/Y  ", strtotime($row_ViewAduan['TimeSubmit']) ); ?><br>
+        <td><?php echo date("d/F/Y  ", strtotime($row_ViewAduan['TimeSubmit']) ); ?><br>
         <?php echo date("h:i:sa  ", strtotime($row_ViewAduan['TimeSubmit']) ); ?></td>
         
      
     </tr>
     <?php } while ($row_ViewAduan = mysql_fetch_assoc($ViewAduan)); ?>
+      <?php } while ($row_kategoriAduan = mysql_fetch_assoc($KategoriAduan)); ?>
     </tbody>
   </table>
   

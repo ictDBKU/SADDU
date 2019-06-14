@@ -438,7 +438,7 @@
         falign: undefined, // left, right, center
         valign: undefined, // top, middle, bottom
         width: undefined,
-        sortable: false,
+        sortable: true,
         order: 'asc', // asc, desc
         visible: true,
         switchable: true,
