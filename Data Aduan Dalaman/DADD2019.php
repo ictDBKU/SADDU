@@ -232,7 +232,7 @@ $KategoriMatchPersonInCharge;
 
 
 
-//Testing third time commit
+//Display the bahagian pengadu
 mysql_select_db($database_Connection1, $Connection1);
 $query_DepartmentName = "SELECT * FROM department";
 $DepartmentName = mysql_query($query_DepartmentName, $Connection1) or die(mysql_error());
@@ -400,6 +400,9 @@ $row_RecordsetAduan = mysql_fetch_assoc($RecordsetAduan);
 $tableid=mysql_num_rows($RecordsetAduan)+1;
 
 
+
+
+
 /*mysql_select_db($database_Connection1, $Connection1);
 $query_jenisaduan = "SELECT * FROM jenisaduan";
 $RecordsetJenisAduan = mysql_query($query_jenisaduan, $Connection1) or die(mysql_error());
@@ -411,6 +414,16 @@ $query_Jabatan = "SELECT * FROM jabatan";
 $Jabatan = mysql_query($query_Jabatan, $Connection1) or die(mysql_error());
 $row_Jabatan = mysql_fetch_assoc($Jabatan);
 $totalRows_Jabatan = mysql_num_rows($Jabatan);
+
+
+
+
+
+
+
+
+
+
 
 
 if (!isset($_SESSION)) {
@@ -1364,6 +1377,15 @@ document.getElementById('GoogleMap').style.display="block";
 
 </script>
 
+  
+  
+  
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../scripts/jquery.form.js"></script>
+<script type="text/javascript" src="../scripts/upload_image.js"></script>
+  
 </head>
 
 <body >
@@ -1373,33 +1395,36 @@ document.getElementById('GoogleMap').style.display="block";
       <div class="w3-container">
         <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
         
-    <div id="GoogleMap" align="center">
+ <!--   <div id="GoogleMap" align="center">
 <input id="pac-input" class="controls" type="text" placeholder="Search Box" style="width:600px">
 
-    <div id="myMap"></div>
+    <div id="myMap"></div>-->
    </div>
       
     </div>
   </div>
 </div>
+<span style="padding:10px">
+
+</span>
 <div class="topnav" id="myTopnav">
   <a style=" background-color:#0FED56;">Sistem Aduan Dalaman DBKU</a>
-  <a href="#" >Report Aduan</a>
+  <a href="#" >Lapor Aduan</a>
 
  
   <div class="dropdown">
-    <button class="dropbtn">Aduan Management
+    <button class="dropbtn">Papar Aduan
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-    <a href="ViewAduanUser.php" onclick="showModal()">View Aduan
+    <a href="ViewAduanUser.php" onclick="showModal()">Lihat Semua Aduan
 </a>
   
   
     </div>
   </div> 
-  <a href="#about">About</a>
-    <a href="<?php echo $logoutAction ?>" class="dropbtn">Logout</a>
+ 
+    <a href="<?php echo $logoutAction ?>" class="dropbtn">Log Keluar</a>
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
 
@@ -1424,7 +1449,7 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
       <tr >
       <td ><label>No. Kes Aduan</label></td>
       <td><input type="text" name="NoRujukan" id="NoRujukan" style="background-color:#F4EBEB;width:100%" value="AD/<?php echo date("Y/m/d");?>-<?php echo $tableid;?>" readonly></td>
-     
+    
     </tr>
    <!-- <tr >      
       <td>No ID Aduan<br></td>
@@ -1465,6 +1490,21 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
     <td style="padding:10px;"><input type="text" name="NamaPengadu" id="NamaPengadu"  style="width:100%" required></td>
  </tr>
  <tr>
+ <td>Bahagian Pengadu:
+ <td><select name="bahagianPengadu" id="bahagianPengadu" style="width:100%">
+  <?php do { ?>
+  <option value="<?php echo $row_DepartmentName['DepartmentName']; ?>"><?php echo $row_DepartmentName['DepartmentName']; ?></option>
+  <?php } while($row_DepartmentName = mysql_fetch_assoc($DepartmentName)); ?>
+</select>
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ <tr>
     <td><label>No telefon</label></td>
     <td style="padding:10px;"><input type="text" name="NoTelefon" id="NoTelefon"  style="width:100%" pattern="\d*.{10,}" placeholder="Eg.0111234567" required></td>
  </tr>
@@ -1488,15 +1528,14 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
     </tr>
     <tr>
     <td>Jenis:
-    <td align="center" style="padding:10px"><select name="SubKategoriDirujuk" id="SubKategoriDirujuk1" style="width:100%">
-                      <?php do { ?>
-              <option value="<?php echo $row_subkategori1['NamaSub']; ?>"><?php echo $row_subkategori1['NamaSub']; ?> </option>
-              <?php } while($row_subkategori1 = mysql_fetch_assoc($subkategori1)); ?></select>
-              
-             
-             <select name="SubKategoriDirujuk" id="SubKategoriDirujuk2" style="display:none;width:100%">
-              <?php do { ?>
-              <option value="<?php echo $row_subkategori2['NamaSub']; ?>"><?php echo $row_subkategori2['NamaSub']; ?> </option>
+    <td><select name="SubKategoriDirujuk2" id="SubKategoriDirujuk1" style="width:100%">
+  <?php do { ?>
+  <option value="<?php echo $row_subkategori1['NamaSub']; ?>"><?php echo $row_subkategori1['NamaSub']; ?></option>
+  <?php } while($row_subkategori1 = mysql_fetch_assoc($subkategori1)); ?>
+</select>
+    <select name="SubKategoriDirujuk" id="SubKategoriDirujuk2" style="display:none;width:100%">
+          <?php do { ?>
+          <option value="<?php echo $row_subkategori2['NamaSub']; ?>"><?php echo $row_subkategori2['NamaSub']; ?> </option>
               <?php } while($row_subkategori2 = mysql_fetch_assoc($subkategori2)); ?></select>
               
                <select name="SubKategoriDirujuk" id="SubKategoriDirujuk3" style="display:none;width:100%">
@@ -1568,10 +1607,9 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
                <select name="SubKategoriDirujuk" id="SubKategoriDirujuk16" style="display:none;width:100%">
                <?php do { ?>
               <option value="<?php echo $row_subkategori16['NamaSub']; ?>"><?php echo $row_subkategori16['NamaSub']; ?> </option>
-              <?php } while($row_subkategori16 = mysql_fetch_assoc($subkategori16)); ?></select>
-               
-              </td>
-   
+              <?php } while($row_subkategori16 = mysql_fetch_assoc($subkategori16)); ?></select></td>
+              
+   </tr>
     <tr >
       <td>Kawasan DUN
         <!--  **This code was hide for jenis Aduan because it wasn`t confirm with the user <label>Jenis Aduan</label>--></td>
@@ -1584,17 +1622,18 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
 
 
         <!--<select name="JenisAduan" id="JenisAduan">
-                      <?php do { ?>
+                    //  <?php do { ?>
               <option value="<?php echo $row_JenisAduan['NamaJenisAduan']; ?>"><?php echo $row_JenisAduan['NamaJenisAduan']; ?></option>
               <?php } while ($row_JenisAduan = mysql_fetch_assoc($RecordsetJenisAduan)); ?>-->
      
       
-       
-        <tr>
-            <!--     <td><form action="upload.php" method="post" enctype="multipart/form-data">
-    <input type="file" name="button" id="button" value="Find Record" class="button">-->
-   
-</tr>
+   	
+
+
+ 
+
+
+
     <tr >
       <td><label>Kawasan Aduan:</label></td>
       <td align="center" style="padding:10px"><select name="kawasanAduan" id="kawasanAduan1" style="width:100%"  >
@@ -1682,7 +1721,7 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
     
 <tr>
 
-<td><button type="submit" name="Submit" id="Submit" value="Submit" onClick="myFunction()" class="button">SUBMIT ADUAN</button></td>
+<td><button type="submit" name="Submit" id="Submit" value="Submit" onClick="myFunction()" class="button">HANTAR ADUAN</button></td>
 </tr>
 <input type="hidden" name="MM_insert" value="form1" >
 <input type="hidden" name="UsernamePengadu" value="<?php echo $row_Recordset1['Username']; ?>">
@@ -1694,6 +1733,22 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
 
 
 </form>	
+<div align="center">
+		<form method="post" name="image_upload_form" id="image_upload_form" enctype="multipart/form-data" action="upload_image.php?TableID=AD-<?php echo date("Y-m-d");?>-<?php echo $tableid;?>">   
+    <label>Choose Multiple Images to Upload</label>
+	<br>
+	<br>
+    <input type="file" name="images[]" id="upload_files" multiple >
+ 
+        <label> </label>
+        
+ 
+     <button type="submit" value="Submit" id="Submit" name="Submit">Hantar</button>
+	</form>
+	<div id="images_preview"></div>	
+   
+<div>
+
 <h3 id="Map" style="display:none" align="center">Pilih tempat lokasi:</h3>
 
   <script>
@@ -1865,6 +1920,7 @@ infowindow.open(map, marker);
 google.maps.event.addDomListener(window, 'load', initialize);
 
 </script>
+
 </body>
 </html>
 <?php

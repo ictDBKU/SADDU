@@ -570,7 +570,19 @@ $row_AduanTidakSelesai= mysql_fetch_assoc($AduanTidakSelesai);
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="../css/tableStatistic.css" rel="stylesheet" type="text/css" >
-<title>Statistik</title>
+<title>Statistika</title>
+<!-- Javascript -->
+<script type="text/javascript" src="../Admin/assets/js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="../Admin/assets/js/bootstrap.js"></script>
+<script type="text/javascript" src="../Admin/assets/js/bootstrap-table.js"></script>
+<!-- Style -->
+<link href="../Admin/assets/css/bootstrap.css" rel="stylesheet" />
+<link href="../Admin/assets/css/fresh-bootstrap-table.css" rel="stylesheet" />
+
+<!-- Fonts and icons -->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+
 <script>
 
 function calculateCasePeratus(){
@@ -582,6 +594,9 @@ document.getElementById("demo").innerHTML = x;
 document.getElementById("demo").innerHTML = x;
 }
 </script>
+
+
+
 <link rel="stylesheet" href="../Admin/assets/css/menubar.css">
 </head>
 
@@ -590,7 +605,7 @@ document.getElementById("demo").innerHTML = x;
 
 <div class="topnav" id="myTopnav">
   <a style=" background-color:#0FED56;">Sistem Aduan Dalaman DBKU</a>
-  <a href="../Admin/AdminPage.php" >Home</a>
+  <a href="../Admin/AdminPage.php" >Laman Utama</a>
 
   
   <div class="dropdown">
@@ -600,12 +615,12 @@ document.getElementById("demo").innerHTML = x;
   </div>
   
   
-  <a href="../Statistic/Dashboard.php">Dashboard</a>
+  <a href="../Statistic/Dashboard.php">Statistik</a>
     
   
    
   
-    <a href="<?php echo $logoutAction ?>" class="dropbtn">Logout</a>
+    <a href="<?php echo $logoutAction ?>" class="dropbtn">Log Keluar</a>
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
 
@@ -642,427 +657,497 @@ document.getElementById("demo").innerHTML = x;
 
 
 <p align="center"> 2.KATEGORI ADUAN</p>
-<div align="center">
-  <table class="blueTable" border="1" style="display: inline-block;">
-    <thead>
-      <tr>
-        <th width="68">BIL.
-          <th width="302">          
-          <th width="177">KATEGORI ADUAN
-            <th width="164"><div align="center">JUMLAH KATEGORI
-              
-              </div>
-              </tr>
+<table id="fresh-table" class="blueTable" align="center">
+  <thead>
+      
+      
+    <th >BIL.</th>
+      <th data-field="KATEGORI ADUAN">KATEGORI ADUAN</th>       
+      <th data-field="SUB-KATEGORI ADUAN">SUB-KATEGORI ADUAN</th>
+      <th data-field="JUMLAH KATEGORI">JUMLAH KATEGORI</th>
+        
+        
+        
       </thead>
-    <tr>
-      <td rowspan="5">1
-        <td rowspan="5">Penyelenggaraan parit                                        
-        <td>Parit rosak<td><div align="center"><?php echo $countParitRosak; ?>
-            </div>
-            </tr>
-    <tr>
-      <td>Rumput dalam parit<td><div align="center"><?php echo $countRumputDalamParit; ?>
-            </div>
-          </tr>
-    <tr>
-      <td>Penutup parot hilang<td><div align="center"><?php echo $countPenutupparitHilang; ?>
-            </div>
-          </tr>
-    <tr>
-      <td>Tersumbat<td><div align="center"><?php echo $countTersumbat; ?>
-            </div>
-          </tr>
-    <tr>
-      <td>Culvert runtuh<td><div align="center"><?php echo $countCulvertruntuh; ?>
-            </div>
-          </tr>
-    <tr>
-      <td rowspan="3">2        
-      <td rowspan="3">Penyelenggaraan Papan tanda/penanda jalan               
-        <td>Vandalisme<td><div align="center"><?php echo $countVandalisme; ?>
-            </div>
-            </tr>
-    <tr>
-      <td>Papan tanda hilang    
-      <td>   <?php echo $countPapanTandaHilang; ?>
-    </tr>
-    <tr>
-      <td>Papan tanda baru
-      <td>    <?php echo $countPapanTandaBaru; ?>
-    </tr>
-    <tr>
-      <td rowspan="3">3
-      
-      <td rowspan="3">Pemotongan rumput                        
-        <td>Tepi jalan<td><div align="center">0
-            </div>
-            </tr>
-    <tr>
-      <td>Backlane
-        <td><div align="center"><?php echo $countBacklane; ?>
-          </div>
-          </tr>
-    <tr>
-      <td>Tidak diservis<td><div align="center"><?php echo $countTidakdiservis; ?>
-            </div>
-          </tr>
-    <tr>
-      <td rowspan="5">4
-      
-      <td rowspan="5">Binatang                                
-        <td>Liar<td><div align="center"><?php echo $countliar; ?>
-            </div>
-            </tr>
-    <tr>
-      <td>Bangkai<td><div align="center"><?php echo $countBangkai; ?>
-            </div>
-          </tr>
-    <tr>
-      <td>Serangga<td><div align="center"><?php echo $countSerangga; ?>
-            </div>
-          </tr>
-    <tr>
-      <td>Sarang Tebuan
-        <td><div align="center"><?php echo $countSarangTebuan; ?>
-          </div>
-          </tr>
-    <tr>
-      <td>Ternakan ayam/ikan/dll<td><div align="center"><?php echo $countTernakanayam; ?>
-            </div>
-          </tr>
-    <tr>
-      <td rowspan="4">5    
-      <td rowspan="4">Pengendalian sampah sarap                           
-        <td>Sampah tidak dikutip<td><div align="center"><?php echo 
-$countSampahTidakDikutip; ?>
-            </div>
-            </tr>
-    <tr>
-      <td>Air smapah tertumpah di jalan<td><div align="center"><?php echo $countAirSampahTertumpahDiJalan; ?>
-            </div>
-          </tr>
-    <tr>
-      <td>Lori sampah melanggar pagar
-        <td><div align="center"><?php echo $countLoriSampahmelanggarpagar;?>
-            </div>
-            </tr>
-    <tr>
-      <td>Semak Samun tanah kerajaan  
-      <td>   <div align="center"><?php echo $countSemakSamunTanahKerajaan;?> 
-    </tr>
-    <tr>
-      <td rowspan="3">6            
-      <td rowspan="3">Kacau ganngu            
-      <td>Bunyi Bising    
-      <td>    <div align="center"><?php echo $countBunyiBising;?> 
-    </tr>
-    <tr>
-      <td>Bau Busuk    
-      <td>  <div align="center"><?php echo $countBauBusuk;?>   
-    </tr>
-    <tr>
-      <td>Tanah Kosong bersemak-samun  
-      <td>    <div align="center"><?php echo $countTanahKosongbersemaksamun;?> 
-    </tr>
-    <tr>
-      <td>7    
-      <td>Penyelenggaraan teknikal    
-      <td>Lampu jalan    
-      <td>    <div align="center"><?php echo $countlampujalan;?>
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Lampu isyarat    
-      <td>     <div align="center"><?php echo $countlampuisyarat;?>
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Lampu taman    
-      <td>  <div align="center"><?php echo $countlamputaman;?>  
-    </tr>
-    <tr>
-      <td>8    
-      <td>Penyelenggaraan kawasan/bangunan    
-      <td>Ibupejabat DBKU    
-      <td>    <div align="center"><?php echo $countIbuPejabatDBKU;?>  
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Bangunan milik DBKU    
-      <td>    <div align="center"><?php echo $countBangunanMilikDBKU;?>
-    </tr>
-    <tr>
-      <td>9    
-      <td>Penyelenggaraan pokok   
-      <td>Pokok tumbang    
-      <td>    <div align="center"><?php echo $countPokokTumbang;?>
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Cantas dahan pokok
-      <td>    <div align="center"><?php echo $countcantasDahanPokok?>
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Pokok menghalang pandangan   
-      <td>     <div align="center"><?php echo $countPokokmenghalangpandangan?>
-    </tr>
-    <tr>
-      <td>10    
-      <td>Lalu Lintas    
-      <td>Pengendalian lalu lintas  
-      <td>    <div align="center"><?php echo $countPengendalianlalulintas?>
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Kenderaan buruk di tepi jalan    
-      <td>    <div align="center"><?php echo $countkenderaanburukditepijalan?>
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Jalan kotor oleh lori kontraktor    
-      <td>  <div align="center"><?php echo $countJalanKotor?>  
-    </tr>
-    <tr>
-      <td>11    
-      <td>Halangan Awam/penjaja haram   
-      <td>Penjaja meletak barangan di kaki lima
-      <td>   <div align="center"><?php echo $countpenjajameletakbarangandikakilima?> 
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Backlane diletak barang    
-      <td>    <div align="center"><?php echo $countbacklanediletakbarang?>
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Sisa binaan ditinggal    
-      <td>    <div align="center"><?php echo $countsisabinaanditinggal?>
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Penjaja Haram/tanpa lesen    
-      <td>    <div align="center"><?php echo $countPenjajaHaram?>
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Iklan tanpa permit di tepi jalan 
-      <td>    <div align="center"><?php echo $countIklanTepiJalan?>
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Poster Along    
-      <td>    <div align="center"><?php echo $countAhLong?>
-    </tr>
-    <tr>
-      <td>12    
-      <td>Bangunan    
-      <td>Permit OP    
-      <td>    <div align="center"><?php echo $countpermitOP?>
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Kerosakan pada bangunam/tandas milik kerajaan
-      <td>   <div align="center"><?php echo $countKerosakanpadaBangunan?> 
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Vandalisme pada bangunan    
-      <td>   <div align="center"><?php echo $countVandalismepadaBangunan?>  
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Rumah kosong bersemak-samun    
-      <td>    <div align="center"><?php echo $countRumahKosong?> 
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Rumput/pokok tumbuh di bangunan
-      <td>    <div align="center"><?php echo $countRumput?> 
-    </tr>
-    <tr>
-      <td>13
-      <td>Pembinaan projek   
-      <td><div align="center"><?php echo $countpembinaanprojek?>   
-       
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Permohonan parit baru    
-      <td>    <div align="center"><?php echo $countpermohonanpermitbaru?>
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Kacau ganggu oleh projek sedang berjalan    
-      <td>    <div align="center"><?php echo $countkacauganggu?>
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Rumah rosak/pecah oleh projek berjalan 
-      <td>    <div align="center"><?php echo $countrumahrosak?>
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Naiktaraf parit lama ke parit baru
-      <td>    <div align="center"><?php echo $countNaikTaraf?>
-    </tr>
-    <tr>
-      <td>14    
-      <td>Penjaja    
-      <td>Berjual di luar waktu ditetapkan    
-      <td>    <div align="center"><?php echo $countberjualdiluarwaktuditetapkan?>
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Peniaga Lesen/permit    
-      <td>    <div align="center"><?php echo $countpeniagalesen?>
-    </tr>
-    <tr>
-      <td>15    
-      <td>Iklan    
-      <td>Iklan tiada permit   
-      <td>  <div align="center"><?php echo $counttiadapermit?>  
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Permit berkaitan dengan billboard,bunting dan banner
-      <td>    <div align="center"><?php echo $countpermitberkaintandenganbillboard?> 
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Perkhidamatan yang memerlukan lesen 
-      <td>    <div align="center"><?php echo $countPerkhidmatan?>
-    </tr>
-    <tr>
-      <td>16    
-      <td>Tempat letak kereta    
-      <td>Tempat Letak Kereta Diwartakan 
-      <td><div align="center"><?php echo $countTempatLetakKereta?>    
+    <tbody>
+      <tr>
+        <td>1
+          <td >Penyelenggaraan parit                                        
+          <td>Parit rosak
+          <td>
+            <?php echo $countParitRosak; ?>
+                    
+                    
+      </tr>
+      <tr>
+        <td>
+        <td>
+        <td>Rumput dalam parit<td>
+          <?php echo $countRumputDalamParit; ?>
+                  
+                  
+      </tr>
+      <tr>
+            
+          <td >                                      
+          <td>
+        <td>Penutup parit hilang<td>
+          <?php echo $countPenutupparitHilang; ?>
+                  
+      </tr>
+      <tr>
+            
+          <td >                                      
+          <td>
+        <td>Tersumbat<td><?php echo $countTersumbat; ?>
+                  
+        </tr>
+      <tr>
+            
+          <td >                                       
+          <td>
+        <td>Culvert runtuh<td><?php echo $countCulvertruntuh; ?>
+                  
+        </tr>
+      <tr>
+        <td >2        
+        <td >Penyelenggaraan Papan tanda/penanda jalan               
+          <td>Vandalisme
+          <td><?php echo $countVandalisme=0; ?>
+                    
+      </tr>
+      <tr>
+            
+            
+        <td><td>    
+        <td>Papan tanda hilang    
+        <td> <?php echo $countPapanTandaHilang; ?>
+                    
+      </tr>
           
-    </tr>
-    <tr>
-      <td>    
-      <td>    
-      <td>Kompaun letak kereta  
-      <td>  <div align="center"><?php echo $countKompaunLetakKereta?>   
-    </tr>
-    <tr>
-      <td colspan="3"><div align="right">Jumlah
-        </div>
-        <td><div align="center"><?php echo $totalRows_Aduan;?>
-          </div>
+      <tr>
+        <td>
+        <td>
+        <td>Papan tanda baru
+        <td>   <?php echo $countPapanTandaBaru; ?>
+                    
+      </tr>
+      <tr>
+        <td>3
+              
+        <td>Pemotongan rumput                        
+          <td>Tepi jalan<td>0
+                  
           </tr>
-  </table>
-  
-</div>
+      <tr>
+        <td>      
+        <td>      
+        <td>Backlane
+          <td><?php echo $countBacklane; ?>
+                    
+      </tr>
+      <tr>
+        <td>      
+        <td>      
+        <td>Tidak diservis<td><?php echo $countTidakdiservis; ?>
+                  
+        </tr>
+      <tr>
+        <td>4
+              
+        <td>Binatang                                
+          <td>Liar<td><?php echo $countliar; ?>
+                  
+          </tr>
+      <tr>
+        <td>      
+        <td>      
+        <td>Bangkai<td><?php echo $countBangkai; ?>
+                  
+        </tr>
+      <tr>
+        <td>      
+        <td>      
+        <td>Serangga<td><?php echo $countSerangga; ?>
+                  
+        </tr>
+      <tr>
+        <td>      
+        <td>      
+        <td>Sarang Tebuan
+          <td><?php echo $countSarangTebuan; ?>
+                    
+        </tr>
+      <tr>
+        <td>      
+        <td>      
+        <td>Ternakan ayam/ikan/dll<td><?php echo $countTernakanayam; ?>
+                  
+        </tr>
+      <tr>
+        <td>5    
+        <td>Pengendalian sampah sarap                           
+          <td>Sampah tidak dikutip<td><?php echo 
+$countSampahTidakDikutip; ?>
+                  
+          </tr>
+      <tr>
+        <td>      
+        <td>      
+        <td>Air smapah tertumpah di jalan<td><?php echo $countAirSampahTertumpahDiJalan; ?>
+                  
+        </tr>
+      <tr>
+        <td>      
+        <td>      
+        <td>Lori sampah melanggar pagar
+          <td><?php echo $countLoriSampahmelanggarpagar;?>
+                    
+          </tr>
+      <tr>
+        <td>      
+        <td>      
+        <td>Semak Samun tanah kerajaan  
+        <td>   
+          <?php echo $countSemakSamunTanahKerajaan;?> 
+                    
+      </tr>
+      <tr>
+        <td>6            
+        <td>Kacau ganggu            
+        <td>Bunyi Bising    
+        <td>    
+          <?php echo $countBunyiBising;?> 
+                    
+      </tr>
+      <tr>
+        <td>      
+        <td>      
+        <td>Bau Busuk    
+        <td>  
+          <?php echo $countBauBusuk;?>   
+                    
+      </tr>
+      <tr>
+        <td>      
+        <td>      
+        <td>Tanah Kosong bersemak-samun  
+        <td>    
+          <?php echo $countTanahKosongbersemaksamun;?> 
+                    
+      </tr>
+      <tr>
+        <td>7    
+        <td>Penyelenggaraan teknikal    
+        <td>Lampu jalan    
+        <td>    
+          <?php echo $countlampujalan;?>
+                    
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Lampu isyarat    
+        <td>     
+          <?php echo $countlampuisyarat;?>
+                    
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Lampu taman    
+        <td>  
+          <?php echo $countlamputaman;?>  
+                    
+      </tr>
+      <tr>
+        <td>8    
+        <td>Penyelenggaraan kawasan/bangunan    
+        <td>Ibupejabat DBKU    
+        <td>    
+          <?php echo $countIbuPejabatDBKU;?>  
+                    
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Bangunan milik DBKU    
+        <td>    
+          <?php echo $countBangunanMilikDBKU;?>
+                    
+      </tr>
+      <tr>
+        <td>9    
+        <td>Penyelenggaraan pokok   
+        <td>Pokok tumbang    
+        <td>    
+          <?php echo $countPokokTumbang;?>
+                    
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Cantas dahan pokok
+        <td>    
+          <?php echo $countcantasDahanPokok?>
+                    
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Pokok menghalang pandangan   
+        <td>     <?php echo $countPokokmenghalangpandangan?>
+      </tr>
+      <tr>
+        <td>10    
+        <td>Lalu Lintas    
+        <td>Pengendalian lalu lintas  
+        <td>    <?php echo $countPengendalianlalulintas?>
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Kenderaan buruk di tepi jalan    
+        <td>    <?php echo $countkenderaanburukditepijalan?>
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Jalan kotor oleh lori kontraktor    
+        <td>  <?php echo $countJalanKotor?>  
+      </tr>
+      <tr>
+        <td>11    
+        <td>Halangan Awam/penjaja haram   
+        <td>Penjaja meletak barangan di kaki lima
+        <td>   <?php echo $countpenjajameletakbarangandikakilima?> 
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Backlane diletak barang    
+        <td>    <?php echo $countbacklanediletakbarang?>
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Sisa binaan ditinggal    
+        <td>    <?php echo $countsisabinaanditinggal?>
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Penjaja Haram/tanpa lesen    
+        <td>    <?php echo $countPenjajaHaram?>
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Iklan tanpa permit di tepi jalan 
+        <td>    <?php echo $countIklanTepiJalan?>
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Poster Along    
+        <td>    <?php echo $countAhLong?>
+      </tr>
+      <tr>
+        <td>12    
+        <td>Bangunan    
+        <td>Permit OP    
+        <td>    <?php echo $countpermitOP?>
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Kerosakan pada bangunam/tandas milik kerajaan
+        <td>   <?php echo $countKerosakanpadaBangunan?> 
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Vandalisme pada bangunan    
+        <td>   <?php echo $countVandalismepadaBangunan?>  
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Rumah kosong bersemak-samun    
+        <td>    <?php echo $countRumahKosong?> 
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Rumput/pokok tumbuh di bangunan
+        <td>    <?php echo $countRumput?> 
+      </tr>
+      <tr>
+        <td>13
+        <td>
+        <td>Pembinaan projek   
+        <td><?php echo $countpembinaanprojek?>   
+                    
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Permohonan parit baru    
+        <td>    <?php echo $countpermohonanpermitbaru?>
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Kacau ganggu oleh projek sedang berjalan    
+        <td>    <?php echo $countkacauganggu?>
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Rumah rosak/pecah oleh projek berjalan 
+        <td>    <?php echo $countrumahrosak?>
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Naiktaraf parit lama ke parit baru
+        <td>    <?php echo $countNaikTaraf?>
+      </tr>
+      <tr>
+        <td>14    
+        <td>Penjaja    
+        <td>Berjual di luar waktu ditetapkan    
+        <td>    <?php echo $countberjualdiluarwaktuditetapkan?>
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Peniaga Lesen/permit    
+        <td>    <?php echo $countpeniagalesen?>
+      </tr>
+      <tr>
+        <td>15    
+        <td>Iklan    
+        <td>Iklan tiada permit   
+        <td>  <?php echo $counttiadapermit?>  
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Permit berkaitan dengan billboard,bunting dan banner
+        <td>    <?php echo $countpermitberkaintandenganbillboard?> 
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Perkhidamatan yang memerlukan lesen 
+        <td>    <?php echo $countPerkhidmatan?>
+      </tr>
+      <tr>
+        <td>16    
+        <td>Tempat letak kereta    
+        <td>Tempat Letak Kereta Diwartakan 
+        <td><?php echo $countTempatLetakKereta?>    
+                    
+      </tr>
+      <tr>
+        <td>    
+        <td>    
+        <td>Kompaun letak kereta  
+        <td>  <?php echo $countKompaunLetakKereta?>   
+      </tr>
+     <tr>
+     <td>
+     <td>
+     <td>Jumlah:
+      <td><?php echo $totalRows_Aduan;?>
+      </tr>
+</table>
 <p align="center"> 3.ZON/DUN  </p>
 <div align="center">
   <table class="blueTable" border="1"  >
     <thead>
       <tr>
         <th width="60">BIL </td>
-          <th width="90">DUN </td>
-            <th width="38">BIL </td>
-              <th width="102">KAWASAN </td>
-                <th width="89">BILANGAN</td>
-                  </tr>
-      </thead>
+        <th width="90">DUN </td>
+        <th width="38">BIL </td>
+        <th width="102">KAWASAN </td>
+        <th width="89">BILANGAN</td>
+      </tr>
+    </thead>
     <tr rowspan="3">
       <td rowspan="3">1 </td>
       <td rowspan="3">N4-Pantai Damai </td>
       <td>1 </td>
       <td>Damai </td>
       <td><div align="center"><?php echo $Damai;?></div></td>
-      </tr>
+    </tr>
     <tr >
       <td>2 </td>
       <td>Astana </td>
       <td><div align="center"><?php echo $AstanaA;?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>3 </td>
       <td>Demak Height </td>
       <td><div align="center"><?php echo $DemakHeight;?></div></td>
-      </tr>
+    </tr>
     <tr style="background-color:#D3D3D3">
       <td colspan="3"></td>
       <td><div align="right">JUMLAH </div></td>
       <td><div align="center"><?php echo $row_jumlahDunN4['COUNT(*)'];?></div></td>
-      </tr>
+    </tr>
     <tr >
       <td rowspan="2">2 </td>
       <td rowspan="2">N5-Demak Laut </td>
       <td>1 </td>
       <td>Demak Laut </td>
       <td><div align="center"><?php echo $DemakLaut ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>2 </td>
       <td>Bako </td>
       <td><div align="center"><?php echo $Bako ?></div></td>
-      </tr>
+    </tr>
     <tr style="background-color:#D3D3D3">
       <td colspan="3"></td>
       <td><div align="right">JUMLAH </div></td>
       <td><div align="center"><?php echo $row_jumlahDunN5['COUNT(*)'];?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td rowspan="5">3 </td>
       <td rowspan="5">N6-Tupong </td>
       <td>1 </td>
       <td>Pinang Jawa </td>
       <td><div align="center"><?php echo $PinangJawa ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>2 </td>
       <td>Laruh Scheme </td>
       <td><div align="center"><?php echo $LaruhScheme ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>3 </td>
       <td>Tupong </td>
       <td><div align="center"><?php echo $Tupong ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>4 </td>
       <td>Sri Wangi </td>
       <td><div align="center"><?php echo $SriWangi ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>5 </td>
       <td>Kubah Ria </td>
       <td><div align="center"><?php echo $KubahRia ?></div></td>
-      </tr>
+    </tr>
     <tr style="background-color:#D3D3D3">
       <td></td>
       <td></td>
       <td></td>
       <td><div align="right">JUMLAH </div></td>
       <td><div align="center"><?php echo $row_jumlahDunN6['COUNT(*)'];?></div></td>
-      </tr>
+    </tr>
     <tr>
       
       <td rowspan="11">4 </td>
@@ -1070,114 +1155,120 @@ $countSampahTidakDikutip; ?>
       <td>1 </td>
       <td>Semariang </td>
       <td><div align="center"><?php echo $Semariang ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>2 </td>
       <td>Astana </td>
       <td><div align="center"><?php echo $AstanaB ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>3 </td>
       <td>Medan Raya </td>
       <td><div align="center"><?php echo $MedanRaya ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>4 </td>
       <td>Sukma </td>
       <td><div align="center"><?php echo $Sukma ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>5 </td>
       <td>Stadium </td>
       <td><div align="center"><?php echo $Stadium ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>6 </td>
       <td>Semariang Batu </td>
       <td><div align="center"><?php echo $SemariangBatu ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>7 </td>
       <td>Demak Jaya </td>
       <td><div align="center"><?php echo $DemakJaya ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>8 </td>
       <td>Bukit Siol </td>
       <td><div align="center"><?php echo $BukitSiol ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>9 </td>
       <td>Kesuma </td>
       <td><div align="center"><?php echo $Kesuma ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>10 </td>
       <td>Kpg Demak </td>
       <td><div align="center"><?php echo $KpgDemak ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>11 </td>
       <td>Siol Kandis </td>
       <td><div align="center"><?php echo $SiolKandis ?></div></td>
-      </tr>
+    </tr>
     <tr style="background-color:#D3D3D3">
       <td></td>
       <td></td>
       <td></td>
       <td><div align="right">JUMLAH </div></td>
       <td><div align="center"><?php echo $row_jumlahDunN7['COUNT(*)']; ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td rowspan="8">5 </td>
       <td rowspan="8">N8-Satok </td>
       <td>1 </td>
       <td>Satok </td>
       <td><div align="center"><?php echo $Satok ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>2 </td>
       <td>Sg Maong </td>
       <td><div align="center"><?php echo $SgMaong ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>3 </td>
       <td>Main Bazaar </td>
       <td><div align="center"><?php echo $MainBazar ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>4 </td>
       <td>Batu Lintang </td>
       <td><div align="center"><?php echo $BatuLintang ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>5 </td>
       <td>Golden Triangle </td>
       <td><div align="center"><?php echo $GoldenTriangle ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>6 </td>
       <td>Patinggan </td>
       <td><div align="center"><?php echo $Patinggan ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>7 </td>
       <td>India Street </td>
       <td><div align="center"><?php echo $IndiaStreet ?></div></td>
-      </tr>
+    </tr>
     <tr>
       <td>8 </td>
       <td>Taman Budaya </td>
       <td><div align="center"><?php echo $TamanBudaya ?></div></td>
-      </tr>
+    </tr>
     <tr style="background-color:#D3D3D3">
-      <td colspan="4"><div align="right">JUMLAH </div></td>
+      <td><div align="right">JUMLAH </div></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
       <td><div align="center"><?php echo $row_jumlahDunN8['COUNT(*)']; ?></div></td>
-      </tr>
+    </tr>
     <tr >
-      <td style="background-color:#D3D3D3" colspan="4"></td>
+      <td style="background-color:#D3D3D3"></td>
+      <td style="background-color:#D3D3D3"></td>
+      <td style="background-color:#D3D3D3"></td>
+      <td style="background-color:#D3D3D3"></td>
       <td><div align="center"><?php echo $totalRows_Aduan;?></div></td>
-      </tr>
+    </tr>
   </table>
   
   
@@ -1206,6 +1297,7 @@ $countSampahTidakDikutip; ?>
 		
 		?></div></td>
         </tr>
+     </tbody>
       <?php } while ($row_bahagianAduan= mysql_fetch_assoc($bahagianAduan)); ?>
     </table>
 </div>
@@ -1264,6 +1356,77 @@ $countSampahTidakDikutip; ?>
 
 
 
+<script type="text/javascript">
+        var $table = $('#fresh-table'),
+            $alertBtn = $('#alertBtn'),
+            full_screen = true;
+
+        $().ready(function(){
+            $table.bootstrapTable({
+                toolbar: ".toolbar",
+
+                showRefresh: false,
+                search: false,
+                showToggle: false,
+                showColumns: false,
+                pagination: false,
+                striped: false,
+                sortable: true,
+                pageSize: 8,
+                pageList: [8,10,25,50,100],
+
+                formatShowingRows: function(pageFrom, pageTo, totalRows){
+                    //do nothing here, we don't want to show the text "showing x of y from..."
+                },
+                formatRecordsPerPage: function(pageNumber){
+                    return pageNumber + " rows visible";
+                },
+                icons: {
+                    refresh: 'fa fa-refresh',
+                    toggle: 'fa fa-th-list',
+                    columns: 'fa fa-columns',
+                    detailOpen: 'fa fa-plus-circle',
+                    detailClose: 'fa fa-minus-circle'
+                }
+            });
+        });
+
+        $(function () {
+            $alertBtn.click(function () {
+                alert("You pressed on Alert");
+            });
+        });
+
+
+        function operateFormatter(value, row, index) {
+            return [
+                '<a rel="tooltip" title="Like" class="table-action like" href="javascript:void(0)" title="Like">',
+                    '<i class="fa fa-heart"></i>',
+                '</a>',
+                '<a rel="tooltip" title="Edit" class="table-action edit" href="javascript:void(0)" title="Edit">',
+                    '<i class="fa fa-edit"></i>',
+                '</a>',
+                '<a rel="tooltip" title="Remove" class="table-action remove" href="javascript:void(0)" title="Remove">',
+                    '<i class="fa fa-remove"></i>',
+                '</a>'
+            ].join('');
+        }
+
+        window.operateEvents = {
+            'click .like': function (e, value, row, index) {
+                alert('You click like icon, row: ' + JSON.stringify(row));
+                console.log(value, row, index);
+            },
+            'click .edit': function (e, value, row, index) {
+                console.log(value, row, index);
+            },
+            'click .remove': function (e, value, row, index) {
+                alert('You click remove icon, row: ' + JSON.stringify(row));
+                console.log(value, row, index);
+            }
+        };
+
+    </script>
 
 </body>
 </html>

@@ -136,7 +136,7 @@ if (isset($_POST['Username'])) {
 						
 							 ?></p>
 		
-            <input type="submit" name="" value="Login">
+            <input type="submit" name="" value="Log Masuk">
            
 				
 			</form>

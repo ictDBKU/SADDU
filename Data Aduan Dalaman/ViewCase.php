@@ -404,6 +404,18 @@ mysql_free_result($ViewCase);
       </tr>
       
     <tr>
+      <td colspan="2">
+	  <?php $files = glob("../upload/".$_GET['NoRujukan']."/*.*");
+for ($i=0; $i<count($files); $i++)
+{
+	$num = $files[$i];
+	 
+	echo '<img src="'.$num.'" alt="random image" height="250" width="225">'."&nbsp;&nbsp;";
+	}?>
+    
+    </td>
+      </tr>
+    <tr>
       
       <td><div align="right"><strong>Tarikh Aduan Diterima</strong></div></td>
       <td style="color: #4E4E4E"><?php echo date("d/m/Y  ", strtotime($row_ViewCase['TimeSubmit']) ); ?></td>

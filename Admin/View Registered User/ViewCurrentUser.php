@@ -182,7 +182,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 <script type="text/javascript" src="../assets/js/bootstrap-table.js"></script>
 <link href="../../css/styles.css" rel="stylesheet" type="text/css" >
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link href="../assets/css/fresh-bootstrap-table.css" rel="stylesheet" />
+<link href="../assets/css/fresh-bootstrap-table2.css" rel="stylesheet" />
 <link  rel="stylesheet" href="../css/styles.css" rel="stylesheet" type="text/css" >
 <link  rel="stylesheet" href="../css/ChangePassword.css" rel="stylesheet" type="text/css" >
 <!-- Fonts and icons -->

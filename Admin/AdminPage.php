@@ -229,7 +229,7 @@ $totalRows_Designation = mysql_num_rows($Designation);
 <script type="text/javascript" src="assets/js/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="assets/js/bootstrap-table.js"></script>
 <!-- unsolved<link href="assets/css/bootstrap.css" rel="stylesheet" />-->
-<link href="assets/css/fresh-bootstrap-table.css" rel="stylesheet" />
+<link href="assets/css/fresh-bootstrap-table2.css" rel="stylesheet" />
 <link  rel="stylesheet" href="../css/styles.css" rel="stylesheet" type="text/css" >
 
  <link rel="stylesheet" href="../style2.css">
@@ -421,29 +421,29 @@ showRecords();}
 
 <div class="topnav" id="myTopnav">
   <a style=" background-color:#0FED56;">Sistem Aduan Dalaman DBKU</a>
-  <a href="AdminPage.php" >Home</a>
+  <a href="AdminPage.php" >Laman Utama</a>
 
   
   <div class="dropdown">
-    <button class="dropbtn">User Management 
+    <button class="dropbtn">Pengurusan Akaun 
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-    <a href="#" onclick="showModal()">Register User
+    <a href="#" onclick="showModal()">Daftar Akaun
 </a>
-      <a href="View Registered User/ViewCurrentUser.php">Current User</a>
+      <a href="View Registered User/ViewCurrentUser.php">Papar Akaun Semasa</a>
   
     </div>
     
   </div>
   
   
-  <a href="../Statistic/Dashboard.php">Dashboard</a>
+  <a href="../Statistic/Dashboard.php">Statistik</a>
     
   
    
   
-    <a href="<?php echo $logoutAction ?>" class="dropbtn">Logout</a>
+    <a href="<?php echo $logoutAction ?>" class="dropbtn">Log Masuk</a>
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
 

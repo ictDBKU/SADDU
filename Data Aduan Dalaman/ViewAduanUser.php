@@ -182,7 +182,7 @@ document.getElementById('notification-count').style.display="none";
 <script type="text/javascript" src="../Admin/assets/js/bootstrap.js"></script>
 <script type="text/javascript" src="../Admin/assets/js/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="../Admin/assets/js/bootstrap-table.js"></script>
-<link href="../Admin/assets/css/fresh-bootstrap-table.css" rel="stylesheet" />
+<link href="../Admin/assets/css/fresh-bootstrap-table2.css" rel="stylesheet" />
 <link  rel="stylesheet" href="../css/styles.css" rel="stylesheet" type="text/css" >
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
@@ -212,9 +212,9 @@ showRecords();
 <div class="w3-container">
 <div class="topnav" id="myTopnav">
   <a style=" background-color:#0FED56;">Sistem Aduan Dalaman DBKU</a>
-  <a href="DADD2019.php" >Report Aduan</a>
+  <a href="DADD2019.php" >Lapor Aduan</a>
   <div class="dropdown">
-    <button id="notification-icon" name="button"  class="dropbtn" >Aduan Management<span id="notification-count"> <?php if($row_ViewAduanNotiCounting['COUNT(*)'] >0 && $totalRowsNotification_UserAccount>1 ) { echo $row_ViewAduanNotiCounting['COUNT(*)'] ; }
+    <button id="notification-icon" name="button"  class="dropbtn" >Papar Aduan<span id="notification-count"> <?php if($row_ViewAduanNotiCounting['COUNT(*)'] >0 && $totalRowsNotification_UserAccount>1 ) { echo $row_ViewAduanNotiCounting['COUNT(*)'] ; }
 	
 	 ?></span>
      
@@ -224,19 +224,19 @@ showRecords();
      
     
     <div class="dropdown-content">
- <a href="ViewAduanUser.php" onclick="">View All Aduan
+ <a href="ViewAduanUser.php" onclick="">Semua Aduan
 </a>
- <a href="MyAduan.php" onclick="">View My Aduan
+ <a href="MyAduan.php" onclick="">Aduan Saya
 
 </a>
-<a href="ViewStaffAduan.php" onclick="">View Staff Aduan
+<a href="ViewStaffAduan.php" onclick="">Aduan Staf
 
 </a>
 
    </div>
   </div> 
 
-    <a href="<?php echo $logoutAction ?>" class="dropbtn">Logout</a>
+    <a href="<?php echo $logoutAction ?>" class="dropbtn">Log Keluar</a>
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
 
