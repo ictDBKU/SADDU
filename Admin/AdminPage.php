@@ -443,7 +443,7 @@ showRecords();}
   
    
   
-    <a href="<?php echo $logoutAction ?>" class="dropbtn">Log Masuk</a>
+    <a href="<?php echo $logoutAction ?>" class="dropbtn">Log Keluar</a>
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
 

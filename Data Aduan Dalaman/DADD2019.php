@@ -48,10 +48,11 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   SaluranAduan,
   StatusAduan,
   NamaPengadu,
+  BahagianPengadu,
   UsernamePengadu,
   NoTelefon,
   PIC,
-  TimeSubmit) VALUES  (%s,%s,%s,%s,%s,%s,%s,'Pending',%s,%s,%s,%s,now())",
+  TimeSubmit) VALUES  (%s,%s,%s,%s,%s,%s,%s,'Pending',%s,%s,%s,%s,%s,now())",
                        GetSQLValueString($_POST['NoRujukan'], "text"),
                        GetSQLValueString($_POST['kategoriAduan'], "text"),
 					   GetSQLValueString($_POST['SubKategoriDirujuk'], "text"),
@@ -60,6 +61,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 					   GetSQLValueString($_POST['address'], "text"),
 					   GetSQLValueString($_POST['SaluranAduan'], "text"),
 					   GetSQLValueString($_POST['NamaPengadu'], "text"),
+					   GetSQLValueString($_POST['bahagianPengadu'], "text"),
 					   GetSQLValueString($_POST['UsernamePengadu'], "text"),	   
 					   GetSQLValueString($_POST['NoTelefon'], "text"),	
 					   GetSQLValueString($_POST['Personincharge'], "text")
@@ -1404,9 +1406,7 @@ document.getElementById('GoogleMap').style.display="block";
     </div>
   </div>
 </div>
-<span style="padding:10px">
 
-</span>
 <div class="topnav" id="myTopnav">
   <a style=" background-color:#0FED56;">Sistem Aduan Dalaman DBKU</a>
   <a href="#" >Lapor Aduan</a>
@@ -1448,7 +1448,7 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
   <tbody id>
       <tr >
       <td ><label>No. Kes Aduan</label></td>
-      <td><input type="text" name="NoRujukan" id="NoRujukan" style="background-color:#F4EBEB;width:100%" value="AD/<?php echo date("Y/m/d");?>-<?php echo $tableid;?>" readonly></td>
+      <td><input type="text" name="NoRujukan" id="NoRujukan" style="background-color:#F4EBEB;width:100%" value="AD-<?php echo date("Y-m-d");?>-<?php echo $tableid;?>" readonly></td>
     
     </tr>
    <!-- <tr >      
@@ -1672,7 +1672,7 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
         </td>
         <tr>
         <td>Alamat Lokasi:</td>
-        <td> <textarea rows="8" cols="50" name="address" id="address"/></textarea><input type="button" value="Choose from map" onClick="showModal()"></td>
+        <td> <textarea rows="8" cols="50" name="address" id="address"/></textarea><!--<input type="button" value="Choose from map" onClick="showModal()">--></td>
 </tr>
     <tr>
     
@@ -1920,7 +1920,9 @@ infowindow.open(map, marker);
 google.maps.event.addDomListener(window, 'load', initialize);
 
 </script>
+<span style="padding:30px">
 
+</span>
 </body>
 </html>
 <?php

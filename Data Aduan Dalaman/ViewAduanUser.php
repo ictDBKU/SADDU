@@ -224,7 +224,7 @@ showRecords();
      
     
     <div class="dropdown-content">
- <a href="ViewAduanUser.php" onclick="">Semua Aduan
+ <a href="ViewAduanUser.php" onclick="">Lihat Semua Aduan
 </a>
  <a href="MyAduan.php" onclick="">Aduan Saya
 

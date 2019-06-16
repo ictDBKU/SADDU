@@ -56,9 +56,9 @@ $totalRows_ReadTindakan = mysql_num_rows($ReadTindakan);
 
 
 
-//SQL TO see the tindakan dirujuk
+//SQL TO see the tindakan dirujuk                       //The reason why use session because when not in use it will create error
 $query_AduanToPIC=sprintf("SELECT * from tindakandirujuk 
- where NoRujukan=%s and UsernamePegawaiDirujuk=%s", GetSQLValueString($colname_ViewCase, "text"),GetSQLValueString($_SESSION['Username'], "text"));
+ where NoRujukan=%s and UsernamePegawaiDirujuk=%s", GetSQLValueString($_SESSION['NoRujukan'],"text"),GetSQLValueString($_SESSION['Username'], "text"));
 $AduantToPIC= mysql_query($query_AduanToPIC, $Connection1) or die(mysql_error());
 $row_AduantToPIC = mysql_fetch_assoc($AduantToPIC);
 $totalRows_MyAduantToPIC = mysql_num_rows($AduantToPIC);
@@ -238,21 +238,39 @@ if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true")){
 <script type="text/javascript" src="../Admin/assets/js/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="../Admin/assets/js/bootstrap-table.js"></script>
 <link href="../Admin/assets/css/fresh-bootstrap-table.css" rel="stylesheet" />
+<link href="../css/imagezoom.css" rel="stylesheet" />
 <link  rel="stylesheet" href="../css/styles.css" rel="stylesheet" type="text/css" >
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="../Admin/assets/css/menubar.css">
-
+<script>
+function ShowLastUpdated(){
+	
+	var empty="<?php echo $row_ReadTindakan['TindakanDirujuk'];?>";
+	
+if(empty==""){
+	document.getElementById('LastUpdated').style.display="none";
+	
+	
+}else{
+	document.getElementById('LastUpdated').style.display="block";
+	
+}}
+</script>
 <script>
 function ShowReadOnlyTindakanDirujuk(){
-	 var counts=<?php echo $totalRows_MyAduantToPIC?>;
+	 var counts="<?php echo $totalRows_MyAduantToPIC?>";
 	
 if(counts=='0'){
 	
 	document.getElementById('tindakan').style.display="none";
 	document.getElementById('submit').style.display="none";
+	document.getElementById('CompleteButton').style.display="none";
+	
+	
 }else{
 	document.getElementById('MyAduan').style.display="none";
+	
 	
 }}
 </script>
@@ -309,13 +327,6 @@ document.getElementById("DayCounting").innerHTML =  totaldays+" days" ;
 </script>
 
 
-<script>
-function start(){
-
-CalculateDate();
-ShowReadOnlyTindakanDirujuk();
-}
-</script>
 <html>
 </head>
 
@@ -327,15 +338,15 @@ mysql_free_result($ViewCase);
 ?>
 <div class="topnav" id="myTopnav">
   <a style=" background-color:#0FED56;">Sistem Aduan Dalaman DBKU</a>
-  <a href="DADD2019.php" >Report Aduan</a>
+  <a href="DADD2019.php" >Lapor Aduan</a>
 
   
   <div class="dropdown">
-    <button class="dropbtn">Aduan Management 
-      <i class="fa fa-caret-down"></i>
+    <button class="dropbtn"> 
+      Papar Aduan<i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-    <a href="ViewAduanUser.php" onclick="showModal()">View Aduan
+    <a href="ViewAduanUser.php" onclick="showModal()">Lihat Semua Aduan
 </a> 
   
     </div>
@@ -353,11 +364,11 @@ mysql_free_result($ViewCase);
   <table id="myTable" border="1" align="center" style="width: auto" cellspacing="3" class="paleBlueRows">
     <thead>
       <th colspan="2">Aduan</th>
-        </thead>
+  </thead>
         <tr>
           
-          <td><div align="right"><strong>Nama Pengadu</strong></div></td>
-          <td style="color: #4E4E4E"><?php echo $row_ViewCase['NamaPengadu'] ?></td>
+          <td width="216"><div align="right"><strong>Nama Pengadu</strong></div></td>
+          <td width="327" style="color: #4E4E4E"><?php echo $row_ViewCase['NamaPengadu'] ?></td>
           
           </tr>
     <tr>
@@ -405,14 +416,24 @@ mysql_free_result($ViewCase);
       
     <tr>
       <td colspan="2">
+      <div align="center">
 	  <?php $files = glob("../upload/".$_GET['NoRujukan']."/*.*");
 for ($i=0; $i<count($files); $i++)
 {
 	$num = $files[$i];
-	 
-	echo '<img src="'.$num.'" alt="random image" height="250" width="225">'."&nbsp;&nbsp;";
+	
+	echo '<img class="myImg" id="myImg" src="'.$num.'" alt="random image" height="250" width="225">'."&nbsp;&nbsp;";
 	}?>
+    </div>
     
+    
+     <div id="myModal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="img01">
+  <div id="caption"></div>
+</div>
+    
+   
     </td>
       </tr>
     <tr>
@@ -466,8 +487,8 @@ for ($i=0; $i<count($files); $i++)
     
             <tr>
         
-      <td align="center" colspan="2"><button type="submit" id="submit" name="Submit"  value="Submit" >UPDATE TINDAKAN</button>
-      <a href="CompleteAduan.php?NoRujukan=<?php echo $row_ViewCase['NoRujukan'] ?>">Complete Aduan</a>
+      <td align="center" colspan="2"><button type="submit" id="submit" name="Submit"  value="Submit" >KEMASKINI TINDAKAN</button>
+      <a href="CompleteAduan.php?NoRujukan=<?php echo $row_ViewCase['NoRujukan'] ?>"><button id="CompleteButton" style="background-color:#39D154;">ADUAN SELESAI</button></a>
       </td>
       
       </tr>
@@ -479,5 +500,37 @@ for ($i=0; $i<count($files); $i++)
   </form>
   
 </div>
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+
+var img = $('.myImg');
+var modalImg = $("#img01");
+var captionText = document.getElementById("caption");
+$('.myImg').click(function(){
+    modal.style.display = "block";
+    var newSrc = this.src;
+    modalImg.attr('src', newSrc);
+    captionText.innerHTML = this.alt;
+});
+
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() { 
+  modal.style.display = "none";
+}
+</script>
+<script>
+function start(){
+CalculateDate();
+ShowReadOnlyTindakanDirujuk();
+ShowLastUpdated();
+}
+</script>
 </body>
 </html>
