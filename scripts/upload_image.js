@@ -3,10 +3,10 @@ $(document).ready(function(){
         $('#image_upload_form').ajaxForm({           
             target:'#images_preview',
             beforeSubmit:function(e){
-                $('.image_uploading').show();
+                $('.image_uploading').hide();
             },
             success:function(e){
-                $('.image_uploading').hide();
+                $('.image_uploading').show();
             },
             error:function(e){
             }

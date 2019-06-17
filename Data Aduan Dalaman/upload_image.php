@@ -55,12 +55,21 @@ $upload_dir="../upload/".$TableID."/";
 		  GetSQLValueString($TableID, "text"),
                        GetSQLValueString($upload_image, "text"));
 		
-
-		mysql_query( $insert_sql,$Connection1) or die("database error: ". mysql_error($Connection1));
+		$result=mysql_query( $insert_sql,$Connection1) or die("database error: ". mysql_error($Connection1));
+		 if($result){
+			 	echo '<script>';
+			echo 'alert("Gambar berjaya di muat naik")';
+			echo '</script>'; 
+		 }else{
+			echo '<script>';
+			echo 'alert("Gambar gagal di muat naik")';
+			echo '</script>'; 
+		 }
+		 
 		 }}
 }
 		 foreach($images as $image){
-echo '<img src="'.$image.'" height="150" width="225" " />';
+echo '<img src="'.$image.'" height="250" width="225" " />';
 		
 	
 }

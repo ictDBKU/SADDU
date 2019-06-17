@@ -160,24 +160,7 @@ $row_kategoriAduan = mysql_fetch_assoc($KategoriAduan);
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Sistem Aduan Dalaman DBKU</title>
-<script>
- function showRecords()
- {
-	 var records="<?php echo $totalRows ?>";
-	 if(records=='0'){
-		 document.getElementById("fresh-table").style.display="none";
-		 document.getElementById("showRecords").style.display="block"
- }
- }
-</script>
-<script>
-function toHideNotification(){
-	
-if(<?php echo $totalRowsNotification_UserAccount =='1'?> ){
-document.getElementById('notification-count').style.display="none";
-}
-}
-</script>
+
 
 <script type="text/javascript" src="../Admin/assets/js/bootstrap.js"></script>
 <script type="text/javascript" src="../Admin/assets/js/jquery-1.11.2.min.js"></script>
@@ -189,13 +172,24 @@ document.getElementById('notification-count').style.display="none";
 <link rel="stylesheet" href="../Admin/assets/css/menubar.css">
 <link rel="stylesheet" href="../css/notification-demo-style.css" type="text/css">
 
-
-
-
-
-
-
-
+<script>
+ function showRecords()
+ {
+	
+	 if(<?php echo $totalRows ?> =='0'){
+		 document.getElementById('table1').style.display="none";
+		 document.getElementById('showRecords').style.display="block"
+ }
+ }
+</script>
+<script>
+function toHideNotification(){
+	
+if(<?php echo $totalRowsNotification_UserAccount =='1'?> ){
+document.getElementById('notification-count').style.display="none";
+}
+}
+</script>
 
 
 <script>

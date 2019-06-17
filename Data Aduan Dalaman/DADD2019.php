@@ -569,7 +569,7 @@ $totalRows_TagUser = mysql_num_rows($TagUser);
 </style>
 <script>
 function showModal(){
-document.getElementById('id01').style.display='block';
+document.getElementById('image_upload_form').style.display='block';
 }
 
 
@@ -740,6 +740,8 @@ function showSubkategori(){
 
 if (k == 1) {
 	document.getElementById("TagUser").value = 'hartini';
+	document.getElementById("BahagianDirujuk").innerHTML = 'BAHAGIAN PENYELENGGARAAN INFRASTRUKTUR';
+	document.getElementById("PersonInCharge").innerHTML = 'Person In Charge:Hartini Bujang';
 	document.getElementById("SubKategoriDirujuk1").removeAttribute('disabled');
 	k1.style.display="block";
 	document.getElementById("Personincharge").value = '5';
@@ -778,6 +780,8 @@ if (k == 1) {
   } else if (k==2) {
 	  document.getElementById("TagUser").value = 'hartini';
 	  document.getElementById("Personincharge").value = '5';
+	  document.getElementById("BahagianDirujuk").innerHTML = 'BAHAGIAN PENYELENGGARAAN INFRASTRUKTUR';
+	document.getElementById("PersonInCharge").innerHTML = 'Person In Charge:Hartini Bujang';
 	document.getElementById("SubKategoriDirujuk1").disabled=true;
 	k1.style.display="none";
 	document.getElementById("SubKategoriDirujuk2").removeAttribute('disabled');
@@ -814,6 +818,8 @@ if (k == 1) {
  } else if (k==3) {
 	 document.getElementById("TagUser").value = 'hartini';
 	  document.getElementById("Personincharge").value = '5';
+	  document.getElementById("BahagianDirujuk").innerHTML = 'BAHAGIAN PENYELENGGARAAN INFRASTRUKTUR';
+	document.getElementById("PersonInCharge").innerHTML = 'Person In Charge:Hartini Bujang';
 	k1.style.display="none";
 	k2.style.display="none";
 	k3.style.display = "block";
@@ -854,6 +860,8 @@ if (k == 1) {
 }else if (k==4) {
 	document.getElementById("TagUser").value = 'emily';
 	document.getElementById("Personincharge").value = '7';
+	document.getElementById("BahagianDirujuk").innerHTML = 'BAHAGIAN KESIHATAN DAN PERSEKITARAAN';
+	document.getElementById("PersonInCharge").innerHTML = 'Person In Charge:EMILY TIMBUNG';
 	k1.style.display="none";
 	k2.style.display="none";
 	k3.style.display="none";
@@ -893,6 +901,8 @@ k5.style.display="none";
 }else if (k==5) {
 	document.getElementById("TagUser").value = 'emily';
 	document.getElementById("Personincharge").value = '7';
+	document.getElementById("BahagianDirujuk").innerHTML = 'BAHAGIAN KESIHATAN DAN PERSEKITARAAN';
+	document.getElementById("PersonInCharge").innerHTML = 'Person In Charge:EMILY TIMBUNG';
 	k1.style.display="none";
 	k2.style.display="none";
 	k3.style.display="none";
@@ -932,6 +942,8 @@ k5.style.display="none";
 else if (k==6) {
 	document.getElementById("TagUser").value = 'emily';
 	document.getElementById("Personincharge").value = '7';
+		document.getElementById("BahagianDirujuk").innerHTML = 'BAHAGIAN KESIHATAN DAN PERSEKITARAAN';
+	document.getElementById("PersonInCharge").innerHTML = 'Person In Charge:EMILY TIMBUNG';
 	k1.style.display="none";
 	k2.style.display="none";
 	k3.style.display="none";
@@ -970,6 +982,8 @@ else if (k==6) {
 else if (k==7) {
 	document.getElementById("TagUser").value = 'juliza';
 	document.getElementById("Personincharge").value = '8';
+		document.getElementById("BahagianDirujuk").innerHTML = 'BAHAGIAN MEKANIKAL DAN ELEKTRIK';
+	document.getElementById("PersonInCharge").innerHTML = 'Person In Charge:JULIZA JULYHI';
 	k1.style.display="none";
 	k2.style.display="none";
 	k3.style.display="none";
@@ -1006,6 +1020,8 @@ else if (k==7) {
 }else if (k==8) {
 	document.getElementById("TagUser").value = 'norliza';
 	document.getElementById("Personincharge").value = '9';
+	document.getElementById("BahagianDirujuk").innerHTML = 'BAHAGIAN BANGUNAN';
+	document.getElementById("PersonInCharge").innerHTML = 'Person In Charge:NORLIZA HASSAN';
 	k1.style.display="none";
 	k2.style.display="none";
 	k3.style.display="none";
@@ -1043,6 +1059,8 @@ else if (k==7) {
 	}else if (k==9) {
 		document.getElementById("TagUser").value = 'mustafa';
 		document.getElementById("Personincharge").value = '10';
+		document.getElementById("BahagianDirujuk").innerHTML = 'BAHAGIAN PERANCANGAN DAN LANDSKAP';
+	document.getElementById("PersonInCharge").innerHTML = 'Person In Charge:MUSTAFA  NOR RAMSAY';
 		k1.style.display="none";
 	k2.style.display="none";
 	k3.style.display="none";
@@ -1082,6 +1100,8 @@ else if (k==7) {
 	}else if (k==10) {
 		document.getElementById("TagUser").value = 'bibiana';
 	document.getElementById("Personincharge").value = '11';
+	document.getElementById("BahagianDirujuk").innerHTML = 'BAHAGIAN KESELAMATAN';
+	document.getElementById("PersonInCharge").innerHTML = 'Person In Charge:BIBIANA BANGUL';
 		k1.style.display="none";
 	k2.style.display="none";
 	k3.style.display="none";
@@ -1119,6 +1139,9 @@ else if (k==7) {
 	}else if (k==11) {
 		document.getElementById("TagUser").value = 'jamayah';
 		document.getElementById("Personincharge").value = '12';
+		document.getElementById("BahagianDirujuk").innerHTML = 'BAHAGIAN PENGUATKUASAAN';
+	document.getElementById("PersonInCharge").innerHTML = 'Person In Charge:JAMAYAH BUJANG';
+		
 		k1.style.display="none";
 	k2.style.display="none";
 	k3.style.display="none";
@@ -1159,6 +1182,8 @@ else if (k==7) {
 	}else if (k==12) {
 		document.getElementById("TagUser").value = 'norliza';
 		document.getElementById("Personincharge").value = '9';
+	document.getElementById("BahagianDirujuk").innerHTML = 'BAHAGIAN BANGUNAN';
+	document.getElementById("PersonInCharge").innerHTML = 'Person In Charge:NORLIZA HASSAN';
 	k1.style.display="none";
 	k2.style.display="none";
 	k3.style.display="none";
@@ -1197,6 +1222,8 @@ else if (k==7) {
 		
 		document.getElementById("TagUser").value = 'jacquline';
 		document.getElementById("Personincharge").value = '13';
+		document.getElementById("BahagianDirujuk").innerHTML = 'BAHAGIAN PROJEK KEJUTERAAN';
+	document.getElementById("PersonInCharge").innerHTML = 'Person In Charge:JACQULINE EDWARD';
 	k1.style.display="none";
 	k2.style.display="none";
 	k3.style.display="none";
@@ -1235,7 +1262,8 @@ else if (k==7) {
 		
 		document.getElementById("TagUser").value = 'linie';
 		document.getElementById("Personincharge").value = '14';
-		
+		document.getElementById("BahagianDirujuk").innerHTML = 'BAHAGIAN PERLESENAN';
+	document.getElementById("PersonInCharge").innerHTML = 'Person In Charge:LINIE DINDANG';
 			k1.style.display="none";
 	k2.style.display="none";
 	k3.style.display="none";
@@ -1273,6 +1301,8 @@ else if (k==7) {
 	}else if (k==15) {
 		document.getElementById("TagUser").value = 'linie';
 		document.getElementById("Personincharge").value = '14';
+		document.getElementById("BahagianDirujuk").innerHTML = 'BAHAGIAN PERLESENAN';
+	document.getElementById("PersonInCharge").innerHTML = 'Person In Charge:LINIE DINDANG';
 	k1.style.display="none";
 	k2.style.display="none";
 	k3.style.display="none";
@@ -1310,6 +1340,8 @@ else if (k==7) {
 	}else if (k==16) {
 		document.getElementById("TagUser").value = 'maureen';
 		document.getElementById("Personincharge").value = '15';
+		document.getElementById("BahagianDirujuk").innerHTML = 'BAHAGIAN PEMBANGUNAN PERNIAGAAN';
+	document.getElementById("PersonInCharge").innerHTML = 'Person In Charge:MAUREEN GANDOT';
 	k1.style.display="none";
 	k2.style.display="none";
 	k3.style.display="none";
@@ -1433,7 +1465,7 @@ document.getElementById('GoogleMap').style.display="block";
 date_default_timezone_set('Asia/Kuala_Lumpur');
 ?>
 <form name="form1" method="POST" action="<?php echo $addFormAction; ?>" class="" align="center">
-    <table width="980" border="1" align="center" bgcolor="#A7B3FF" >
+    <table width="980" align="center" bgcolor="#A7B3FF"  >
 </p>
 <p>Hello,<?php echo $row_Recordset1['Name']; ?></p>
   <tbody>
@@ -1447,7 +1479,9 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
 <table id="tab2" border="1" align="center" bgcolor="#CCD9FF" >
   <tbody id>
       <tr >
-      <td ><label>No. Kes Aduan</label></td>
+      <td style="padding:15px;"><label>
+        <div align="right">No. Kes Aduan</div>
+      </label></td>
       <td><input type="text" name="NoRujukan" id="NoRujukan" style="background-color:#F4EBEB;width:100%" value="AD-<?php echo date("Y-m-d");?>-<?php echo $tableid;?>" readonly></td>
     
     </tr>
@@ -1472,7 +1506,8 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
  <tr>
 
     <tr >
-      <td>Tarikh<br></td>
+      <td style="padding:15px;"><div align="right">Tarikh<br>
+      </div></td>
       <td><input type="text" name="Tarikh" id="Tarikh" value="<?php echo date('d/m/Y ', time());?>" style="background-color:#F4EBEB;width:100%" readonly>
       <input type="hidden" name="RealTarikh" id="RealTarikh" value="<?php echo date('Y/m/d ', time());?>" readonly></td>
       
@@ -1481,16 +1516,20 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
     </tr>
     
     <tr >
-      <td>Masa<br></td>
+      <td style="padding:15px;"><div align="right">Masa<br>
+      </div></td>
       <td><input type="text" name="textfield3" id="textfield3"  value="<?php echo date('h:i a ', time());?>"  style="background-color:#F4EBEB;width:100%" readonly></td>
     
     </tr>
     <tr>
-    <td><label>Nama Pengadu</label></td>
-    <td style="padding:10px;"><input type="text" name="NamaPengadu" id="NamaPengadu"  style="width:100%" required></td>
+    <td style="padding:15px;"><label>
+      <div align="right">Nama Pengadu</div>
+    </label></td>
+    <td ><input type="text" name="NamaPengadu" id="NamaPengadu"  style="width:100%" required></td>
  </tr>
  <tr>
- <td>Bahagian Pengadu:
+ <td style="padding:15px;"><div align="right">Bahagian Pengadu:
+ </div>
  <td><select name="bahagianPengadu" id="bahagianPengadu" style="width:100%">
   <?php do { ?>
   <option value="<?php echo $row_DepartmentName['DepartmentName']; ?>"><?php echo $row_DepartmentName['DepartmentName']; ?></option>
@@ -1505,12 +1544,16 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
  
  
  <tr>
-    <td><label>No telefon</label></td>
-    <td style="padding:10px;"><input type="text" name="NoTelefon" id="NoTelefon"  style="width:100%" pattern="\d*.{10,}" placeholder="Eg.0111234567" required></td>
+    <td style="padding:15px;"><label>
+      <div align="right">No telefon</div>
+    </label></td>
+    <td ><input type="text" name="NoTelefon" id="NoTelefon"  style="width:100%" pattern="\d*.{10,}" placeholder="Eg.0111234567" required></td>
  </tr>
     <tr >
-      <td><label>Kategori</label></td>
-      <td style="padding:10px"><select name="kategoriAduan" id="kategoriAduan" style="width:100%" onchange="showSubkategori()" >
+      <td style="padding:15px;"><label>
+        <div align="right">Kategori</div>
+      </label></td>
+      <td ><select name="kategoriAduan" id="kategoriAduan" style="width:100%" onchange="showSubkategori()" >
                       <?php do { ?>
               <option value="<?php echo $row_KategoriAduan['IDKategoriAduan']; ?>"><?php echo $row_KategoriAduan['NamaAduan']; ?></option>
               <?php } while ($row_KategoriAduan = mysql_fetch_assoc($KategoriAduan)); ?>
@@ -1527,8 +1570,9 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
      
     </tr>
     <tr>
-    <td>Jenis:
-    <td><select name="SubKategoriDirujuk2" id="SubKategoriDirujuk1" style="width:100%">
+    <td style="padding:15px;"><div align="right">Jenis:
+    </div>
+    <td ><select name="SubKategoriDirujuk2" id="SubKategoriDirujuk1" style="width:100%">
   <?php do { ?>
   <option value="<?php echo $row_subkategori1['NamaSub']; ?>"><?php echo $row_subkategori1['NamaSub']; ?></option>
   <?php } while($row_subkategori1 = mysql_fetch_assoc($subkategori1)); ?>
@@ -1611,8 +1655,15 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
               
    </tr>
     <tr >
-      <td>Kawasan DUN
-        <!--  **This code was hide for jenis Aduan because it wasn`t confirm with the user <label>Jenis Aduan</label>--></td>
+    <tr>
+    <td style="padding:15px;"><div align="right">Aduan Dirujuk:
+    </div>
+    <td><p id="BahagianDirujuk"></p>
+        <p id="PersonInCharge"></p>
+    </tr>
+      <td style="padding:15px;"><div align="right">Kawasan DUN:
+        <!--  **This code was hide for jenis Aduan because it wasn`t confirm with the user <label>Jenis Aduan</label>-->
+      </div></td>
       <td style="padding:10px"><select name="DunKawasan" id="DunKawasan" onchange="showKawasan()" style="width:100%">
                       <?php do { ?>
       <option value="<?php echo $row_DunKawasan['ID']; ?>"><?php echo $row_DunKawasan['Abbreviation']; ?>-<?php echo $row_DunKawasan['NamaDun']; ?></option>
@@ -1635,8 +1686,8 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
 
 
     <tr >
-      <td><label>Kawasan Aduan:</label></td>
-      <td align="center" style="padding:10px"><select name="kawasanAduan" id="kawasanAduan1" style="width:100%"  >
+      <td style="padding:15px;"><div align="right"><label>Kawasan Aduan:</label></div></td>
+      <td align="center" ><select name="kawasanAduan" id="kawasanAduan1" style="width:100%"  >
                       <?php do { ?>
     <option value="<?php echo $row_DunKawasan1['NamaKawasan']; ?>"><?php echo $row_DunKawasan1['NamaKawasan']; ?></option>
               <?php } while ($row_DunKawasan1 = mysql_fetch_assoc($DunKawasan1)); ?>             
@@ -1671,13 +1722,18 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
         
         </td>
         <tr>
-        <td>Alamat Lokasi:</td>
+        <td>Gambar:
+        <td> <input type="button" value="Pilih gambar:"  onClick="showModal()" >
+        <tr>
+        <td style="padding:15px;"><div align="right">Alamat Lokasi:</div></td>
         <td> <textarea rows="8" cols="50" name="address" id="address"/></textarea><!--<input type="button" value="Choose from map" onClick="showModal()">--></td>
 </tr>
     <tr>
     
   
-      <td><label>Maklumat:</label></td>
+      <td style="padding:15px;"><label>
+        <div align="right">Maklumat:</div>
+      </label></td>
       <td ><textarea rows="8" cols="50" name="MaklumatAduan" id="MaklumatAduan" ></textarea> </td>
      </tr>
     
@@ -1694,7 +1750,9 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
   
   
     <tr >
-      <td><label>Saluran</label></td>
+      <td style="padding:15px;"><label>
+        <div align="right">Saluran</div>
+      </label></td>
       <td style="padding:10px">
     <input type="radio" id="contactChoice1"
      name="SaluranAduan" value="Staff Dalaman">
@@ -1734,20 +1792,33 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
 
 </form>	
 <div align="center">
-		<form method="post" name="image_upload_form" id="image_upload_form" enctype="multipart/form-data" action="upload_image.php?TableID=AD-<?php echo date("Y-m-d");?>-<?php echo $tableid;?>">   
+<div id="images_preview"></div>	
+   
+<table border="1" width="50%">
+<tr>
+
+<td>		<form method="post" name="image_upload_form" id="image_upload_form" enctype="multipart/form-data" action="upload_image.php?TableID=AD-<?php echo date("Y-m-d");?>-<?php echo $tableid;?>">   
     <label>Choose Multiple Images to Upload</label>
 	<br>
 	<br>
     <input type="file" name="images[]" id="upload_files" multiple >
+    <div class="image_uploading hidden">
+        <label>&nbsp;</label>
+        <img src="" alt="Image Uploading......"/>
+    </div>
+<button type="submit" value="Submit" id="Submit" name="Submit"  style="position: absolute;  left:30%;
+ ">Muat Naik Gambar</button>
+<br>
+
+</td>
+</tr>
  
-        <label> </label>
-        
- 
-     <button type="submit" value="Submit" id="Submit" name="Submit">Hantar</button>
+     </table>
+
 	</form>
-	<div id="images_preview"></div>	
-   
-<div>
+    
+	
+
 
 <h3 id="Map" style="display:none" align="center">Pilih tempat lokasi:</h3>
 
