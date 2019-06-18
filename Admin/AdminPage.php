@@ -251,6 +251,12 @@ $totalRows_Designation = mysql_num_rows($Designation);
 
 </head>
 <script>
+function ConfirmDelete(NoRujukan) {
+	
+  return confirm("Adakah anda pasti untuk memadam aduan NoRujukan:"+NoRujukan);
+}
+</script>
+<script>
  function showRecords()
  {
 	 var records="<?php echo $rows ?>";
@@ -341,9 +347,19 @@ function myFunction() {
 }
 </script>
 <script>
-function ConfirmDelete(){
-	
-confirm("Are you sure delete this case?");	
+
+function DeleteCase() {
+  var txt;
+  var r = confirm("Are you sure you want to delete the case?");
+  if (r == true) {
+    alert("Case deleted")
+  } else {
+    
+  }
+
+}
+</script>
+
 }
 
 </script>
@@ -362,9 +378,8 @@ showRecords();}
         <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
         <div class="test-form">
         <form method="POST" action="<?php echo $editFormAction; ?>" name="form1" id="Reg" onSubmit="return checkForm(this)">
-	  <img src="../LOGIN2.jpg" class="Logo"><br>
-	  
-      <h1>SISTEM ADUAN DALAMAN DBKU</h1>
+          <img src="../LOGIN2.jpg" class="Logo"><br>
+	        <h1>SISTEM ADUAN DALAMAN DBKU</h1>
       <table width="500" border="0" align="center">
         <tbody>
           <tr>
@@ -506,7 +521,7 @@ showRecords();}
         <td><?php echo $row_Recordset1['MaklumatAduan']; ?></td>
         <td><?php echo $row_Recordset1['StatusAduan']; ?></td>
         <td><?php echo $row_Recordset1['TimeSubmit']; ?></td>
-         <td><a href="DeleteCase.php?NoRujukan=<?php echo $row_Recordset1['NoRujukan'];?>" ><button id="confirmdelete" >DELETE</button></a></button></td>
+         <td><a href="DeleteCase.php?NoRujukan=<?php echo $row_Recordset1['NoRujukan'];?>" onClick="return ConfirmDelete('<?php echo $row_Recordset1['NoRujukan'];?>');" ><button id="confirmdelete" >DELETE</button></a></button></td>
      
     </tr>
     <?php } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>

@@ -7,9 +7,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
   if (PHP_VERSION < 6) {
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
-
   $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
   switch ($theType) {
     case "text":
       $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
@@ -31,12 +29,10 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
   return $theValue;
 }
 }
-
 $addFormAction = $_SERVER['PHP_SELF'];
 if (isset($_SERVER['QUERY_STRING'])) {
   $addFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
-
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   $insertSQL = sprintf("INSERT INTO aduan (
   NoRujukan,
@@ -88,7 +84,6 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 					   
 					   );
 					   
-
   mysql_select_db($database_Connection1, $Connection1);
   $Result1 = mysql_query($insertSQL, $Connection1) or die(mysql_error());
 $Result2 = mysql_query($insertSQL2, $Connection1) or die(mysql_error());
@@ -103,196 +98,153 @@ echo '</script>';
  // header(sprintf("Location: %s", $insertGoTo));
 }
 $UsernameLogin=$_SESSION['Username'];
-
-
 //Query to display kategori aduan
 mysql_select_db($database_Connection1, $Connection1);
 $queryPIC = "SELECT Username FROM aduan INNER JOIN useraccount on useraccount.ID = aduan.PIC ";
 $PIC = mysql_query($queryPIC, $Connection1) or die(mysql_error());
 $row_queryPIC = mysql_fetch_assoc($PIC );
 $totalRows_queryPIC = mysql_num_rows($PIC );
-
-
-
-
 //Query to display kategori aduan
 mysql_select_db($database_Connection1, $Connection1);
 $query_KategoriAduan = "SELECT * FROM kategoriaduan ";
 $KategoriAduan = mysql_query($query_KategoriAduan, $Connection1) or die(mysql_error());
 $row_KategoriAduan = mysql_fetch_assoc($KategoriAduan);
 $totalRows_KategoriAduan = mysql_num_rows($KategoriAduan);
-
-
 //Sql merge the subkategori with kategori where kategori ID ='1'
 mysql_select_db($database_Connection1, $Connection1);
 $query_subkategori1 = "SELECT * FROM kategoriaduan INNER JOIN subkategoriaduan ON subkategoriaduan.KategoriID=kategoriaduan.IDKategoriAduan where IDKategoriAduan='1'";
 $subkategori1 = mysql_query($query_subkategori1, $Connection1) or die(mysql_error());
 $row_subkategori1 = mysql_fetch_assoc($subkategori1);
-
-
 //Sql merge the subkategori with kategori where kategori ID ='2'
 mysql_select_db($database_Connection1, $Connection1);
 $query_subkategori2 = "SELECT * FROM kategoriaduan INNER JOIN subkategoriaduan ON subkategoriaduan.KategoriID=kategoriaduan.IDKategoriAduan where IDKategoriAduan='2'";
 $subkategori2 = mysql_query($query_subkategori2, $Connection1) or die(mysql_error());
 $row_subkategori2 = mysql_fetch_assoc($subkategori2);
-
-
 //Sql merge the subkategori with kategori where kategori ID ='3'
 mysql_select_db($database_Connection1, $Connection1);
 $query_subkategori3 = "SELECT * FROM kategoriaduan INNER JOIN subkategoriaduan ON subkategoriaduan.KategoriID=kategoriaduan.IDKategoriAduan where IDKategoriAduan='3'";
 $subkategori3 = mysql_query($query_subkategori3, $Connection1) or die(mysql_error());
 $row_subkategori3 = mysql_fetch_assoc($subkategori3);
-
 //Sql merge the subkategori with kategori where kategori ID ='4'
 mysql_select_db($database_Connection1, $Connection1);
 $query_subkategori4 = "SELECT * FROM kategoriaduan INNER JOIN subkategoriaduan ON subkategoriaduan.KategoriID=kategoriaduan.IDKategoriAduan where IDKategoriAduan='4'";
 $subkategori4 = mysql_query($query_subkategori4, $Connection1) or die(mysql_error());
 $row_subkategori4 = mysql_fetch_assoc($subkategori4);
-
 //Sql merge the subkategori with kategori where kategori ID ='5'
 mysql_select_db($database_Connection1, $Connection1);
 $query_subkategori5 = "SELECT * FROM kategoriaduan INNER JOIN subkategoriaduan ON subkategoriaduan.KategoriID=kategoriaduan.IDKategoriAduan where IDKategoriAduan='5'";
 $subkategori5 = mysql_query($query_subkategori5, $Connection1) or die(mysql_error());
 $row_subkategori5 = mysql_fetch_assoc($subkategori5);
-
 //Sql merge the subkategori with kategori where kategori ID ='6'
 mysql_select_db($database_Connection1, $Connection1);
 $query_subkategori6 = "SELECT * FROM kategoriaduan INNER JOIN subkategoriaduan ON subkategoriaduan.KategoriID=kategoriaduan.IDKategoriAduan where IDKategoriAduan='6'";
 $subkategori6 = mysql_query($query_subkategori6, $Connection1) or die(mysql_error());
 $row_subkategori6 = mysql_fetch_assoc($subkategori6);
-
 //Sql merge the subkategori with kategori where kategori ID ='7'
 mysql_select_db($database_Connection1, $Connection1);
 $query_subkategori7 = "SELECT * FROM kategoriaduan INNER JOIN subkategoriaduan ON subkategoriaduan.KategoriID=kategoriaduan.IDKategoriAduan where IDKategoriAduan='7'";
 $subkategori7 = mysql_query($query_subkategori7, $Connection1) or die(mysql_error());
 $row_subkategori7 = mysql_fetch_assoc($subkategori7);
-
 //Sql merge the subkategori with kategori where kategori ID ='8'
 mysql_select_db($database_Connection1, $Connection1);
 $query_subkategori8 = "SELECT * FROM kategoriaduan INNER JOIN subkategoriaduan ON subkategoriaduan.KategoriID=kategoriaduan.IDKategoriAduan where IDKategoriAduan='8'";
 $subkategori8 = mysql_query($query_subkategori8, $Connection1) or die(mysql_error());
 $row_subkategori8 = mysql_fetch_assoc($subkategori8);
-
 //Sql merge the subkategori with kategori where kategori ID ='9'
 mysql_select_db($database_Connection1, $Connection1);
 $query_subkategori9 = "SELECT * FROM kategoriaduan INNER JOIN subkategoriaduan ON subkategoriaduan.KategoriID=kategoriaduan.IDKategoriAduan where IDKategoriAduan='9'";
 $subkategori9 = mysql_query($query_subkategori9, $Connection1) or die(mysql_error());
 $row_subkategori9 = mysql_fetch_assoc($subkategori9);
-
 //Sql merge the subkategori with kategori where kategori ID ='10'
 mysql_select_db($database_Connection1, $Connection1);
 $query_subkategori10 = "SELECT * FROM kategoriaduan INNER JOIN subkategoriaduan ON subkategoriaduan.KategoriID=kategoriaduan.IDKategoriAduan where IDKategoriAduan='10'";
 $subkategori10 = mysql_query($query_subkategori10, $Connection1) or die(mysql_error());
 $row_subkategori10 = mysql_fetch_assoc($subkategori10);
-
 //Sql merge the subkategori with kategori where kategori ID ='11'
 mysql_select_db($database_Connection1, $Connection1);
 $query_subkategori11 = "SELECT * FROM kategoriaduan INNER JOIN subkategoriaduan ON subkategoriaduan.KategoriID=kategoriaduan.IDKategoriAduan where IDKategoriAduan='11'";
 $subkategori11 = mysql_query($query_subkategori10, $Connection1) or die(mysql_error());
 $row_subkategori11 = mysql_fetch_assoc($subkategori10);
-
 //Sql merge the subkategori with kategori where kategori ID ='12'
 mysql_select_db($database_Connection1, $Connection1);
 $query_subkategori12 = "SELECT * FROM kategoriaduan INNER JOIN subkategoriaduan ON subkategoriaduan.KategoriID=kategoriaduan.IDKategoriAduan where IDKategoriAduan='12'";
 $subkategori12 = mysql_query($query_subkategori12, $Connection1) or die(mysql_error());
 $row_subkategori12 = mysql_fetch_assoc($subkategori12);
-
 //Sql merge the subkategori with kategori where kategori ID ='13'
 mysql_select_db($database_Connection1, $Connection1);
 $query_subkategori13 = "SELECT * FROM kategoriaduan INNER JOIN subkategoriaduan ON subkategoriaduan.KategoriID=kategoriaduan.IDKategoriAduan where IDKategoriAduan='13'";
 $subkategori13 = mysql_query($query_subkategori13, $Connection1) or die(mysql_error());
 $row_subkategori13 = mysql_fetch_assoc($subkategori13);
-
 //Sql merge the subkategori with kategori where kategori ID ='14'
 mysql_select_db($database_Connection1, $Connection1);
 $query_subkategori14 = "SELECT * FROM kategoriaduan INNER JOIN subkategoriaduan ON subkategoriaduan.KategoriID=kategoriaduan.IDKategoriAduan where IDKategoriAduan='14'";
 $subkategori14 = mysql_query($query_subkategori14, $Connection1) or die(mysql_error());
 $row_subkategori14 = mysql_fetch_assoc($subkategori14);
-
-
 //Sql merge the subkategori with kategori where kategori ID ='15'
 mysql_select_db($database_Connection1, $Connection1);
 $query_subkategori15 = "SELECT * FROM kategoriaduan INNER JOIN subkategoriaduan ON subkategoriaduan.KategoriID=kategoriaduan.IDKategoriAduan where IDKategoriAduan='15'";
 $subkategori15 = mysql_query($query_subkategori15, $Connection1) or die(mysql_error());
 $row_subkategori15 = mysql_fetch_assoc($subkategori15);
-
 //Sql merge the subkategori with kategori where kategori ID ='16'
 mysql_select_db($database_Connection1, $Connection1);
 $query_subkategori16 = "SELECT * FROM kategoriaduan INNER JOIN subkategoriaduan ON subkategoriaduan.KategoriID=kategoriaduan.IDKategoriAduan where IDKategoriAduan='16'";
 $subkategori16 = mysql_query($query_subkategori16, $Connection1) or die(mysql_error());
 $row_subkategori16 = mysql_fetch_assoc($subkategori16);
-
-
 //Sql to merge kategori with PIC
 mysql_select_db($database_Connection1, $Connection1);
 $query_KategoriMatchPIC = "SELECT Abbreviation,Name FROM kategoriaduan INNER JOIN useraccount ON useraccount.ID=kategoriaduan.PIC INNER JOIN department ON department.DepartmentID=useraccount.DepartmentID 
   ";
 $KategoriMatchPIC = mysql_query($query_KategoriMatchPIC, $Connection1) or die(mysql_error());
 $row_KategoriMatchPIC = mysql_fetch_assoc($KategoriMatchPIC);
-
 $KategoriMatchPersonInCharge;
-
-
-
 //Display the bahagian pengadu
 mysql_select_db($database_Connection1, $Connection1);
 $query_DepartmentName = "SELECT * FROM department";
 $DepartmentName = mysql_query($query_DepartmentName, $Connection1) or die(mysql_error());
 $row_DepartmentName = mysql_fetch_assoc($DepartmentName);
 $totalRows_DepartmentName = mysql_num_rows($DepartmentName);
-
 //To display the DUN Kawasan
 mysql_select_db($database_Connection1, $Connection1);
 $query_DunKawasan = "SELECT * FROM dunkawasan";
 $DunKawasan = mysql_query($query_DunKawasan, $Connection1) or die(mysql_error());
 $row_DunKawasan = mysql_fetch_assoc($DunKawasan);
 $totalRows_DunKawasan = mysql_num_rows($DunKawasan);
-
-
-
 //To merge the DunKawasan with Nama Kawasan where DUN ='N4'
 mysql_select_db($database_Connection1, $Connection1);
 $query_DunKawasan1 = "SELECT * FROM dunkawasan INNER JOIN kawasanaduan ON kawasanaduan.IDDUN=dunkawasan.ID where ID='1'";
 $DunKawasan1 = mysql_query($query_DunKawasan1, $Connection1) or die(mysql_error());
 $row_DunKawasan1 = mysql_fetch_assoc($DunKawasan1);
 $totalRows_DunKawasan1 = mysql_num_rows($DunKawasan1);
-
-
 //To merge the DunKawasan with Nama Kawasan where DUN ='N5'
 mysql_select_db($database_Connection1, $Connection1);
 $query_DunKawasan2 = "SELECT * FROM dunkawasan INNER JOIN kawasanaduan ON kawasanaduan.IDDUN=dunkawasan.ID where ID='2'";
 $DunKawasan2 = mysql_query($query_DunKawasan2, $Connection1) or die(mysql_error());
 $row_DunKawasan2 = mysql_fetch_assoc($DunKawasan2);
 $totalRows_DunKawasan2 = mysql_num_rows($DunKawasan2);
-
 //To merge the DunKawasan with Nama Kawasan where DUN ='N6'
 mysql_select_db($database_Connection1, $Connection1);
 $query_DunKawasan3 = "SELECT * FROM dunkawasan INNER JOIN kawasanaduan ON kawasanaduan.IDDUN=dunkawasan.ID where ID='3'";
 $DunKawasan3 = mysql_query($query_DunKawasan3, $Connection1) or die(mysql_error());
 $row_DunKawasan3 = mysql_fetch_assoc($DunKawasan3);
 $totalRows_DunKawasan3 = mysql_num_rows($DunKawasan3);
-
 //To merge the DunKawasan with Nama Kawasan where DUN ='N7'
 mysql_select_db($database_Connection1, $Connection1);
 $query_DunKawasan4 = "SELECT * FROM dunkawasan INNER JOIN kawasanaduan ON kawasanaduan.IDDUN=dunkawasan.ID where ID='4'";
 $DunKawasan4 = mysql_query($query_DunKawasan4, $Connection1) or die(mysql_error());
 $row_DunKawasan4 = mysql_fetch_assoc($DunKawasan4);
 $totalRows_DunKawasan4 = mysql_num_rows($DunKawasan4);
-
 //To merge the DunKawasan with Nama Kawasan where DUN ='N8'
 mysql_select_db($database_Connection1, $Connection1);
 $query_DunKawasan5 = "SELECT * FROM dunkawasan INNER JOIN kawasanaduan ON kawasanaduan.IDDUN=dunkawasan.ID where ID='5'";
 $DunKawasan5 = mysql_query($query_DunKawasan5, $Connection1) or die(mysql_error());
 $row_DunKawasan5 = mysql_fetch_assoc($DunKawasan5);
 $totalRows_DunKawasan5 = mysql_num_rows($DunKawasan5);
-
 //To display department again
 mysql_select_db($database_Connection1, $Connection1);
 $query_DepartmentNameNo2 = "SELECT * FROM department";
 $DepartmentNameNo2 = mysql_query($query_DepartmentNameNo2, $Connection1) or die(mysql_error());
 $row_DepartmentNameNo2 = mysql_fetch_assoc($DepartmentNameNo2);
 $totalRows_DepartmentNameNo2 = mysql_num_rows($DepartmentNameNo2);
-
 //To match jabatan with department with JABATAN ID 1
 mysql_select_db($database_Connection1, $Connection1);
 $query_DepartmentName1 = "SELECT DepartmentName FROM department INNER JOIN Jabatan 
@@ -300,7 +252,6 @@ ON jabatan.ID= Department.IDJabatan where IDJabatan='1'";
 $DepartmentName1 = mysql_query($query_DepartmentName1, $Connection1) or die(mysql_error());
 $row_DepartmentName1 = mysql_fetch_assoc($DepartmentName1);
 $totalRows_DepartmentName1 = mysql_num_rows($DepartmentName1);
-
 //To match jabatan with department with JABATAN ID 2
 mysql_select_db($database_Connection1, $Connection1);
 $query_DepartmentName2 = "SELECT DepartmentName FROM department INNER JOIN Jabatan 
@@ -308,8 +259,6 @@ ON jabatan.ID= Department.IDJabatan where IDJabatan='2'";
 $DepartmentName2 = mysql_query($query_DepartmentName2, $Connection1) or die(mysql_error());
 $row_DepartmentName2 = mysql_fetch_assoc($DepartmentName2);
 $totalRows_DepartmentName2 = mysql_num_rows($DepartmentName2);
-
-
 //To match jabatan with department with JABATAN ID 3
 mysql_select_db($database_Connection1, $Connection1);
 $query_DepartmentName3 = "SELECT DepartmentName FROM department INNER JOIN Jabatan 
@@ -349,13 +298,9 @@ $totalRows_KawasanAduan = mysql_num_rows($KawasanAduan);
 mysql_select_db($database_Connection1, $Connection1);
 $query_Recordset1 = "SELECT * FROM useraccount where Username='$UsernameLogin' ";
 $Recordset1 = mysql_query($query_Recordset1, $Connection1) or die(mysql_error());
-
-
 $row_Recordset1 = mysql_fetch_assoc($Recordset1);
 $totalRows_Recordset1 = mysql_num_rows($Recordset1);
-
 $query_MergeJobID="SELECT DesignationTitle  from useraccount
-
 INNER JOIN designation
 ON useraccount.JobId = designation.JobId where Username='$UsernameLogin'";
 $Recordset2= mysql_query($query_MergeJobID, $Connection1) or die(mysql_error());
@@ -366,18 +311,12 @@ ON useraccount.DepartmentID = department.DepartmentID where Username='$UsernameL
 $Recordset3= mysql_query($query_MergeDepartmentID, $Connection1) or die(mysql_error());
 $row_Recordset3 = mysql_fetch_assoc($Recordset3);
 $totalRows_Recordset1 = mysql_num_rows($Recordset3);
-
 //To display bahagian dirujuk merge with Kategori aduan
-
-
-
-
 // ** Logout the current user. **
 $logoutAction = $_SERVER['PHP_SELF']."?doLogout=true";
 if ((isset($_SERVER['QUERY_STRING'])) && ($_SERVER['QUERY_STRING'] != "")){
   $logoutAction .="&". htmlentities($_SERVER['QUERY_STRING']);
 }
-
 if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true")){
   //to fully log out a visitor we need to clear the session varialbles
   $_SESSION['MM_Username'] = NULL;
@@ -390,7 +329,6 @@ if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true")){
   $logoutGoTo = "../index.php";
   if ($logoutGoTo) {
     header("Location: $logoutGoTo");    exit;
-
   }
 }
 //To retrieve from aduan table
@@ -400,11 +338,6 @@ $query_RecordsetAduan = "SELECT * FROM aduan";
 $RecordsetAduan = mysql_query($query_RecordsetAduan, $Connection1) or die(mysql_error());
 $row_RecordsetAduan = mysql_fetch_assoc($RecordsetAduan);
 $tableid=mysql_num_rows($RecordsetAduan)+1;
-
-
-
-
-
 /*mysql_select_db($database_Connection1, $Connection1);
 $query_jenisaduan = "SELECT * FROM jenisaduan";
 $RecordsetJenisAduan = mysql_query($query_jenisaduan, $Connection1) or die(mysql_error());
@@ -416,29 +349,15 @@ $query_Jabatan = "SELECT * FROM jabatan";
 $Jabatan = mysql_query($query_Jabatan, $Connection1) or die(mysql_error());
 $row_Jabatan = mysql_fetch_assoc($Jabatan);
 $totalRows_Jabatan = mysql_num_rows($Jabatan);
-
-
-
-
-
-
-
-
-
-
-
-
 if (!isset($_SESSION)) {
   session_start();
 }
 $MM_authorizedUsers = "2";
 $MM_donotCheckaccess = "false";
-
 // *** Restrict Access To Page: Grant or deny access to this page
 function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
   // For security, start by assuming the visitor is NOT authorized. 
   $isValid = False; 
-
   // When a visitor has logged into this site, the Session variable MM_Username set equal to their username. 
   // Therefore, we know that a user is NOT logged in if that Session variable is blank. 
   if (!empty($UserName)) { 
@@ -459,7 +378,6 @@ function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
   } 
   return $isValid; 
 }
-
 $MM_restrictGoTo = "index.php";
 if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {   
   $MM_qsChar = "?";
@@ -471,7 +389,6 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
   header("Location: ". $MM_restrictGoTo); 
   exit;
 }
-
 ?>
 <?php
 $colname_TagUser = "2";
@@ -520,23 +437,19 @@ $totalRows_TagUser = mysql_num_rows($TagUser);
         background-color: #fff;
         font-family: Roboto;
       }
-
       #pac-container {
         padding-bottom: 12px;
         margin-right: 12px;
       }
-
       .pac-controls {
         display: inline-block;
         padding: 5px 11px;
       }
-
       .pac-controls label {
         font-family: Roboto;
         font-size: 13px;
         font-weight: 300;
       }
-
       #pac-input {
         background-color: #fff;
         font-family: Roboto;
@@ -547,11 +460,9 @@ $totalRows_TagUser = mysql_num_rows($TagUser);
         text-overflow: ellipsis;
         width: 400px;
       }
-
       #pac-input:focus {
         border-color: #4d90fe;
       }
-
       #title {
         color: #fff;
         background-color: #4d90fe;
@@ -562,7 +473,6 @@ $totalRows_TagUser = mysql_num_rows($TagUser);
       #target {
         width: 345px;
       }
-
 }
 /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -570,9 +480,8 @@ $totalRows_TagUser = mysql_num_rows($TagUser);
 <script>
 function showModal(){
 document.getElementById('image_upload_form').style.display='block';
+$('html,body').animate({scrollTop: document.body.scrollHeight},"fast");
 }
-
-
 </script>
 <script>
 function showKawasan() {  
@@ -582,7 +491,6 @@ function showKawasan() {
   var y3=document.getElementById("kawasanAduan3");
    var y4=document.getElementById("kawasanAduan4");
    var y5=document.getElementById("kawasanAduan5");
-
   
 if (y == 1) {
 	 document.getElementById("kawasanAduan1").removeAttribute('disabled');
@@ -595,8 +503,6 @@ if (y == 1) {
 	y4.style.display="none";
     document.getElementById("kawasanAduan5").disabled=true;
 	y5.style.display="none";
-
-
   
   } else if (y==2) {
   document.getElementById("kawasanAduan1").disabled=true;
@@ -610,7 +516,6 @@ if (y == 1) {
   document.getElementById("kawasanAduan5").disabled=true;
   y5.style.display="none";
   
-
  }  else if (y==3) {
    document.getElementById("kawasanAduan1").disabled=true;
    y1.style.display="none";
@@ -648,9 +553,6 @@ if (y == 1) {
   y5.style.display = "block";
 }
 }
-
-
-
 function showBahagianDirujuk() {
   var x = document.getElementById("myDIV");
   if (x.style.display === "none") {
@@ -659,9 +561,7 @@ function showBahagianDirujuk() {
     x.style.display = "none";
   }
 }
-function myFunction() {
-  confirm("Submit the form?");
-}
+
 function showDepartment() {
   var x = document.getElementById("JabatanDirujuk").value;
   var x1=document.getElementById("BahagianDirujuk1");
@@ -737,7 +637,6 @@ function showSubkategori(){
   var k16=document.getElementById("SubKategoriDirujuk16");
    
   
-
 if (k == 1) {
 	document.getElementById("TagUser").value = 'hartini';
 	document.getElementById("BahagianDirujuk").innerHTML = 'BAHAGIAN PENYELENGGARAAN INFRASTRUKTUR';
@@ -775,7 +674,6 @@ if (k == 1) {
 	document.getElementById("SubKategoriDirujuk15").disabled=true;
 	k16.style.display="none";
    document.getElementById("SubKategoriDirujuk16").disabled=true;
-
 	
   } else if (k==2) {
 	  document.getElementById("TagUser").value = 'hartini';
@@ -1376,12 +1274,9 @@ else if (k==7) {
       document.getElementById("SubKategoriDirujuk15").disabled=true;
 	document.getElementById("SubKategoriDirujuk16").removeAttribute('disabled');
 	}}
-
 function CalculateDate(){
-
 var date1 = document.getElementById("TarikhAduanDitutup").value;
 var date2 = document.getElementById("RealTarikh").value;
-
 date1 = new Date(date1).getTime();
 date2 = new Date(date2).getTime();
 var timeDiff = Math.abs(date1-date2);
@@ -1398,7 +1293,6 @@ function addDirujuk(){
   cell1.innerHTML = "Tindakan bahagian Dirujuk";
   var cell1 = row.insertCell(3);
   cell1.innerHTML = "<textarea id='textarea2'>";
-
 }
 function hideMap(){
 	document.getElementById('myMap').disabled="true";
@@ -1409,6 +1303,11 @@ document.getElementById('myMap').disabled="false";
 document.getElementById('GoogleMap').style.display="block";
 }
 
+
+
+function myFunction() {
+  return confirm("Adakah anda pasti untuk hantar aduan?");
+}
 </script>
 
   
@@ -1431,7 +1330,6 @@ document.getElementById('GoogleMap').style.display="block";
         
  <!--   <div id="GoogleMap" align="center">
 <input id="pac-input" class="controls" type="text" placeholder="Search Box" style="width:600px">
-
     <div id="myMap"></div>-->
    </div>
       
@@ -1464,7 +1362,7 @@ document.getElementById('GoogleMap').style.display="block";
   <?php
 date_default_timezone_set('Asia/Kuala_Lumpur');
 ?>
-<form name="form1" method="POST" action="<?php echo $addFormAction; ?>" class="" align="center">
+<form name="form1" method="POST" action="<?php echo $addFormAction; ?>" class="" align="center" onSubmit="return myFunction(this);">
     <table width="980" align="center" bgcolor="#A7B3FF"  >
 </p>
 <p>Hello,<?php echo $row_Recordset1['Name']; ?></p>
@@ -1494,7 +1392,6 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
                       <?php do { ?>
               <option value="<?php echo $row_TagUser['Username']; ?>"><?php echo $row_TagUser['Name']; ?></option>
               <?php } while ($row_TagUser = mysql_fetch_assoc($TagUser)); ?>
-
             </select></td>
 		<td><input type="button" value="+" onClick="addDirujuk()" class="button" id="plus">
 		
@@ -1547,7 +1444,9 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
     <td style="padding:15px;"><label>
       <div align="right">No telefon</div>
     </label></td>
-    <td ><input type="text" name="NoTelefon" id="NoTelefon"  style="width:100%" pattern="\d*.{10,}" placeholder="Eg.0111234567" required></td>
+    <td ><input type="text" name="NoTelefon" id="NoTelefon"  style="width:100%" pattern="\d*.{10,}" placeholder="Eg.0111234567" 
+      oninvalid="this.setCustomValidity('Masukkan no telefon anda?Cnth:0112345678')"
+    oninput="this.setCustomValidity('')" required></td>
  </tr>
     <tr >
       <td style="padding:15px;"><label>
@@ -1658,8 +1557,8 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
     <tr>
     <td style="padding:15px;"><div align="right">Aduan Dirujuk:
     </div>
-    <td><p id="BahagianDirujuk"></p>
-        <p id="PersonInCharge"></p>
+    <td><p id="BahagianDirujuk">BAHAGIAN PENYELENGGARAAN INFRASTRUKTUR</p>
+        <p id="PersonInCharge">Person In Charge:Hartini Bujang</p>
     </tr>
       <td style="padding:15px;"><div align="right">Kawasan DUN:
         <!--  **This code was hide for jenis Aduan because it wasn`t confirm with the user <label>Jenis Aduan</label>-->
@@ -1722,7 +1621,7 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
         
         </td>
         <tr>
-        <td>Gambar:
+        <td><div align="right">Maklumat:</div>Gambar:</div>
         <td> <input type="button" value="Pilih gambar:"  onClick="showModal()" >
         <tr>
         <td style="padding:15px;"><div align="right">Alamat Lokasi:</div></td>
@@ -1754,14 +1653,11 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
         <div align="right">Saluran</div>
       </label></td>
       <td style="padding:10px">
-    <input type="radio" id="contactChoice1"
-     name="SaluranAduan" value="Staff Dalaman">
+   <input type="radio" id="contactChoice1" name="SaluranAduan" value="Staff Dalaman" required>
     <label for="contactChoice1">Staff Dalaman</label>
-
     <input type="radio" id="contactChoice2"
      name="SaluranAduan" value="Pegawai Kawasan">
     <label for="contactChoice2">Pegawai Kawasan</label>
-
     <input type="radio" id="contactChoice3"
      name="SaluranAduan" value="CCTV">
     <label for="contactChoice3">CCTV</label>
@@ -1769,8 +1665,6 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
      <input type="radio" id="contactChoice1"
      name="SaluranAduan" value="Skuad Ronda Bantu">
     <label for="contactChoice1">Skuad Ronda Bantu</label>
-
-
       
       </td>
       
@@ -1778,50 +1672,45 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
   
     
 <tr>
-
-<td><button type="submit" name="Submit" id="Submit" value="Submit" onClick="myFunction()" class="button">HANTAR ADUAN</button></td>
+<td><button type="submit" name="Submit" id="Submit" value="Submit" onClick="return myFunction(this)" class="button">HANTAR ADUAN</button></td>
 </tr>
 <input type="hidden" name="MM_insert" value="form1" >
 <input type="hidden" name="UsernamePengadu" value="<?php echo $row_Recordset1['Username']; ?>">
 <input type="hidden" name="NamaAkaunPengadu" value="<?php echo $row_Recordset1['Name']; ?>">
 <input type="hidden" name="Personincharge" id="Personincharge" value="5">
 <input type="hidden" name="TagUser" id="TagUser" value="5">
-
 </table>
-
-
 </form>	
+
 <div align="center">
-<div id="images_preview"></div>	
-   
+
+    <div id="images_preview"></div>
 <table border="1" width="50%">
 <tr>
-
-<td>		<form method="post" name="image_upload_form" id="image_upload_form" enctype="multipart/form-data" action="upload_image.php?TableID=AD-<?php echo date("Y-m-d");?>-<?php echo $tableid;?>">   
+<td>		<form method="post" name="image_upload_form" id="image_upload_form" enctype="multipart/form-data" action="upload_image.php?TableID=AD-<?php echo date("Y-m-d");?>-<?php echo $tableid;?>" style="display:none">   
     <label>Choose Multiple Images to Upload</label>
 	<br>
 	<br>
     <input type="file" name="images[]" id="upload_files" multiple >
-    <div class="image_uploading hidden">
-        <label>&nbsp;</label>
-        <img src="" alt="Image Uploading......"/>
-    </div>
+
+  
+        
+ 
+    
 <button type="submit" value="Submit" id="Submit" name="Submit"  style="position: absolute;  left:30%;
  ">Muat Naik Gambar</button>
 <br>
 
-</td>
 </tr>
- 
+ </form>
      </table>
+       
+	
+    </div>
 
-	</form>
     
 	
-
-
 <h3 id="Map" style="display:none" align="center">Pilih tempat lokasi:</h3>
-
   <script>
     var map;
 var marker = [];
@@ -1834,16 +1723,13 @@ zoom: 14,
 center: myLatlng,
 mapTypeId: google.maps.MapTypeId.ROADMAP
 };
-
 map = new google.maps.Map(document.getElementById("myMap"), mapOptions);
    
-
 marker = new google.maps.Marker({
 map: map,
 position: myLatlng,
 draggable: true 
 }); 
-
 geocoder.geocode({'latLng': myLatlng }, function(results, status) {
 if (status == google.maps.GeocoderStatus.OK) {
 if (results[0]) {
@@ -1856,9 +1742,7 @@ infowindow.open(map, marker);
 }
 }
 });
-
 google.maps.event.addListener(marker, 'dragend', function() {
-
 geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
 if (status == google.maps.GeocoderStatus.OK) {
 if (results[0]) {
@@ -1871,18 +1755,14 @@ infowindow.open(map, marker);
 }
 });
 });
-
-
 // Create the search box and link it to the UI element.
         var input = document.getElementById('pac-input');
         var searchBox = new google.maps.places.SearchBox(input);
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
         // Bias the SearchBox results towards current map's viewport.
         map.addListener('bounds_changed', function() {
           searchBox.setBounds(map.getBounds());
         });
-
         var markers = [];
         // Listen for the event fired when the user selects a prediction and retrieve
         // more details for that place.
@@ -1892,13 +1772,11 @@ infowindow.open(map, marker);
           if (places.length == 0) {
             return;
           }
-
           // Clear out the old markers.
           markers.forEach(function(marker) {
             marker.setMap(null);
           });
           markers = [];
-
           // For each place, get the icon, name and location.
           var bounds = new google.maps.LatLngBounds();
           places.forEach(function(place) {
@@ -1913,7 +1791,6 @@ infowindow.open(map, marker);
               anchor: new google.maps.Point(17, 34),
               scaledSize: new google.maps.Size(25, 25)
             };
-
             // Create a marker for each place.
             markers.push(new google.maps.Marker({
 				map: map,
@@ -1932,12 +1809,10 @@ infowindow.open(map, marker);
           });
           map.fitBounds(bounds);
         });
-
 // This event listener will call addMarker() when the map is clicked.
         map.addListener('click', function(event) {
           placeMarker(event.latLng);
         });
-
 }
 function addMarker(location) {
         var marker = new google.maps.Marker({
@@ -1945,13 +1820,8 @@ function addMarker(location) {
           map: map
         });
         markers.push(marker);
-
-
       }
 	  function placeMarker(location) {
-
-
-
             if (marker == undefined){
                 marker = new google.maps.Marker({
                     position: location,
@@ -1974,25 +1844,15 @@ infowindow.open(map, marker);
 }
 });
 				
-				
-				
-				
-				
-				
+	
            $('#address').val(results[0].formatted_address);
 			}
             map.setCenter(location);
-
         }
-
-
     
-
 google.maps.event.addDomListener(window, 'load', initialize);
-
 </script>
 <span style="padding:30px">
-
 </span>
 </body>
 </html>

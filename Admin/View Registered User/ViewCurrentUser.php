@@ -289,21 +289,21 @@ function checkForm(form1)
 
 <div class="topnav" id="myTopnav">
   <a style=" background-color:#0FED56;">Sistem Aduan Dalaman DBKU</a>
-  <a href="../AdminPage.php" >Home</a>
+  <a href="../AdminPage.php" >Laman Utama</a>
 
-  <a href="#contact">Contact</a>
+  
   <div class="dropdown">
-    <button class="dropbtn">User Management 
+    <button class="dropbtn">Pengurusan Akaun
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
  
-      <a href="../View Registered User/ViewCurrentUser.php">Current User</a>
+      <a href="../View Registered User/ViewCurrentUser.php">Papar Akaun Semasa</a>
   
     </div>
   </div> 
-  <a href="#about">About</a>
-    <a href="<?php echo $logoutAction ?>" class="dropbtn">Logout</a>
+  
+    <a href="<?php echo $logoutAction ?>" class="dropbtn">Log Keluar</a>
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
   <table id="fresh-table" class="table">

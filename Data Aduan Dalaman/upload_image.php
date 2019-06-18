@@ -6,9 +6,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
   if (PHP_VERSION < 6) {
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
-
   $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
   switch ($theType) {
     case "text":
       $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
@@ -51,13 +49,14 @@ $upload_dir="../upload/".$TableID."/";
 		$images[] = $upload_image;
 	//	 insert uploaded images details into MySQL database.
 		if(isset($_POST["Submit"])=="image_upload_form"){
-		$insert_sql = sprintf("INSERT INTO Photos(TableId,ImagePath) VALUES(%s,%s)",
+		$insert_sql = sprintf("INSERT INTO photos(TableId,ImagePath) VALUES(%s,%s)",
 		  GetSQLValueString($TableID, "text"),
                        GetSQLValueString($upload_image, "text"));
 		
-		$result=mysql_query( $insert_sql,$Connection1) or die("database error: ". mysql_error($Connection1));
+		$result=mysql_query( $insert_sql,$Connection1);
 		 if($result){
-			 	echo '<script>';
+			 	echo "<script>";
+			
 			echo 'alert("Gambar berjaya di muat naik")';
 			echo '</script>'; 
 		 }else{
@@ -74,9 +73,3 @@ echo '<img src="'.$image.'" height="250" width="225" " />';
 	
 }
 ?>
-
-
-		
-		
-			
-		

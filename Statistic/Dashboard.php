@@ -92,15 +92,13 @@ if($row_Recordset4['COUNT(*)']==0){
 	$countRondaBantu=$row_Recordset4['COUNT(*)'];
 }
 
-
-
-
 //Query to count the category Aduan
 mysql_select_db($database_Connection1, $Connection1);
 $query_kategori = "SELECT * FROM aduan";
 $kategori = mysql_query($query_kategori, $Connection1) or die(mysql_error());
 $row_kategori = mysql_fetch_assoc($kategori);
 $totalRows_kategori = mysql_num_rows($kategori);
+
 
 
 
@@ -540,8 +538,7 @@ $totalRows_bahagianAduan = mysql_num_rows($bahagianAduan);
 
 mysql_select_db($database_Connection1, $Connection1);
 $BahagianAduan2;
-$query_bahagianAduan2= "SELECT *,COUNT(*) 
-FROM aduan ";
+$query_bahagianAduan2= "SELECT *,COUNT(*) FROM aduan INNER JOIN useraccount ON useraccount.ID=aduan.PIC INNER JOIN department on department.DepartmentID=useraccount.DepartmentID Group By DepartmentName ";
 $bahagianAduan2 = mysql_query($query_bahagianAduan2, $Connection1) or die(mysql_error());
 $row_bahagianAduan2= mysql_fetch_assoc($bahagianAduan2);
 $totalRows_bahagianAduan2 = mysql_num_rows($bahagianAduan2);//
@@ -550,16 +547,20 @@ $totalRows_bahagianAduan2 = mysql_num_rows($bahagianAduan2);//
 
 //Query to count for kes penyelesaian bahagian dirujuk
 mysql_select_db($database_Connection1, $Connection1);
-$query_AduanSelesai= "SELECT *,COUNT(*) FROM aduan WHERE CaseCompletedInTime='1' ";
+$query_AduanSelesai= "SELECT *,COUNT(*),COUNT(*) AS TOTAL FROM aduan INNER JOIN useraccount ON useraccount.ID = aduan.PIC INNER JOIN department on department.DepartmentID = useraccount.DepartmentID WHERE CaseCompletedInTime='1' GROUP BY department.DepartmentName ";
 $AduanSelesai = mysql_query($query_AduanSelesai, $Connection1) or die(mysql_error());
 $row_AduanSelesai= mysql_fetch_assoc($AduanSelesai);
 $totalrows_AduanSelesai=mysql_num_rows($AduanSelesai);
 
 //Query to count for kes tidak selesai bahagian dirujuk
 mysql_select_db($database_Connection1, $Connection1);
-$query_tidakSelesai= "SELECT *,COUNT(*) FROM aduan WHERE CaseCompletedInTime='0' ";
+$query_tidakSelesai= "SELECT *,COUNT(*) FROM aduan INNER JOIN useraccount ON useraccount.ID = aduan.PIC INNER JOIN department on department.DepartmentID = useraccount.DepartmentID WHERE CaseCompletedInTime='0' GROUP BY department.DepartmentName ";
 $AduanTidakSelesai = mysql_query($query_tidakSelesai, $Connection1) or die(mysql_error());
 $row_AduanTidakSelesai= mysql_fetch_assoc($AduanTidakSelesai);
+
+
+
+
 
 
 
@@ -1310,8 +1311,8 @@ $countSampahTidakDikutip; ?>
         <td><?php echo $no++ ?></td>
         <td><?php echo $row_bahagianAduan['DepartmentName']; ?></td>
         <td><div align="center"><?php echo $row_bahagianAduan['COUNT(*)'];
-		$bahagianDirujuk = array();
-		$bahagianDirujuk[] = $row_bahagianAduan['COUNT(*)'];
+		//$bahagianDirujuk = array();
+		//$bahagianDirujuk[] = $row_bahagianAduan['COUNT(*)'];
 		
 		
 		
@@ -1321,7 +1322,7 @@ $countSampahTidakDikutip; ?>
       <?php } while ($row_bahagianAduan= mysql_fetch_assoc($bahagianAduan)); ?>
     </table>
 </div>
-<!--
+
 <p align="center">5.PRESTASI PENYELESAIAN ADUAN</p>
 <div align="center">
   <table class="blueTable" width="200" border="1">
@@ -1329,7 +1330,7 @@ $countSampahTidakDikutip; ?>
       <tr>
         <th scope="col">BAHAGIAN</th>
         <th scope="col">SELESAI DALAM TEMPOH 5 HARI</th>
-        <th scope="col">PERATUSAN PENYELESAIAN</th>
+      
         
       </tr>
       
@@ -1339,12 +1340,17 @@ $countSampahTidakDikutip; ?>
     <?php do 
 	
 		{  ?>
+
       <tr>
-        <td><div align="center"><?php echo $row_AduanSelesai['BahagianAduan'];?></div></td>
+        <td><div align="center"><?php echo $row_AduanSelesai['DepartmentName'];?></div></td>
         <td><div align="center"><?php echo $row_AduanSelesai['COUNT(*)'] ?></div></td>
-        <td> <div align="center"><?php echo $bahagianDirujuk[1] ?></td>
+        
+		</td>
+      
       </tr>
+ 
       <?php } while ($row_AduanSelesai= mysql_fetch_assoc($AduanSelesai));?>
+       
   </table>
 </div>
 <p align="center">6.PRESTASI ADUAN TIDAK SELESAI</p>
@@ -1354,23 +1360,28 @@ $countSampahTidakDikutip; ?>
       <tr>
         <th scope="col">BAHAGIAN</th>
         <th scope="col">TIDAK SELESAI DALAM TEMPOH 5 HARI</th>
-        <th scope="col">PERATUSAN % TIDAK SELESAI</th>
+       
         
       </tr>
       
     </thead>
-    
-    
+
     <?php do 
 		{  ?>
+      
+	
       <tr>
-        <td><div align="center"><?php echo $row_AduanTidakSelesai['BahagianAduan'];?></div></td>
+        <td><div align="center"><?php echo $row_AduanTidakSelesai['DepartmentName'];?></div></td>
         <td><div align="center"><?php echo $row_AduanTidakSelesai['COUNT(*)'] ?></div></td>
-        <td></td>
+      
+		    
+ 
+	
       </tr>
       <?php } while ($row_AduanTidakSelesai= mysql_fetch_assoc($AduanTidakSelesai));?>
+    
   </table>
-</div>-->
+</div>
 <p align="center">&nbsp;</p>
 <p align="center">&nbsp;</p>
 

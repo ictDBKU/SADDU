@@ -1,5 +1,6 @@
 <?php require_once('../../Connections/Connection1.php'); ?>
 <?php
+session_start();
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
 {
@@ -31,112 +32,513 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
+
+$addTindakanDirujuk = $_SERVER['PHP_SELF'];
+
 $colname_ViewCase = "-1";
 if (isset($_GET['NoRujukan'])) {
   $colname_ViewCase = $_GET['NoRujukan'];
+  $_SESSION['NoRujukan']=$colname_ViewCase;
+  $ReadStatus=1;
 }
-//Sql to view all the aduan
 mysql_select_db($database_Connection1, $Connection1);
 $query_ViewCase = sprintf("SELECT * FROM aduan WHERE NoRujukan = %s ORDER BY NoRujukan ASC", GetSQLValueString($colname_ViewCase, "text"));
 $ViewCase = mysql_query($query_ViewCase, $Connection1) or die(mysql_error());
 $row_ViewCase = mysql_fetch_assoc($ViewCase);
 $totalRows_ViewCase = mysql_num_rows($ViewCase);
-//Sql to view all the to merge with subkatagori aduan
+
+//To read the table if the are existing NoRujukan the tindakanRujukan will be updated
 mysql_select_db($database_Connection1, $Connection1);
-$query_ViewCategory = sprintf("SELECT *,KategoriAduan.NamaAduan FROM aduan INNER JOIN kategoriAduan on kategoriAduan.IDKategoriAduan = aduan.Category WHERE NoRujukan = %s ORDER BY NoRujukan ASC", GetSQLValueString($colname_ViewCase, "text"));
-$ViewCategory = mysql_query($query_ViewCategory, $Connection1) or die(mysql_error());
-$row_ViewCategory = mysql_fetch_assoc($ViewCategory);
+$query_ReadTindakan = sprintf("SELECT * FROM tindakandirujuk WHERE NoRujukan = %s", GetSQLValueString($_SESSION['NoRujukan'], "text"));
+$ReadTindakan = mysql_query($query_ReadTindakan, $Connection1) or die(mysql_error());
+$row_ReadTindakan = mysql_fetch_assoc($ReadTindakan);
+$totalRows_ReadTindakan = mysql_num_rows($ReadTindakan);
+
+
+
+//SQL TO see the tindakan dirujuk                       //The reason why use session because when not in use it will create error
+$query_AduanToPIC=sprintf("SELECT * from tindakandirujuk 
+ where NoRujukan=%s and UsernamePegawaiDirujuk=%s", GetSQLValueString($_SESSION['NoRujukan'],"text"),GetSQLValueString($_SESSION['Username'], "text"));
+$AduantToPIC= mysql_query($query_AduanToPIC, $Connection1) or die(mysql_error());
+$row_AduantToPIC = mysql_fetch_assoc($AduantToPIC);
+$totalRows_MyAduantToPIC = mysql_num_rows($AduantToPIC);
+
+
+
+if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "TindakanDirujuk")) {
+
+//To insert the tindakan dirujuk
+
+
+if($totalRows_ReadTindakan=='0'){
+$query_AddAduan = sprintf("Insert INTO tindakandirujuk (NoRujukan,TindakanDirujuk,UsernamePegawaiDirujuk,TindakanTimeSubmit) VALUES(%s,%s,%s,now())",
+
+                       GetSQLValueString($_POST['NoRujukan'], "text"),
+					   GetSQLValueString($_POST['tindakan'], "text"),
+					   GetSQLValueString($_SESSION['Username'], "text"));
+	
+$AddTindakan = mysql_query($query_AddAduan, $Connection1) or die(mysql_error());
+
+  echo '<script language="javascript">';
+echo 'alert("Aduan has successfully submitted")';
+echo '</script>';
+ header(sprintf("Location: %s", $insertGoTo));
+}else if($totalRows_ReadTindakan>='1'){
+	
+
+$query_UpdateTindakanDirujuk = sprintf("UPDATE tindakandirujuk
+SET TindakanDirujuk =%s WHERE NoRujukan =%s",  GetSQLValueString($_POST['tindakan'], "text"),
+					   GetSQLValueString($_POST['NoRuj'], "text"));
+$updateAduan = mysql_query($query_UpdateTindakanDirujuk, $Connection1) or die(mysql_error());
+
+	
+	
+ echo '<script language="javascript">';
+echo 'alert("Aduan has successfully updated")';
+
+echo '</script>';
+header("Location:ViewAduanUser.php");
+}
+}
+
+
+
+//When the link is click it will update the readStatus to 1
+mysql_select_db($database_Connection1, $Connection1);
+$query_UpdateRead = "Update aduan SET ReadStatus ='1' WHERE NoRujukan='$colname_ViewCase'";
+
+$UpdateRead = mysql_query($query_UpdateRead, $Connection1) or die(mysql_error());
+
+if (isset($_SESSION['Username'])) {
+  $colname_ViewAduan = $_SESSION['Username'];
+}
+//To match the Aduan With the Username
+mysql_select_db($database_Connection1, $Connection1);
+$query_ViewUsername = sprintf("SELECT * FROM aduan WHERE UsernamePengadu = %s", GetSQLValueString($colname_ViewAduan, "text"));
+$ViewUsername = mysql_query($query_ViewUsername, $Connection1) or die(mysql_error());
+$row_ViewUsername = mysql_fetch_assoc($ViewUsername);
+
+//To match the useraccount with aduan based on ID and PIC given the No Rujukan
+mysql_select_db($database_Connection1, $Connection1);
+$query_ViewPIC = sprintf("SELECT *,useraccount.Name FROM aduan INNER JOIN useraccount on useraccount.ID = aduan.PIC WHERE NoRujukan=%s", GetSQLValueString($colname_ViewCase, "text"));
+$ViewPIC= mysql_query($query_ViewPIC, $Connection1) or die(mysql_error());
+$row_ViewPIC = mysql_fetch_assoc($ViewPIC);
+
+$colname_ViewAduan = "-1";
+if (isset($_SESSION['Username'])) {
+  $colname_ViewAduan = $_SESSION['Username'];
+}
+//To match the aduan with Tindakan Dirujuk 
+mysql_select_db($database_Connection1, $Connection1);
+$query_ViewAduan = sprintf("SELECT *,tindakandirujuk.UsernamePegawaiDirujuk FROM aduan INNER JOIN tindakandirujuk on tindakandirujuk.NoRujukan =aduan.NoRujukan WHERE UsernamePegawaiDirujuk = %s", GetSQLValueString($colname_ViewAduan, "text"));
+$ViewAduan = mysql_query($query_ViewAduan, $Connection1) or die(mysql_error());
+$row_ViewAduan = mysql_fetch_assoc($ViewAduan);
+$totalRows_ViewAduan = mysql_num_rows($ViewAduan);
+
+$colname_UserAccount = "-1";
+//To display the useraccount info based on the session
+mysql_select_db($database_Connection1, $Connection1);
+$query_UserAccount = sprintf("SELECT * FROM useraccount WHERE Username = %s", GetSQLValueString($colname_ViewAduan, "text"));
+$UserAccount = mysql_query($query_UserAccount, $Connection1) or die(mysql_error());
+$row_UserAccount = mysql_fetch_assoc($UserAccount);
+$totalRows_UserAccount = mysql_num_rows($UserAccount);
+
+
+
+//Variable to route it to the pegawai bertanggugjawab
+$_SESSION['Name']=$row_UserAccount['Name'];
+
+ mysql_select_db($database_Connection1, $Connection1);
+$query_ViewAduan = sprintf("SELECT * from aduan WHERE PIC = %s", GetSQLValueString($row_UserAccount['ID'], "text"));
+$ViewAduan = mysql_query($query_ViewAduan, $Connection1) or die(mysql_error());
+$row_ViewAduan = mysql_fetch_assoc($ViewAduan);
+//Variable to show if they are any records for the person in charge
+$totalRows = mysql_num_rows($ViewAduan);
+
+//SQL to merge kategori aduan
+$query_MergekategoriAduan=sprintf("SELECT * from aduan INNER JOIN kategoriaduan ON kategoriaduan.IDKategoriAduan = aduan.Category where NoRujukan=%s",GetSQLValueString($colname_ViewCase,"text"));
+$KategoriAduan= mysql_query($query_MergekategoriAduan, $Connection1) or die(mysql_error());
+$row_kategoriAduan = mysql_fetch_assoc($KategoriAduan);
+
+
+//SQL to merge sub-kategori aduan
+$query_MergeSubkategoriAduan=sprintf("SELECT * from aduan
+INNER JOIN subkategoriaduan
+ON subkategoriaduan.ID=aduan.SubCategory where NoRujukan=%s",GetSQLValueString($colname_ViewCase,"text"));
+$SubKategoriAduan= mysql_query($query_MergeSubkategoriAduan, $Connection1) or die(mysql_error());
+$row_SubkategoriAduan = mysql_fetch_assoc($SubKategoriAduan);
+
+//SQL to merge aduan with pegawai dirujuk
+mysql_select_db($database_Connection1, $Connection1);
+$query_PegawaiDirujuk = sprintf("SELECT * from aduan INNER JOIN useraccount ON useraccount.ID = aduan.PIC where PIC =%s", GetSQLValueString($row_UserAccount['ID'], "text"));
+$PegawaiDirujuk = mysql_query($query_PegawaiDirujuk, $Connection1) or die(mysql_error());
+$row_PegawaiDirujuk = mysql_fetch_assoc($PegawaiDirujuk);
+
+
+//SQL to display the person who submitted the report
+mysql_select_db($database_Connection1, $Connection1);
+$query_ReportedBy= sprintf("SELECT *,useraccount.Name from aduan INNER JOIN useraccount ON aduan.UsernamePengadu = useraccount.Username where NoRujukan =%s", GetSQLValueString($colname_ViewCase, "text"));
+$ReportedBy= mysql_query($query_ReportedBy, $Connection1) or die(mysql_error());
+$row_ReportedBy = mysql_fetch_assoc($ReportedBy);
+
+//To update the status of the case
+if($totalRows_MyAduantToPIC ==1){
+$UpdateAction = $_SERVER['PHP_SELF']."?doUpdate=true";
+$query_UpdateAduan = sprintf("UPDATE aduan 
+SET StatusAduan='In Progress' where NoRujukan=%s",GetSQLValueString($colname_ViewCase, "text"));
+$updateAduan = mysql_query($query_UpdateAduan, $Connection1) or die(mysql_error());
+$row_PegawaiDirujuk = mysql_fetch_assoc($PegawaiDirujuk);
+if ((isset($_GET['doUpdate'])) &&($_GET['doUpdate']=="true")){
+	
+   $UpdateGoTo = "ViewAduanUser.php";
+  if ($UpdateGoTo) {
+    header("Location: $UpdateGoTo");
+}
+}}
+
+
+
+//Add to tindakan dirujuk
+
+
+// ** Logout the current user. **
+$logoutAction = $_SERVER['PHP_SELF']."?doLogout=true";
+if ((isset($_SERVER['QUERY_STRING'])) && ($_SERVER['QUERY_STRING'] != "")){
+  $logoutAction .="&". htmlentities($_SERVER['QUERY_STRING']);
+  
+  }
+
+if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true")){
+  //to fully log out a visitor we need to clear the session varialbles
+  $_SESSION['MM_Username'] = NULL;
+  $_SESSION['MM_UserGroup'] = NULL;
+  $_SESSION['PrevUrl'] = NULL;
+  unset($_SESSION['MM_Username']);
+  unset($_SESSION['MM_UserGroup']);
+  unset($_SESSION['PrevUrl']);
+	
+  $logoutGoTo = "../index.php";
+  if ($logoutGoTo) {
+    header("Location: $logoutGoTo");    exit;
+
+  }
+}
 
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+ 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>View Case</title>
 <link href="../../css/tableView.css" rel="stylesheet" type="text/css" >
+<script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/0.0.11/push.min.js"></script>
+<script type="text/javascript" src="../../Admin/assets/js/bootstrap.js"></script>
+<script type="text/javascript" src="../../Admin/assets/js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="../../Admin/assets/js/bootstrap-table.js"></script>
+<link href="../../Admin/assets/css/fresh-bootstrap-table.css" rel="stylesheet" />
+<link href="../../css/imagezoom.css" rel="stylesheet" />
+<link  rel="stylesheet" href="../../css/styles.css" rel="stylesheet" type="text/css" >
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="../../Admin/assets/css/menubar.css">
+<script>
+function ShowLastUpdated(){
+	
+	var empty="<?php echo $row_ReadTindakan['TindakanDirujuk'];?>";
+	
+if(empty==""){
+	document.getElementById('LastUpdated').style.display="none";
+	
+	
+}else{
+	document.getElementById('LastUpdated').style.display="block";
+	
+}}
+</script>
+<script>
+function ShowReadOnlyTindakanDirujuk(){
+	 var counts="<?php echo $totalRows_MyAduantToPIC?>";
+	
+if(counts=='0'){
+	
+	document.getElementById('tindakan').style.display="none";
+	document.getElementById('submit').style.display="none";
+	document.getElementById('CompleteButton').style.display="none";
+	
+	
+}else{
+	document.getElementById('MyAduan').style.display="none";
+	
+	
+}}
+</script>
+
+
+
+<script>
+function CalculateDate(){
+	var iWeeks, iDateDiff,iAdjust,totaldays = 0;
+
+var DateSubmit = new Date("<?php echo $row_ViewCase['TimeSubmit'] ?>");
+var db1=DateSubmit;
+
+var n =  new Date();
+var  db2=new Date();
+	DateSubmit=DateSubmit.getDay();
+dateNow = n.getDay();
+
+ var iWeekday1=DateSubmit;
+ var iWeekday2=dateNow;
+ 
+iWeekday1 = (iWeekday1 == 0) ? 7 : iWeekday1; // change Sunday from 0 to 7
+iWeekday2 = (iWeekday2 == 0) ? 7 : iWeekday2;
+
+if ((iWeekday1 > 5) && (iWeekday2 > 5)) 
+iAdjust = 1; // adjustment if both days on weekend
+
+iWeekday1 = (iWeekday1 > 5) ? 5 : iWeekday1; // only count weekdays
+iWeekday2 = (iWeekday2 > 5) ? 5 : iWeekday2;
+
+// calculate differnece in weeks (1000mS * 60sec * 60min * 24hrs * 7 days = 604800000)
+iWeeks = Math.floor((n.getTime() - db1.getTime()) / 604800000);
+if(iWeeks<1){
+iWeeks=0;	
+}
+
+if (iWeekday1 <= iWeekday2) {
+iDateDiff = (iWeeks * 5) + (iWeekday2 - iWeekday1);
+} else {
+  iDateDiff = ((iWeeks + 1) * 5) - (iWeekday1 - iWeekday2);
+			}
+ // take into account both days on weekend
+		
+	totaldays= iDateDiff;
+
+
+if(totaldays=='1'){
+document.getElementById("DayCounting").innerHTML =  totaldays+" day" ;
+}else{
+document.getElementById("DayCounting").innerHTML =  totaldays+" days" ;
+}
+}
+
+</script>
+
+
+<html>
 </head>
 
-<body>
-</body>
-</html>
+<body onload="start()">
+
+
 <?php
 mysql_free_result($ViewCase);
 ?>
-<label><center><?php echo $row_ViewCase['NoRujukan'] ?></center></label><br>
 
-<table border="1" align="center" style="width: 400px" cellspacing="3" class="paleBlueRows">
-<thead>
-  <th colspan="2">Aduan</th>
-  </thead>
-  <tr>
- 
-    <td>Nama Pengadu </td>
-    <td style="color: #4E4E4E"><?php echo $row_ViewCase['NamaPengadu'] ?></td>
-	  
-  </tr>
-  <tr>
-	  
-	<td>No telefon </td>
-    <td style="color: #4E4E4E"><?php echo $row_ViewCase['NoTelefon'] ?></td>
+<div class="topnav" id="myTopnav">
+  <a style=" background-color:#0FED56;">Sistem Aduan Dalaman DBKU</a>
+  <a href="../AdminPage.php" >Laman Utama</a>
+
   
-  </tr>
-	<thead>
-  <th colspan="2">Kawasan</th>
-  </thead>
-  <tr>
- 
-    <td>Kawasan Aduan </td>
-    <td style="color: #4E4E4E"><?php echo $row_ViewCase['KawasanAduan'] ?></td>
-	  
-	  
-  </tr>
-	<thead>
-  <th colspan="2">Maklumat Aduan</th>
-  </thead>
-  <tr>
+  <div class="dropdown">
+    <button class="dropbtn">Pengurusan Akaun 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+    <a href="#" onclick="showModal()">Daftar Akaun
+</a>
+      <a href="View Registered User/ViewCurrentUser.php">Papar Akaun Semasa</a>
+  
+    </div>
+    
+  </div>
+  
+  
+  <a href="../Statistic/Dashboard.php">Statistik</a>
+    
+  
    
-	  <td>Kategori Aduan </td>
-    <td style="color: #4E4E4E"><?php echo $row_ViewCategory['NamaAduan'] ?></td>
-	  
-  </tr>
-  <tr>
-	  
-	  <td>SubKategori Aduan </td>
-    <td style="color: #4E4E4E"><?php echo $row_ViewCase['SubCategory'] ?></td>
-	  
-  </tr>
-   <tr>
-	  
-	  <td>Maklumat Aduan </td>
-    <td style="color: #4E4E4E"><?php echo $row_ViewCase['MaklumatAduan'] ?></td>
-	  
-  </tr>
-  <tr>
- 
-    <td>Tarikh Aduan Diterima </td>
-    <td style="color: #4E4E4E"><?php echo date("d-m-Y  ", strtotime($row_ViewCase['TimeSubmit']) ); ?></td>
-	  
-	  
-  </tr>
-  <tr>
   
-    <td>Masa Aduan Diterima </td>
-    <td style="color: #4E4E4E"><?php echo date("h:i:sa ", strtotime($row_ViewCase['TimeSubmit']) ); ?></td>
-	  
-	  
-  </tr>
-  <tr>
+    <a href="<?php echo $logoutAction ?>" class="dropbtn">Log Keluar</a>
+  <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+</div>
+
+
+<label><center><?php echo $row_ViewCase['NoRujukan'] ?></center></label>
+<div align="center">
+  <form name="TindakanDirujuk" method="POST" action="<?php echo $addTindakanDirujuk; ?>" >
+  <table id="myTable" border="1" align="center" style="width: auto" cellspacing="3" class="paleBlueRows">
+    <thead>
+      <th colspan="2">Aduan</th>
+  </thead>
+        <tr>
+          
+          <td width="216"><div align="right"><strong>Nama Pengadu</strong></div></td>
+          <td width="327" style="color: #4E4E4E"><?php echo $row_ViewCase['NamaPengadu'] ?></td>
+          
+          </tr>
+    <tr>
+      
+      <td><div align="right"><strong>No telefon</strong></div></td>
+      <td style="color: #4E4E4E"><?php echo $row_ViewCase['NoTelefon'] ?></td>
+      
+      </tr>
+    <thead>
+      <th colspan="2">Kawasan</th>
+        </thead>
+        <tr>
+          <td><div align="right"><strong>Kawasan Aduan</strong></div></td>
+           <td style="color: #4E4E4E"><?php echo $row_ViewCase['KawasanAduan'] ?></td>
+          
+        </tr>
+        <tr>
+          
+          <td><div align="right"><strong>Alamat Aduan</strong></div></td>
+         <td style="color: #4E4E4E"><?php echo $row_ViewCase['AlamatAduan'] ?></td>
+          
+          
+          </tr>
+    <thead>
+      <th colspan="2">Maklumat Aduan</th>
+        </thead>
+        <tr>
+          
+          <td><div align="right"><strong>Kategori Aduan</strong></div></td>
+          <td style="color: #4E4E4E"><?php echo $row_kategoriAduan['NamaAduan'] ?></td>
+          
+          </tr>
+    <tr>
+      
+      <td><div align="right"><strong>Sub Kategori Aduan</strong></div></td>
+      <td style="color: #4E4E4E"><?php echo $row_ViewCase['SubCategory']?></td>
+      
+      </tr>
+    <tr>
+      
+      <td><div align="right"><strong>Maklumat Aduan</strong></div></td>
+      <td style="color: #4E4E4E"><?php echo $row_ViewCase['MaklumatAduan'] ?></td>
+      
+      </tr>
+      
+    <tr>
+      <td colspan="2">
+      <div align="center">
+	  <?php $files = glob("../../upload/".$_GET['NoRujukan']."/*.*");
+for ($i=0; $i<count($files); $i++)
+{
+	$num = $files[$i];
+	
+	echo '<img class="myImg" id="myImg" src="'.$num.'" alt="random image" height="250" width="225">'."&nbsp;&nbsp;";
+	}?>
+    </div>
+    
+    
+     <div id="myModal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="img01">
+  <div id="caption"></div>
+</div>
+    
+   
+    </td>
+      </tr>
+    <tr>
+      
+      <td><div align="right"><strong>Tarikh Aduan Diterima</strong></div></td>
+      <td style="color: #4E4E4E"><?php echo date("d/m/Y  ", strtotime($row_ViewCase['TimeSubmit']) ); ?></td>
+      
+      
+      </tr>
+    <tr>
+      
+      <td><div align="right"><strong>Masa Aduan Diterima</strong></div></td>
+      <td style="color: #4E4E4E"><?php echo date("h:i:sa ", strtotime($row_ViewCase['TimeSubmit']) ); ?></td>
+      
+      
+      </tr>
+    <tr>
+      
+      <td><div align="right"><strong>Status Aduan</strong></div></td>
+      <td><?php echo $row_ViewCase['StatusAduan'] ?>    
  
-    <td>Status Aduan </td>
-    <td><?php echo $row_ViewCase['StatusAduan'] ?>    <select name="CaseStatus" selected="Choose Month" onchange="location = this.value;">
-     
-      <option value="Searchbydate.php?monthsearch=1">Acknowledged</option>
-      <option value="Searchbydate.php?monthsearch=2">In Progress</option>
-  <option value="Searchbydate.php?monthsearch=2">Completed</option>
-    </select></td>
-  </tr>
-  <tr>
-     <td align="center" colspan="2"><input type="button" value="confirm"></td>
-  </tr>
-</table>
+         
+        </td>
+      </tr>
+    <td><div align="right"><strong>Jumlah hari tarikh aduan</strong></div></td>
+      <td>  <p id="DayCounting">No days to show</p>
+        </td>
+      </tr>
+    
+      <tr>
+                       <td><p align="right" id="TindakanLabel"><strong>Tindakan dirujuk</strong></p> </td>
+            <td>
+              <textarea id="tindakan" name="tindakan"  rows="8" cols="50" ><?php echo $row_AduantToPIC['TindakanDirujuk']?>      </textarea> 
+  <p id="MyAduan"> <?php echo $row_ReadTindakan['TindakanDirujuk']?></p> 
+  <p id="LastUpdated" style="font-size:9px"> Last Updated:  <?php echo date("d/m/Y h:i:s a ", strtotime($row_ReadTindakan['TindakanTimeSubmit']));?></p> 
+              </td>                                                           
+      </tr>
+    <tr>
+      <td><div align="right"><strong>Person In Charge
+      </strong></div>
+      <td><?php echo $row_ViewPIC['Name'];  ?>
+        
+      </tr>
+          
+            </tr>
+            <tr>
+            <td><div align="right"><strong>Reported By</strong> </div>
+            <td><?php echo $row_ReportedBy['Name']?>
+    
+    </tr>
+    
+            <tr>
+        
+      <td align="center" colspan="2"><button type="submit" id="submit" name="Submit"  value="Submit" >KEMASKINI TINDAKAN</button>
+      <a href="CompleteAduan.php?NoRujukan=<?php echo $row_ViewCase['NoRujukan'] ?>"><button id="CompleteButton" style="background-color:#39D154;">ADUAN SELESAI</button></a>
+      </td>
+      
+      </tr>
+  </table>
+  <input type="hidden" name="MM_insert" value="TindakanDirujuk" >
+  <input type="hidden" name="NoRuj" value="<?php echo $row_ViewCase['NoRujukan']?>" >
+          <input type="hidden"  name="NoRujukan" value="<?php echo $row_ViewCase['NoRujukan'] ?>">
+    <input type="hidden"  name="PegawaiDirujuk" value="<?php echo $row_ViewPIC['Name'];  ?>">
+  </form>
+  
+</div>
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+
+var img = $('.myImg');
+var modalImg = $("#img01");
+var captionText = document.getElementById("caption");
+$('.myImg').click(function(){
+    modal.style.display = "block";
+    var newSrc = this.src;
+    modalImg.attr('src', newSrc);
+    captionText.innerHTML = this.alt;
+});
+
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() { 
+  modal.style.display = "none";
+}
+</script>
+<script>
+function start(){
+CalculateDate();
+ShowReadOnlyTindakanDirujuk();
+ShowLastUpdated();
+}
+</script>
+</body>
+</html>

@@ -35,13 +35,15 @@ if (isset($_GET['NoRujukan'])) {
   $colname_ViewCase = $_GET['NoRujukan'];
 }
   
-  
+ 
 mysql_select_db($database_Connection1, $Connection1);
 $query_Recordset1 = "DELETE FROM aduan WHERE NoRujukan='$colname_ViewCase';";
 $Recordset1 = mysql_query($query_Recordset1, $Connection1) or die(mysql_error());
 $query_Recordset2 = "DELETE FROM  tindakandirujuk WHERE NoRujukan='$colname_ViewCase';";
 $Recordset2 = mysql_query($query_Recordset2, $Connection1) or die(mysql_error());
 
+$query_Recordset3 = "DELETE FROM photos WHERE TableID='$colname_ViewCase';";
+$Recordset3 = mysql_query($query_Recordset3, $Connection1) or die(mysql_error());
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -51,6 +53,7 @@ $Recordset2 = mysql_query($query_Recordset2, $Connection1) or die(mysql_error())
 <title>Untitled Document</title>
 <script>
 alert("Aduan has successfully deleted");
+window.location.href="AdminPage.php";
 </script>
 </head>
 
