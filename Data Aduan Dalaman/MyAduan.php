@@ -148,12 +148,7 @@ ON aduan.NoRujukan = tindakandirujuk.NoRujukan where UsernamePegawaiDirujuk=%s",
 $Recordset3= mysql_query($query_MergePegawaiAduan, $Connection1) or die(mysql_error());
 $row_Recordset3 = mysql_fetch_assoc($Recordset3);
 $totalRows_Recordset1 = mysql_num_rows($Recordset3);
-//SQL to merge kategori aduan
-$query_MergekategoriAduan=sprintf("SELECT * from kategoriaduan
-INNER JOIN aduan
-ON aduan.Category = kategoriaduan.IDKategoriAduan where category=%s",GetSQLValueString($row_ViewAduan['Category'],"text"));
-$KategoriAduan= mysql_query($query_MergekategoriAduan, $Connection1) or die(mysql_error());
-$row_kategoriAduan = mysql_fetch_assoc($KategoriAduan);
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
@@ -171,8 +166,8 @@ $row_kategoriAduan = mysql_fetch_assoc($KategoriAduan);
 </script>
 <script>
 function toHideNotification(){
-	
-if(<?php echo $totalRowsNotification_UserAccount =='1'?> ){
+	var Notification="<?php echo $totalRowsNotification_UserAccount?>";
+if(Notification =='1' ){
 document.getElementById('notification-count').style.display="none";
 }
 }
@@ -204,9 +199,9 @@ showRecords();
   <a style=" background-color:#0FED56;">Sistem Aduan Dalaman DBKU</a>
   <a href="DADD2019.php" >Lapor Aduan</a>
   <div class="dropdown">
-    <button id="notification-icon" name="button"  class="dropbtn" >Papar Aduan<span id="notification-count"> <?php if($row_ViewAduanNotiCounting['COUNT(*)'] >0 && $totalRowsNotification_UserAccount>1 ) { echo $row_ViewAduanNotiCounting['COUNT(*)'] ; }
+    <button id="notification-icon" name="button"  class="dropbtn" >Papar Aduan<!--<span id="notification-count"> <?php if($row_ViewAduanNotiCounting['COUNT(*)'] >0 && $totalRowsNotification_UserAccount>1 ) { echo $row_ViewAduanNotiCounting['COUNT(*)'] ; }
 	
-	 ?></span>
+	 ?></span>-->
      
       <i class="fa fa-caret-down"></i>
     </button>
@@ -259,6 +254,7 @@ showRecords();
          <?php $no=1;?>
       
     <?php do { ?>
+    <?php do { ?>
     <tr>
     <td> <?php echo $no++; ?></td>
       <td><?php if($row_ViewAduan['ReadStatus']==1){?>
@@ -266,7 +262,18 @@ showRecords();
 		  <a style="color:black" href="ViewCase.php?NoRujukan=<?php echo $row_MyAduan['NoRujukan'];?>"><?php echo $row_MyAduan['NoRujukan'];?></a></td><?php }else{?>
           <a style="color:blue" href="ViewCase.php?NoRujukan=<?php echo $row_MyAduan['NoRujukan'];?>"><?php echo $row_MyAduan['NoRujukan'];?></a></td><?php } ?> 
       
-        <td><?php echo $row_kategoriAduan['NamaAduan']; ?></td>
+        <td>
+	<?php	//SQL to merge kategori aduan
+$query_MergekategoriAduan=sprintf("SELECT * from kategoriaduan
+INNER JOIN aduan
+ON aduan.Category = kategoriaduan.IDKategoriAduan where category=%s and UsernamePengadu=%s",GetSQLValueString($row_MyAduan['Category'],"text")
+,GetSQLValueString($_SESSION['Username'], "text"));
+$KategoriAduan= mysql_query($query_MergekategoriAduan, $Connection1) or die(mysql_error());
+$row_kategoriAduan = mysql_fetch_assoc($KategoriAduan);
+		?>
+		
+		
+		<?php echo $row_kategoriAduan['NamaAduan']; ?></td>
         <td><?php echo $row_MyAduan['SubCategory'];?> </td>
         <td><?php echo $row_MyAduan['KawasanAduan']; ?></td>
         <td><?php echo $row_MyAduan['MaklumatAduan']; ?></td>
@@ -279,6 +286,7 @@ showRecords();
      
     </tr>
     <?php } while ($row_MyAduan = mysql_fetch_assoc($ViewMyAduan)); ?>
+     <?php } while ($row_kategoriAduan = mysql_fetch_assoc($KategoriAduan)); ?>
     </tbody>
   </table>
   </div>

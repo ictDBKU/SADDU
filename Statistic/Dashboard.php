@@ -1077,12 +1077,7 @@ $countSampahTidakDikutip; ?>
         <td>Kompaun letak kereta  
         <td>  <?php echo $countKompaunLetakKereta?>   
       </tr>
-     <tr>
-     <td>
-     <td>
-     <td>Jumlah:
-      <td><?php echo $totalRows_Aduan;?>
-      </tr>
+
 </table>
 <p align="center"> 3.ZON/DUN  </p>
 <div align="center">

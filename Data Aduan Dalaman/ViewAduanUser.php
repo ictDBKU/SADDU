@@ -173,19 +173,18 @@ $row_kategoriAduan = mysql_fetch_assoc($KategoriAduan);
 <link rel="stylesheet" href="../css/notification-demo-style.css" type="text/css">
 
 <script>
- function showRecords()
- {
-	
-	 if(<?php echo $totalRows ?> =='0'){
-		 document.getElementById('table1').style.display="none";
-		 document.getElementById('showRecords').style.display="block"
+ function showRecords() {
+	 var records="<?php echo $totalRows?>";
+	 if(records=='0' ){
+		 document.getElementById('fresh-table').style.display="none";
+		 document.getElementById('showRecords').style.display="block";
  }
  }
 </script>
 <script>
 function toHideNotification(){
-	
-if(<?php echo $totalRowsNotification_UserAccount =='1'?> ){
+	var Notification="<?php echo $totalRowsNotification_UserAccount?>";
+if(Notification =='1' ){
 document.getElementById('notification-count').style.display="none";
 }
 }
@@ -194,6 +193,8 @@ document.getElementById('notification-count').style.display="none";
 
 <script>
 function startFunction(){
+	
+	
 toHideNotification();
 showRecords();
 
@@ -208,9 +209,9 @@ showRecords();
   <a style=" background-color:#0FED56;">Sistem Aduan Dalaman DBKU</a>
   <a href="DADD2019.php" >Lapor Aduan</a>
   <div class="dropdown">
-    <button id="notification-icon" name="button"  class="dropbtn" >Papar Aduan<span id="notification-count"> <?php if($row_ViewAduanNotiCounting['COUNT(*)'] >0 && $totalRowsNotification_UserAccount>1 ) { echo $row_ViewAduanNotiCounting['COUNT(*)'] ; }
+    <button id="notification-icon" name="button"  class="dropbtn" >Papar Aduan<!--<span id="notification-count"> <?php if($row_ViewAduanNotiCounting['COUNT(*)'] >0 && $totalRowsNotification_UserAccount>1 ) { echo $row_ViewAduanNotiCounting['COUNT(*)'] ; }
 	
-	 ?></span>
+	 ?></span>-->
      
       <i class="fa fa-caret-down"></i>
     </button>
@@ -234,7 +235,7 @@ showRecords();
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
 
- <div align="center" id="table1">
+
 
         <table id="fresh-table" class="table"  >
     <thead style="color:green;">
@@ -254,6 +255,7 @@ showRecords();
   
     </thead>
     <tbody>
+     <h3 id="showRecords" style="display:none">There are no records to show</h3>
          <?php $no=1;?>
       
     <?php do { 
@@ -290,15 +292,15 @@ $row_kategoriAduan = mysql_fetch_assoc($KategoriAduan);?>
         
      
     </tr>
-    <?php } while ($row_ViewAduan = mysql_fetch_assoc($ViewAduan)); ?>
+       <?php } while ($row_ViewAduan = mysql_fetch_assoc($ViewAduan)); ?>
       <?php } while ($row_kategoriAduan = mysql_fetch_assoc($KategoriAduan)); ?>
     </tbody>
+ 
   </table>
   
   
-  <h3 id="showRecords" style="display:none">There are no records to show</h3>
-</div>
  
+
  
 
 

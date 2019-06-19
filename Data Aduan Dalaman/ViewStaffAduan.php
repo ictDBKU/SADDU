@@ -171,8 +171,8 @@ $row_kategoriAduan = mysql_fetch_assoc($KategoriAduan);
 </script>
 <script>
 function toHideNotification(){
-	
-if(<?php echo $totalRowsNotification_UserAccount =='1'?> ){
+	var Notification="<?php echo $totalRowsNotification_UserAccount?>";
+if(Notification =='1' ){
 document.getElementById('notification-count').style.display="none";
 }
 }
@@ -204,9 +204,9 @@ showRecords();
   <a style=" background-color:#0FED56;">Sistem Aduan Dalaman DBKU</a>
   <a href="DADD2019.php" >Lapor Aduan</a>
   <div class="dropdown">
-    <button id="notification-icon" name="button"  class="dropbtn" >Papar Aduan<span id="notification-count"> <?php if($row_ViewAduanNotiCounting['COUNT(*)'] >0 && $totalRowsNotification_UserAccount>1 ) { echo $row_ViewAduanNotiCounting['COUNT(*)'] ; }
+    <button id="notification-icon" name="button"  class="dropbtn" >Papar Aduan<!--<span id="notification-count"> <?php if($row_ViewAduanNotiCounting['COUNT(*)'] >0 && $totalRowsNotification_UserAccount>1 ) { echo $row_ViewAduanNotiCounting['COUNT(*)'] ; }
 	
-	 ?></span>
+	 ?></span>-->
      
       <i class="fa fa-caret-down"></i>
     </button>
@@ -258,7 +258,9 @@ showRecords();
     </thead>
     <tbody>
          <?php $no=1;?>
-      
+      <?php do { 
+	
+	 ?>
     <?php do { ?>
     <tr>
     <td> <?php echo $no++; ?></td>
@@ -267,7 +269,12 @@ showRecords();
 		  <a style="color:black" href="ViewCase.php?NoRujukan=<?php echo $row_ViewAduan['NoRujukan'];?>"><?php echo $row_ViewAduan['NoRujukan'];?></a></td><?php }else{?>
           <a style="color:blue" href="ViewCase.php?NoRujukan=<?php echo $row_ViewAduan['NoRujukan'];?>"><?php echo $row_ViewAduan['NoRujukan'];?></a></td><?php } ?> 
       
-        <td><?php echo $row_kategoriAduan['NamaAduan']; ?></td>
+        <td><?php $query_MergekategoriAduan=sprintf("SELECT * from kategoriaduan
+INNER JOIN aduan
+ON aduan.Category = kategoriaduan.IDKategoriAduan where category=%s",GetSQLValueString($row_ViewAduan['Category'],"text"));
+$KategoriAduan= mysql_query($query_MergekategoriAduan, $Connection1) or die(mysql_error());
+$row_kategoriAduan = mysql_fetch_assoc($KategoriAduan);?>
+<?php echo $row_kategoriAduan['NamaAduan'];?></td>
         <td><?php echo $row_ViewAduan['SubCategory'];?> </td>
         <td><?php echo $row_ViewAduan['KawasanAduan']; ?></td>
         <td><?php echo $row_ViewAduan['MaklumatAduan']; ?></td>
@@ -280,6 +287,7 @@ showRecords();
      
     </tr>
     <?php } while ($row_ViewAduan = mysql_fetch_assoc($ViewAduan)); ?>
+     <?php } while ($row_kategoriAduan = mysql_fetch_assoc($KategoriAduan)); ?>
     </tbody>
   </table>
   
@@ -361,7 +369,7 @@ showRecords();
         };
 
 </script>
-
+ <h3 id="showRecords" style="display:none">There are no records to show</h3>
 
 </body>
 </html>

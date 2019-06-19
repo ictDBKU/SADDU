@@ -521,7 +521,7 @@ showRecords();}
         <td><?php echo $row_Recordset1['MaklumatAduan']; ?></td>
         <td><?php echo $row_Recordset1['StatusAduan']; ?></td>
         <td><?php echo $row_Recordset1['TimeSubmit']; ?></td>
-         <td><a href="DeleteCase.php?NoRujukan=<?php echo $row_Recordset1['NoRujukan'];?>" onClick="return ConfirmDelete('<?php echo $row_Recordset1['NoRujukan'];?>');" ><button id="confirmdelete" >DELETE</button></a></button></td>
+         <td><a href="DeleteCase.php?NoRujukan=<?php echo $row_Recordset1['NoRujukan'];?>" onClick="return ConfirmDelete('<?php echo $row_Recordset1['NoRujukan'];?>');" ><button id="confirmdelete" >DELETE</button></a></td>
      
     </tr>
     <?php } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>

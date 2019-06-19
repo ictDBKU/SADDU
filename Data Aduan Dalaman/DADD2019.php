@@ -115,12 +115,17 @@ mysql_select_db($database_Connection1, $Connection1);
 $query_subkategori1 = "SELECT * FROM kategoriaduan INNER JOIN subkategoriaduan ON subkategoriaduan.KategoriID=kategoriaduan.IDKategoriAduan where IDKategoriAduan='1'";
 $subkategori1 = mysql_query($query_subkategori1, $Connection1) or die(mysql_error());
 $row_subkategori1 = mysql_fetch_assoc($subkategori1);
+
 //Sql merge the subkategori with kategori where kategori ID ='2'
 mysql_select_db($database_Connection1, $Connection1);
 $query_subkategori2 = "SELECT * FROM kategoriaduan INNER JOIN subkategoriaduan ON subkategoriaduan.KategoriID=kategoriaduan.IDKategoriAduan where IDKategoriAduan='2'";
 $subkategori2 = mysql_query($query_subkategori2, $Connection1) or die(mysql_error());
 $row_subkategori2 = mysql_fetch_assoc($subkategori2);
+
+
 //Sql merge the subkategori with kategori where kategori ID ='3'
+
+
 mysql_select_db($database_Connection1, $Connection1);
 $query_subkategori3 = "SELECT * FROM kategoriaduan INNER JOIN subkategoriaduan ON subkategoriaduan.KategoriID=kategoriaduan.IDKategoriAduan where IDKategoriAduan='3'";
 $subkategori3 = mysql_query($query_subkategori3, $Connection1) or die(mysql_error());
@@ -1197,9 +1202,9 @@ else if (k==7) {
    document.getElementById("SubKategoriDirujuk16").disabled=true;
 	
 	}else if (k==15) {
-		document.getElementById("TagUser").value = 'linie';
-		document.getElementById("Personincharge").value = '14';
-		document.getElementById("BahagianDirujuk").innerHTML = 'BAHAGIAN PERLESENAN';
+    document.getElementById("TagUser").value = 'linie';
+	document.getElementById("Personincharge").value = '14';
+	document.getElementById("BahagianDirujuk").innerHTML = 'BAHAGIAN PERLESENAN';
 	document.getElementById("PersonInCharge").innerHTML = 'Person In Charge:LINIE DINDANG';
 	k1.style.display="none";
 	k2.style.display="none";
@@ -1300,6 +1305,7 @@ function hideMap(){
 function showMap()
 {
 document.getElementById('myMap').disabled="false";
+document.getElementById('id01').style.display='block';
 document.getElementById('GoogleMap').style.display="block";
 }
 
@@ -1328,9 +1334,9 @@ function myFunction() {
       <div class="w3-container">
         <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
         
- <!--   <div id="GoogleMap" align="center">
+   <div id="GoogleMap" align="center">
 <input id="pac-input" class="controls" type="text" placeholder="Search Box" style="width:600px">
-    <div id="myMap"></div>-->
+    <div id="myMap"></div>
    </div>
       
     </div>
@@ -1452,7 +1458,8 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
       <td style="padding:15px;"><label>
         <div align="right">Kategori</div>
       </label></td>
-      <td ><select name="kategoriAduan" id="kategoriAduan" style="width:100%" onchange="showSubkategori()" >
+      <td ><select name="kategoriAduan" id="kategoriAduan" style="width:100%" onchange="showSubkategori()" required >
+        <option value="">PILIH KATEGORI:</option>
                       <?php do { ?>
               <option value="<?php echo $row_KategoriAduan['IDKategoriAduan']; ?>"><?php echo $row_KategoriAduan['NamaAduan']; ?></option>
               <?php } while ($row_KategoriAduan = mysql_fetch_assoc($KategoriAduan)); ?>
@@ -1471,7 +1478,8 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
     <tr>
     <td style="padding:15px;"><div align="right">Jenis:
     </div>
-    <td ><select name="SubKategoriDirujuk2" id="SubKategoriDirujuk1" style="width:100%">
+    <td ><select name="SubKategoriDirujuk" id="SubKategoriDirujuk1" style="width:100%">
+     
   <?php do { ?>
   <option value="<?php echo $row_subkategori1['NamaSub']; ?>"><?php echo $row_subkategori1['NamaSub']; ?></option>
   <?php } while($row_subkategori1 = mysql_fetch_assoc($subkategori1)); ?>
@@ -1563,7 +1571,8 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
       <td style="padding:15px;"><div align="right">Kawasan DUN:
         <!--  **This code was hide for jenis Aduan because it wasn`t confirm with the user <label>Jenis Aduan</label>-->
       </div></td>
-      <td style="padding:10px"><select name="DunKawasan" id="DunKawasan" onchange="showKawasan()" style="width:100%">
+      <td style="padding:10px"><select name="DunKawasan" id="DunKawasan" onchange="showKawasan()" style="width:100%" required>
+   <option value="">PILIH KAWASAN DUN:</option>
                       <?php do { ?>
       <option value="<?php echo $row_DunKawasan['ID']; ?>"><?php echo $row_DunKawasan['Abbreviation']; ?>-<?php echo $row_DunKawasan['NamaDun']; ?></option>
               <?php } while ($row_DunKawasan = mysql_fetch_assoc($DunKawasan)); ?>
@@ -1625,7 +1634,7 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
         <td> <input type="button" value="Pilih gambar:"  onClick="showModal()" >
         <tr>
         <td style="padding:15px;"><div align="right">Alamat Lokasi:</div></td>
-        <td> <textarea rows="8" cols="50" name="address" id="address"/></textarea><!--<input type="button" value="Choose from map" onClick="showModal()">--></td>
+        <td> <textarea rows="8" cols="50" name="address" id="address"/></textarea><input type="button" value="Choose from map" onClick="showMap()"></td>
 </tr>
     <tr>
     
@@ -1677,7 +1686,7 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
 <input type="hidden" name="MM_insert" value="form1" >
 <input type="hidden" name="UsernamePengadu" value="<?php echo $row_Recordset1['Username']; ?>">
 <input type="hidden" name="NamaAkaunPengadu" value="<?php echo $row_Recordset1['Name']; ?>">
-<input type="hidden" name="Personincharge" id="Personincharge" value="5">
+<input type="hidden" name="Personincharge" id="Personincharge" value="hartini">
 <input type="hidden" name="TagUser" id="TagUser" value="5">
 </table>
 </form>	
@@ -1697,8 +1706,7 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
         
  
     
-<button type="submit" value="Submit" id="Submit" name="Submit"  style="position: absolute;  left:30%;
- ">Muat Naik Gambar</button>
+<button type="submit" value="Submit" id="Submit" name="Submit"  style="position: absolute;  left:30%;">Muat Naik Gambar</button>
 <br>
 
 </tr>

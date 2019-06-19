@@ -65,6 +65,16 @@ $totalRows_MyAduantToPIC = mysql_num_rows($AduantToPIC);
 
 
 
+//SQL TO see the tindakan dirujuk                       //The reason why use session because when not in use it will create error
+$query_AduanToPICifComplete=sprintf("SELECT * from tindakandirujuk INNER JOIN aduan ON aduan.NoRujukan=tindakanDirujuk.NoRujukan  
+ where aduan.NoRujukan=%s and UsernamePegawaiDirujuk=%s", GetSQLValueString($_GET['NoRujukan'],"text"),GetSQLValueString($_SESSION['Username'], "text"));
+$AduantToPICifComplete= mysql_query($query_AduanToPICifComplete, $Connection1) or die(mysql_error());
+$row_AduantToPICifComplete = mysql_fetch_assoc($AduantToPICifComplete);
+$totalRows_MyAduantToPIC = mysql_num_rows($AduantToPICifComplete);
+
+
+
+
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "TindakanDirujuk")) {
 
 //To insert the tindakan dirujuk
@@ -174,6 +184,13 @@ $query_PegawaiDirujuk = sprintf("SELECT * from aduan INNER JOIN useraccount ON u
 $PegawaiDirujuk = mysql_query($query_PegawaiDirujuk, $Connection1) or die(mysql_error());
 $row_PegawaiDirujuk = mysql_fetch_assoc($PegawaiDirujuk);
 
+//SQL to merge aduan with pegawai dirujuk and show department
+mysql_select_db($database_Connection1, $Connection1);
+$query_PegawaiDirujukDepartment = sprintf("SELECT * from aduan INNER JOIN useraccount ON useraccount.ID = aduan.PIC INNER JOIN department ON department.DepartmentID=useraccount.DepartmentID where PIC =%s", GetSQLValueString($row_UserAccount['ID'], "text"));
+$PegawaiDirujukDepartment= mysql_query($query_PegawaiDirujukDepartment , $Connection1) or die(mysql_error());
+$row_PegawaiDirujukDepartment = mysql_fetch_assoc($PegawaiDirujukDepartment);
+
+
 
 //SQL to display the person who submitted the report
 mysql_select_db($database_Connection1, $Connection1);
@@ -182,6 +199,10 @@ $ReportedBy= mysql_query($query_ReportedBy, $Connection1) or die(mysql_error());
 $row_ReportedBy = mysql_fetch_assoc($ReportedBy);
 
 //To update the status of the case
+if($row_AduantToPICifComplete['StatusAduan']=='Completed'){
+	
+	
+}else if($row_AduantToPICifComplete['StatusAduan']=='Pending'){
 if($totalRows_MyAduantToPIC ==1){
 $UpdateAction = $_SERVER['PHP_SELF']."?doUpdate=true";
 $query_UpdateAduan = sprintf("UPDATE aduan 
@@ -194,7 +215,7 @@ if ((isset($_GET['doUpdate'])) &&($_GET['doUpdate']=="true")){
   if ($UpdateGoTo) {
     header("Location: $UpdateGoTo");
 }
-}}
+}}}
 
 
 
@@ -227,8 +248,7 @@ if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true")){
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
  
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>View Case</title>
@@ -248,7 +268,7 @@ function ShowLastUpdated(){
 	
 	var empty="<?php echo $row_ReadTindakan['TindakanDirujuk'];?>";
 	
-if(empty==""){
+if(empty==''){
 	document.getElementById('LastUpdated').style.display="none";
 	
 	
@@ -261,11 +281,12 @@ if(empty==""){
 function ShowReadOnlyTindakanDirujuk(){
 	 var counts="<?php echo $totalRows_MyAduantToPIC?>";
 	
-if(counts=='0'){
-	
+if(counts=='0' ){
+	document.getElementById('AduanSelesai').style.display="none";
 	document.getElementById('tindakan').style.display="none";
 	document.getElementById('submit').style.display="none";
 	document.getElementById('CompleteButton').style.display="none";
+
 	
 	
 }else{
@@ -274,7 +295,15 @@ if(counts=='0'){
 	
 }}
 </script>
-
+<script>
+function toCheckifAduanCompleted(){
+if(<?php echo $row_ViewCase['StatusAduan']=='Completed'; ?>){
+	document.getElementById('AduanSelesai').style.display="none";
+	document.getElementById('tindakan').readOnly="true";
+	document.getElementById('submit').style.display="none";
+	document.getElementById('CompleteButton').style.display="none";
+}}
+</script>
 
 
 <script>
@@ -326,7 +355,33 @@ document.getElementById("DayCounting").innerHTML =  totaldays+" days" ;
 
 </script>
 
-
+<script>
+function ConfirmSelesai(NoRujukan) {
+	
+  return confirm("Adakah anda pasti untuk menukar status ni ke selesai:"+NoRujukan);
+}
+</script>
+<script>
+function start(){
+	ShowLastUpdated();
+CalculateDate();
+ShowReadOnlyTindakanDirujuk();
+toCheckifAduanCompleted();
+}
+</script>
+<style>
+.Selesaibutton {
+  font: bold 11px Arial;
+  text-decoration: none;
+  background-color: #EEEEEE;
+  color: #333333;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+}
+</style>
 <html>
 </head>
 
@@ -477,6 +532,7 @@ for ($i=0; $i<count($files); $i++)
       <td><?php echo $row_ViewPIC['Name'];  ?>
         
       </tr>
+      
           
             </tr>
             <tr>
@@ -488,7 +544,9 @@ for ($i=0; $i<count($files); $i++)
             <tr>
         
       <td align="center" colspan="2"><button type="submit" id="submit" name="Submit"  value="Submit" >KEMASKINI TINDAKAN</button>
-      <a href="CompleteAduan.php?NoRujukan=<?php echo $row_ViewCase['NoRujukan'] ?>"><button id="CompleteButton" style="background-color:#39D154;">ADUAN SELESAI</button></a>
+     
+     
+     
       </td>
       
       </tr>
@@ -498,6 +556,13 @@ for ($i=0; $i<count($files); $i++)
           <input type="hidden"  name="NoRujukan" value="<?php echo $row_ViewCase['NoRujukan'] ?>">
     <input type="hidden"  name="PegawaiDirujuk" value="<?php echo $row_ViewPIC['Name'];  ?>">
   </form>
+  
+  <form name="CompleteAduan" method="POST" action="CompleteAduan.php?NoRujukan=<?php echo $row_ViewCase['NoRujukan'];?>"  >
+     <button type="Submit" id="AduanSelesai" name="AduanSelesai" onClick="return ConfirmSelesai('<?php echo $row_Recordset1['NoRujukan'];?>');">ADUAN SELESAI</button>
+    
+     
+     
+     
   
 </div>
 <script>
@@ -525,12 +590,6 @@ span.onclick = function() {
   modal.style.display = "none";
 }
 </script>
-<script>
-function start(){
-CalculateDate();
-ShowReadOnlyTindakanDirujuk();
-ShowLastUpdated();
-}
-</script>
+
 </body>
 </html>

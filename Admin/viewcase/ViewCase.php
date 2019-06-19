@@ -181,7 +181,7 @@ $query_ReportedBy= sprintf("SELECT *,useraccount.Name from aduan INNER JOIN user
 $ReportedBy= mysql_query($query_ReportedBy, $Connection1) or die(mysql_error());
 $row_ReportedBy = mysql_fetch_assoc($ReportedBy);
 
-//To update the status of the case
+/*To update the status of the case
 if($totalRows_MyAduantToPIC ==1){
 $UpdateAction = $_SERVER['PHP_SELF']."?doUpdate=true";
 $query_UpdateAduan = sprintf("UPDATE aduan 
@@ -194,7 +194,7 @@ if ((isset($_GET['doUpdate'])) &&($_GET['doUpdate']=="true")){
   if ($UpdateGoTo) {
     header("Location: $UpdateGoTo");
 }
-}}
+}}*/
 
 
 
@@ -217,7 +217,7 @@ if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true")){
   unset($_SESSION['MM_UserGroup']);
   unset($_SESSION['PrevUrl']);
 	
-  $logoutGoTo = "../index.php";
+  $logoutGoTo = "../../index.php";
   if ($logoutGoTo) {
     header("Location: $logoutGoTo");    exit;
 
@@ -325,7 +325,19 @@ document.getElementById("DayCounting").innerHTML =  totaldays+" days" ;
 }
 
 </script>
-
+<script>
+function tohideResetButton(){
+	if(<?php echo $row_ViewCase['StatusAduan'] =='Completed' ?>  ){
+	document.getElementById("resetbtn").style.display="block";
+	}
+}
+</script>
+<script>
+function ConfirmReset(NoRujukan) {
+	
+  return confirm("Adakah anda pasti untuk menukar status rujukan ke In Progress:"+NoRujukan);
+}
+</script>
 
 <html>
 </head>
@@ -368,7 +380,7 @@ mysql_free_result($ViewCase);
 
 <label><center><?php echo $row_ViewCase['NoRujukan'] ?></center></label>
 <div align="center">
-  <form name="TindakanDirujuk" method="POST" action="<?php echo $addTindakanDirujuk; ?>" >
+ 
   <table id="myTable" border="1" align="center" style="width: auto" cellspacing="3" class="paleBlueRows">
     <thead>
       <th colspan="2">Aduan</th>
@@ -462,7 +474,7 @@ for ($i=0; $i<count($files); $i++)
       
       <td><div align="right"><strong>Status Aduan</strong></div></td>
       <td><?php echo $row_ViewCase['StatusAduan'] ?>    
- 
+    <a href="../ResetCase.php?NoRujukan=<?php echo $row_ViewCase['NoRujukan'] ;?>" onClick="return ConfirmReset('<?php echo $row_ViewCase['NoRujukan'] ?>');" ><button id="resetbtn" style="display:none" >RESET</button></a>
          
         </td>
       </tr>
@@ -505,7 +517,7 @@ for ($i=0; $i<count($files); $i++)
   <input type="hidden" name="NoRuj" value="<?php echo $row_ViewCase['NoRujukan']?>" >
           <input type="hidden"  name="NoRujukan" value="<?php echo $row_ViewCase['NoRujukan'] ?>">
     <input type="hidden"  name="PegawaiDirujuk" value="<?php echo $row_ViewPIC['Name'];  ?>">
-  </form>
+
   
 </div>
 <script>
@@ -538,6 +550,7 @@ function start(){
 CalculateDate();
 ShowReadOnlyTindakanDirujuk();
 ShowLastUpdated();
+tohideResetButton()
 }
 </script>
 </body>

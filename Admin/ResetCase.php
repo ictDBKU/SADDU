@@ -37,18 +37,18 @@ $colname_ViewCase = "-1";
 if (isset($_GET['NoRujukan'])) {
   $colname_ViewCase = $_GET['NoRujukan'];
 $query_Complete = sprintf("UPDATE aduan
-SET StatusAduan ='Completed',TimeCompleted =now() where NoRujukan=%s",GetSQLValueString($colname_ViewCase, "text"));
+SET StatusAduan ='Pending' where NoRujukan=%s",GetSQLValueString($colname_ViewCase, "text"));
 $CompleteAduan = mysql_query($query_Complete, $Connection1) or die(mysql_error());
 
 
 	
-   $UpdateGoTo = "ViewAduanUser.php";
+   $UpdateGoTo = "Adminpage.php";
   if ($UpdateGoTo) {
     header("Location: $UpdateGoTo");
 }
 
 
-//To update the status of the to completed
+//To update the status of completed
 
 
 
