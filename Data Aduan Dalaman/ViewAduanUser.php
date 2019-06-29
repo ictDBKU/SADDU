@@ -118,7 +118,7 @@ $totalRows_UserAccount = mysql_num_rows($UserAccount);
 //SQL to route it to the pegawai bertanggugjawab
 $_SESSION['Name']=$row_UserAccount['Name'];
 mysql_select_db($database_Connection1, $Connection1);
-$query_ViewAduan = sprintf("SELECT * from aduan WHERE PIC = %s  or UsernamePengadu= %s  ", GetSQLValueString($row_UserAccount['ID'], "text"),GetSQLValueString($_SESSION['Username'], "text"));
+$query_ViewAduan = sprintf("SELECT * from aduan WHERE PIC LIKE '%%%s%%' or UsernamePengadu= %s  ",  mysql_real_escape_string($row_UserAccount['ID']),GetSQLValueString($_SESSION['Username'], "text"));
 $ViewAduan = mysql_query($query_ViewAduan, $Connection1) or die(mysql_error());
 $row_ViewAduan = mysql_fetch_assoc($ViewAduan);
 //SQL TO LOOP THE NOTIFICATION ON THE JAVASCRIPT

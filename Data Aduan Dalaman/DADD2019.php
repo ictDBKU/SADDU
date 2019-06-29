@@ -250,6 +250,18 @@ $query_DepartmentNameNo2 = "SELECT * FROM department";
 $DepartmentNameNo2 = mysql_query($query_DepartmentNameNo2, $Connection1) or die(mysql_error());
 $row_DepartmentNameNo2 = mysql_fetch_assoc($DepartmentNameNo2);
 $totalRows_DepartmentNameNo2 = mysql_num_rows($DepartmentNameNo2);
+
+
+
+//To display department again
+mysql_select_db($database_Connection1, $Connection1);
+$query_DepartmentNameNo3 = "SELECT * FROM department";
+$DepartmentNameNo3 = mysql_query($query_DepartmentNameNo3, $Connection1) or die(mysql_error());
+$row_DepartmentNameNo3 = mysql_fetch_assoc($DepartmentNameNo3);
+$totalRows_DepartmentNameNo3 = mysql_num_rows($DepartmentNameNo3);
+
+
+
 //To match jabatan with department with JABATAN ID 1
 mysql_select_db($database_Connection1, $Connection1);
 $query_DepartmentName1 = "SELECT DepartmentName FROM department INNER JOIN Jabatan 
@@ -623,6 +635,10 @@ if (x == 1) {
 	
 }
 function showSubkategori(){
+
+
+
+
 	 var k = document.getElementById("kategoriAduan").value;
   var k1=document.getElementById("SubKategoriDirujuk1");
   var k2=document.getElementById("SubKategoriDirujuk2");
@@ -640,6 +656,10 @@ function showSubkategori(){
   var k14=document.getElementById("SubKategoriDirujuk14");
     var k15=document.getElementById("SubKategoriDirujuk15");
   var k16=document.getElementById("SubKategoriDirujuk16");
+   
+   
+   
+   
    
   
 if (k == 1) {
@@ -960,7 +980,7 @@ else if (k==7) {
    document.getElementById("SubKategoriDirujuk16").disabled=true;
 	
 	}else if (k==9) {
-		document.getElementById("TagUser").value = 'mustafa';
+		document.getElementById("TagUser").value = 'mustaffa';
 		document.getElementById("Personincharge").value = '10';
 		document.getElementById("BahagianDirujuk").innerHTML = 'BAHAGIAN PERANCANGAN DAN LANDSKAP';
 	document.getElementById("PersonInCharge").innerHTML = 'Person In Charge:MUSTAFA  NOR RAMSAY';
@@ -1567,7 +1587,13 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
     </div>
     <td><p id="BahagianDirujuk">BAHAGIAN PENYELENGGARAAN INFRASTRUKTUR</p>
         <p id="PersonInCharge">Person In Charge:Hartini Bujang</p>
+             
+        
+    
+
+    
     </tr>
+    
       <td style="padding:15px;"><div align="right">Kawasan DUN:
         <!--  **This code was hide for jenis Aduan because it wasn`t confirm with the user <label>Jenis Aduan</label>-->
       </div></td>

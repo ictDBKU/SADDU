@@ -72,7 +72,12 @@ $AduantToPICifComplete= mysql_query($query_AduanToPICifComplete, $Connection1) o
 $row_AduantToPICifComplete = mysql_fetch_assoc($AduantToPICifComplete);
 $totalRows_MyAduantToPIC = mysql_num_rows($AduantToPICifComplete);
 
-
+//Display the bahagian pengadu
+mysql_select_db($database_Connection1, $Connection1);
+$query_DepartmentName = "SELECT * FROM department INNER JOIN useraccount ON useraccount.DepartmentId=department.DepartmentID";
+$DepartmentName = mysql_query($query_DepartmentName, $Connection1) or die(mysql_error());
+$row_DepartmentName = mysql_fetch_assoc($DepartmentName);
+$totalRows_DepartmentName = mysql_num_rows($DepartmentName);
 
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "TindakanDirujuk")) {
@@ -95,13 +100,20 @@ echo '</script>';
  header(sprintf("Location: %s", $insertGoTo));
 }else if($totalRows_ReadTindakan>='1'){
 	
+	
 
 $query_UpdateTindakanDirujuk = sprintf("UPDATE tindakandirujuk
 SET TindakanDirujuk =%s WHERE NoRujukan =%s",  GetSQLValueString($_POST['tindakan'], "text"),
 					   GetSQLValueString($_POST['NoRuj'], "text"));
-$updateAduan = mysql_query($query_UpdateTindakanDirujuk, $Connection1) or die(mysql_error());
 
+$updateAduan = mysql_query($query_UpdateTindakanDirujuk, $Connection1) or die(mysql_error());
 	
+	$updatePersonInCharge="UPDATE aduan  
+SET PIC =CONCAT(PIC ,+ ',' ,+'".$_POST['PersonIncharge2']."') WHERE NoRujukan ='".$_POST['NoRuj']."'"; 
+$updatePersonInCharge2 = mysql_query($updatePersonInCharge, $Connection1) or die(mysql_error());
+
+
+
 	
  echo '<script language="javascript">';
 echo 'alert("Aduan has successfully updated")';
@@ -302,6 +314,12 @@ if(<?php echo $row_ViewCase['StatusAduan']=='Completed'; ?>){
 	document.getElementById('tindakan').readOnly="true";
 	document.getElementById('submit').style.display="none";
 	document.getElementById('CompleteButton').style.display="none";
+}else if(<?php echo $row_ViewCase['StatusAduan']=='Pending'; ?>){
+document.getElementById('AduanSelesai').style.display="true";
+	document.getElementById('tindakan').readOnly="true";
+	document.getElementById('submit').style.display="true";
+	document.getElementById('CompleteButton').style.display="none";
+
 }}
 </script>
 
@@ -462,6 +480,16 @@ mysql_free_result($ViewCase);
       <td style="color: #4E4E4E"><?php echo $row_ViewCase['SubCategory']?></td>
       
       </tr>
+    <tr>
+    <td>
+     <td> <select name="PersonIncharge2" id="PersonIncharge2" style="width:100%">
+         <option value>PILIH SALURAN BARU</option>
+          <?php do { ?>
+          
+          <option value="<?php echo $row_DepartmentName['ID']; ?>"><?php echo $row_DepartmentName['DepartmentName']; ?>--<?php echo $row_DepartmentName['Name']; ?> </option>
+              <?php } while($row_DepartmentName = mysql_fetch_assoc($DepartmentName)); ?></select>        
+        
+    </td>
     <tr>
       
       <td><div align="right"><strong>Maklumat Aduan</strong></div></td>
