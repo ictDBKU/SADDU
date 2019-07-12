@@ -478,7 +478,7 @@ $totalRows_TagUser = mysql_num_rows($TagUser);
 <link href="styledadd2019.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="../Admin/assets/css/menubar.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&radius=500&key=AIzaSyBvpWifVZ2LTFnm1L7HGTGHDDquq7R1w58&libraries=places&callback=initAutocomplete">
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&radius=500&key=&libraries=places&callback=initAutocomplete">
 </script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js">
 </script>
